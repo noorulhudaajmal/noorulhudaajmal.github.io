@@ -1,0 +1,949 @@
+@media (max-width: 400px) {
+    .header {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        height: 6vh;
+    }
+
+    .header #nav {
+        padding: 2% 5%;
+    }
+
+    .header #nav h2,
+    .header #nav #menu-btn {
+        font-size: 1rem;
+    }
+
+    .intro {
+        max-height: 200%;
+        max-width: 200%;
+    }
+
+    .intro .intro-content {
+        margin-top: 40%;
+    }
+
+    .intro-content .row-1 i {
+        font-size: 2.5rem;
+    }
+
+    .intro-content .icon-below-text h6 {
+        font-size: 14px;
+    }
+
+    .intro-content .row-2 .intro-large-text h3 {
+        text-align: left;
+    }
+
+    .about {
+        max-width: 200%;
+    }
+
+    .about-box {
+        margin-top: 20%;
+        margin-bottom: 10%;
+    }
+
+    .about-box .heading {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        font-size: 2rem;
+    }
+
+    .about .about-box .about-items {
+        padding-top: 0;
+        margin-top: 0;
+    }
+
+    .about-items .left-box h1 {
+        font-size: 1.2rem;
+    }
+
+    .about-items .left-box h5 span {
+        font-size: 1.2rem;
+    }
+
+    .about-items .left-box p {
+        font-size: 0.75rem;
+    }
+
+    .about .about-box .about-items .about-links a {
+        width: 40%;
+        font-size: 0.8rem;
+        padding: 2% 4%;
+    }
+
+    .about .about-box .about-items .right-col {
+        margin-top: 15%;
+    }
+
+    .about .about-box .about-items .right-col h4 {
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    .skill-bar {
+        height: 25px;
+    }
+
+    .skill-bar .label {
+        line-height: 1rem;
+        font-size: 0.75rem;
+    }
+
+    .portfolio {
+        margin-top: 15%;
+    }
+
+    .portfolio .project__box .hover__effect {
+        padding: 2%;
+        overflow: scroll;
+    }
+
+    .portfolio .project__box .hover__effect p {
+        font-size: 0.75rem;
+    }
+
+    .portfolio .container .row .custom-col {
+        width: 95%;
+        height: 50vh;
+    }
+
+    .hover__effect {
+        height: 70%;
+    }
+
+    .hover__effect p {
+        font-size: 0.8rem;
+    }
+
+    .hover__effect .view-more-btn {
+        padding: 2%;
+    }
+
+    .hover__effect .project__tag {
+        margin-top: 1px;
+    }
+
+    .contact .container {
+        margin-top: 25%;
+        padding-top: 5%;
+    }
+
+    .contact .heading {
+        font-size: 2rem;
+        padding-top: 5%;
+    }
+
+    .contact .contact-form-title {
+        font-size: 1rem;
+    }
+
+    .contact form {
+        margin-top: 5%;
+    }
+
+    .footer .social a {
+        font-size: 1.4rem;
+    }
+
+    .popup {
+        padding-top: 15%;
+    }
+
+    .popup__content {
+        width: 95%;
+        padding-top: 5%;
+        width: 80%;
+        min-width: 90%;
+        max-width: 100%;
+    }
+
+    .popup .popup__content .popup__name {
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 1%;
+    }
+
+    .popup .popup__content .popup_project_intro {
+        font-size: 0.7rem;
+    }
+
+    .popup__content .closure a {
+        /* width: 35%; */
+        width: auto;
+        min-width: 30%;
+        font-size: 0.65rem;
+        border-radius: 5px;
+    }
+
+    .popup__content .popup__close .arrow-left{
+        width: 1px;
+    }
+
+    .popup__proj_desc .popup__description_item h2 {
+        font-size: 0.75rem;
+    }
+
+    .popup__proj_desc .popup__description_detail p {
+        font-size: 0.7rem;
+        line-height: 15px;
+    }
+
+    .popup__description_detail .normal_bullets li {
+        font-size: 0.7rem;
+        line-height: 15px;
+    }
+
+    .popup__description_detail table th,
+    .popup__description_detail table tr
+    {
+        font-size: 0.6rem;
+        line-height: 10px;
+    }
+
+    .popup__content .popup__description_item {
+        padding: 2%;
+        border-left: 5px #f2f2f2 solid;
+    }
+
+    .popup__content .popup__description_item:hover {
+        border-color: #03232e;
+    }
+
+    .popup__content .popup_project_intro {
+        padding: 0 2%;
+    }
+
+    .popup__content .popup__proj_desc {
+        padding: 1%;
+    }
+
+    .testimonials {
+        min-height: 80vh;
+        margin-top: 1%;
+        align-items: first baseline;
+    }
+
+    .testimonials .testimonals-box .heading {
+        font-size: 1.75rem;
+    }
+
+    .testimonials .testimonals-box .wrapper .testimonial-item {
+        width: 80%;
+    }
+
+    .testimonials .testimonals-box .wrapper {
+        animation-duration: calc(3s * var(--items-count));
+    }
+
+    .testimonial-item p {
+        font-size: 0.7rem;
+    }
+
+    .testimonial-calendar,
+    .testimonial-calendar i {
+        font-size: 0.8rem;
+    }
+
+    #testimonal-img {
+        width: 30%;
+    }
+
+    .contact {
+        min-height: 80vh;
+        height: 80vh;
+        align-items: center;
+    }
+
+
+    .contact .container .heading {
+        margin-top: 5%;
+        padding-top: 5%;
+        margin-bottom: 3rem;
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: white;
+    }
+
+    .contact .contact-container {
+        padding-top: 0;
+        margin-top: 0;
+    }
+
+    .contact .contact-container h5 {
+        font-size: 0.8rem;
+    }
+
+    .contact form input,
+    .contact form textarea {
+        font-size: 0.75rem;
+    }
+
+    #menu-div h4 {
+        font-size: 1.7rem;
+    }
+
+}
+
+@media (min-width: 400px) and (max-width: 600px) {
+    .header {
+        /* background-color: gray; */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        height: 6vh;
+    }
+
+    .home .home-content {
+        margin: auto 20%;
+    }
+
+
+    .intro-content {
+        margin-top: 10%;
+    }
+
+    .intro-content .row-2 .intro-large-text h3 {
+        text-align: left;
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+    }
+
+    .intro-content .row-2 .intro-desc p {
+        text-align: left;
+        font-size: 0.8rem;
+        /* line-height: 1.5rem; */
+    }
+
+    .intro-content .row-1 i,
+    .intro-content .row-2 .icon-text {
+        font-size: 2.5rem;
+    }
+
+    .about {
+        max-width: 200%;
+    }
+
+    .about-box {
+        margin-top: 15%;
+        margin-bottom: 10%;
+    }
+
+    .about-box .heading {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        font-size: 1.75rem;
+    }
+
+    .about-items .left-box h1 {
+        font-size: 1.2rem;
+    }
+
+    .about-items .left-box h5 span {
+        font-size: 1.2rem;
+    }
+
+    .about-items .left-box p {
+        font-size: 0.75rem;
+    }
+
+    .about .about-box .about-items {
+        padding-top: 0;
+        margin-top: 0;
+    }
+
+    .about .about-box .about-items .about-links a {
+        width: 40%;
+        font-size: 0.8rem;
+    }
+
+    .about .about-box .about-items .right-col {
+        margin-top: 15%;
+    }
+
+    .about .about-box .about-items .right-col h4 {
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    .skill-bar {
+        height: 25px;
+    }
+
+    .skill-bar .label {
+        line-height: 1rem;
+        font-size: 0.75rem;
+    }
+
+    .portfolio {
+        margin-bottom: 1%;
+    }
+
+    .portfolio .container .row .custom-col {
+        width: 95%;
+        height: 33vh;
+    }
+
+    .hover__effect {
+        height: 70%;
+        overflow: scroll;
+    }
+
+    .project__box .hover__effect p {
+        font-size: 0.8rem;
+    }
+
+    .contact .container {
+        margin-top: 25%;
+    }
+
+    .popup {
+        padding-top: 15%;
+    }
+
+    .popup__content {
+        width: 95%;
+        padding-top: 5%;
+        width: 80%;
+        min-width: 90%;
+        max-width: 100%;
+    }
+
+    .popup .popup__content .popup__name {
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 1%;
+    }
+
+    .popup .popup__content .popup_project_intro {
+        font-size: 0.7rem;
+    }
+
+    .popup__content .closure a {
+        /* width: 35%; */
+        width: auto;
+        min-width: 30%;
+        font-size: 0.65rem;
+        border-radius: 5px;
+    }
+    
+    .popup__proj_desc .popup__description_detail p {
+        font-size: 0.7rem;
+    }
+
+    .popup__proj_desc .popup__description_item h2 {
+        font-size: 0.7rem;
+    }
+
+    .popup__proj_desc .popup__description_detail .normal_bullets li {
+        font-size: 0.7rem;
+    }
+
+    .popup__description_detail table th,
+    .popup__description_detail table tr
+    {
+        font-size: 0.6rem;
+        line-height: 10px;
+    }
+
+    .popup__content .popup__description_item {
+        padding: 2%;
+        border-left: 5px #f2f2f2 solid;
+    }
+
+    .popup__content .popup__description_item {
+        padding: 2%;
+    }
+
+    .popup__content .popup_project_intro {
+        padding: 0 2%;
+    }
+
+    .popup__content .popup__proj_desc {
+        padding: 1%;
+    }
+
+    .testimonials {
+        min-height: 60vh;
+        align-items: first baseline;
+        margin-top: 1%;
+    }
+
+    .testimonials .testimonals-box .heading {
+        font-size: 1.75rem;
+    }
+
+    .testimonials .testimonals-box .wrapper .testimonial-item {
+        width: 80%;
+    }
+
+    .testimonials .testimonals-box .wrapper {
+        animation-duration: calc(3s * var(--items-count));
+    }
+
+    .testimonial-item p {
+        font-size: 0.7rem;
+    }
+
+    .testimonial-calendar,
+    .testimonial-calendar i {
+        font-size: 0.8rem;
+    }
+
+    #testimonal-img {
+        width: 30%;
+    }
+
+    .contact {
+        min-height: 60vh;
+        height: 60vh;
+        align-items: center;
+    }
+
+    .contact .container .heading {
+        margin-top: 0;
+        padding-top: 1%;
+        margin-bottom: 1rem;
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: white;
+    }
+
+    .contact .contact-container {
+        padding-top: 0;
+        margin-top: 0;
+    }
+
+    .contact .contact-container h5 {
+        font-size: 0.8rem;
+    }
+
+    .contact form input,
+    .contact form textarea {
+        font-size: 0.75rem;
+    }
+
+    #menu-div h4 {
+        font-size: 1.7rem;
+    }
+}
+
+
+@media (min-width: 600px) and (max-width: 800px) {
+
+    .header {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        height: 10vh;
+    }
+
+    /* .intro-content .row-2 .intro-large-text h3 {
+        text-align: left;
+        font-size: 2rem;
+    }
+
+    .intro-content .row-1 {
+        margin-bottom: 3rem !important;
+        margin-top: 1rem;
+    }
+
+    .intro-content .row-2 p {
+        text-align: left;
+        font-size: 0.85rem;
+    }
+    .intro .intro-content .intro-desc {
+        font-size: 1.2rem;
+    }
+
+    .intro-content .row-1 i,
+    .intro-content .row-2 .icon-text {
+        font-size: 2.5rem;
+    } */
+
+    .about {
+        max-width: 200%;
+    }
+
+    .about-box {
+        margin-top: 5%;
+        margin-bottom: 10%;
+    }
+
+    .about-box .heading {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .about .about-box .about-items {
+        padding-top: 0;
+        margin-top: 0;
+    }
+
+    .about .about-box .about-items .left-box .profile-image img {
+        width: 60%;
+    }
+
+    .about .about-box .about-items .left-box h1,
+    .about .about-box .about-items .left-box span {
+        font-size: 1.25rem;
+    }
+
+    .about .about-box .about-items .left-box p {
+        font-size: 0.8rem;
+    }
+
+    .about .about-box .about-items .about-links {
+        margin-top: 2%;
+    }
+
+    .about .about-box .about-items .about-links a {
+        width: 30%;
+        font-size: 0.8rem;
+    }
+
+    .about .about-box .about-items .right-col {
+        margin-top: 10%;
+    }
+
+    .about .about-box .about-items .right-col h4 {
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+
+    .about .about-box .about-items .right-col .skill-bar .label {
+        font-size: 0.9rem;
+    }
+
+    .hover__effect {
+        height: 70%;
+    }
+
+    .contact .container {
+        margin-top: 25%;
+    }
+
+    .portfolio .container .row .custom-col {
+        width: 80%;
+        height: 50vh;
+    }
+
+    .hover__effect {
+        height: 70%;
+        overflow: scroll;
+    }
+
+    .project__box .hover__effect p {
+        font-size: 0.7rem;
+    }
+
+
+    .popup {
+        padding-top: 5%;
+        width: 100%;
+    }
+
+    .popup .popup__content {
+        width: 90%;
+        min-width: 90vw;
+    }
+
+    .popup__name {
+        font-size: 1.25rem;
+    }
+
+    .popup_project_intro {
+        font-size: 0.75rem;
+    }
+
+    .popup__content .closure a {
+        font-size: 0.7rem;
+    }
+
+    .popup__description_item h2 {
+        font-size: 1rem;
+    }
+
+    .popup__description_detail p,
+    .popup__description_detail th,
+    .popup__description_detail tr,
+    .popup__description_detail li {
+        font-size: 0.7rem;
+    }
+
+    .testimonials {
+        min-height: 70vh;
+        align-items: first baseline;
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+
+    .testimonials .testimonals-box .heading {
+        font-size: 1.75rem;
+    }
+
+    .testimonials .testimonals-box .wrapper .testimonial-item {
+        width: 40%;
+    }
+
+    .testimonials .testimonals-box .wrapper {
+        animation-duration: calc(3s * var(--items-count));
+    }
+
+    .testimonial-item p {
+        font-size: 0.8rem;
+    }
+
+    .testimonial-calendar,
+    .testimonial-calendar i {
+        font-size: 0.8rem;
+    }
+
+    #testimonal-img {
+        width: 30%;
+    }
+
+    .contact {
+        min-height: 100vh;
+        height: 60vh;
+        align-items: center;
+    }
+
+    .contact .container .heading {
+        margin-top: 0;
+        padding-top: 1%;
+        margin-bottom: 1rem;
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: white;
+    }
+
+    .contact .contact-container {
+        padding-top: 0;
+        margin-top: 0;
+    }
+
+    .contact .contact-container h5 {
+        font-size: 0.8rem;
+    }
+
+    .contact form input,
+    .contact form textarea {
+        font-size: 0.75rem;
+    }
+
+
+
+}
+
+
+@media (min-width: 800px) and (max-width: 1200px) {
+
+    .header {
+        backdrop-filter: blur(10px);
+        height: 12vh;
+    }
+
+    /* .intro .intro-content .intro-desc {
+        font-size: 1.3rem;
+    }
+
+    .intro-content .row-1 i,
+    .intro-content .row-2 .icon-text {
+        font-size: 2.5rem;
+    } */
+
+    .about {
+        max-width: 200%;
+    }
+
+    .about-box {
+        padding-top: 3%;
+        margin-bottom: 10%;
+    }
+
+    .about-box .heading {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .about .about-box .about-items {
+        padding-top: 0;
+        margin-top: 0;
+    }
+
+    .profile-image img {
+        width: 75%;
+    }
+
+    .about .about-box .about-items .left-box h1,
+    .about .about-box .about-items .left-box span {
+        font-size: 1.30rem;
+    }
+
+    .about .about-box .about-items .left-box p {
+        font-size: 0.8rem;
+    }
+
+    .about .about-box .about-items .about-links {
+        margin-top: 2%;
+    }
+
+    .about .about-box .about-items .about-links a {
+        min-width: 25%;
+        font-size: 0.8rem;
+    }
+
+    .about .about-box .about-items {
+        margin-top: 4%;
+    }
+
+    .about .about-box .about-items .right-col h4 {
+        font-size: 1rem;
+        font-weight: 500;
+        padding-top: 1%;
+    }
+    .about .about-box .about-items .right-col {
+        text-align: left;
+    }
+
+    .about .about-box .about-items .right-col .skill-bar {
+        height: 28px;
+        margin-bottom: 5px;
+    }
+
+    .about .about-box .about-items .right-col .skill-bar .label {
+        font-size: 0.9rem;
+    }
+
+    .about .about-box .about-items .right-col h4 {
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+
+    .portfolio {
+        margin-top: 0;
+    }
+
+    .portfolio .container .heading {
+        padding-top: 8%;
+    }
+
+    .hover__effect {
+        height: 70%;
+        overflow: scroll;
+    }
+
+    .project__box .hover__effect p {
+        font-size: 0.75rem;
+    }
+
+    .project__box .hover__effect .btn {
+        font-size: 0.7rem;
+    }
+
+    .contact .container {
+        margin-top: 25%;
+    }
+
+    .portfolio .container .row .custom-col {
+        width: 50%;
+        height: 60vh;
+    }
+
+    .popup {
+        padding-top: 5%;
+        width: 100%;
+    }
+
+    .popup .popup__content {
+        width: 90%;
+        min-width: 90vw;
+    }
+
+    .popup__name {
+        font-size: 1.25rem;
+    }
+
+    .popup_project_intro {
+        font-size: 0.75rem;
+    }
+
+    .popup__content .closure a {
+        font-size: 0.7rem;
+    }
+
+    .popup__description_item h2 {
+        font-size: 1rem;
+    }
+
+    .popup__description_detail p,
+    .popup__description_detail th,
+    .popup__description_detail tr,
+    .popup__description_detail li {
+        font-size: 0.7rem;
+    }
+
+    .testimonials {
+        min-height: 70vh;
+        align-items: first baseline;
+        padding-top: 10%;
+        margin-bottom: 5%;
+    }
+
+    .testimonials .testimonals-box .heading {
+        font-size: 1.75rem;
+    }
+
+    .testimonials .testimonals-box .wrapper .testimonial-item {
+        width: 40%;
+    }
+
+    .testimonials .testimonals-box .wrapper {
+        animation-duration: calc(3s * var(--items-count));
+    }
+
+    .testimonial-item p {
+        font-size: 0.8rem;
+    }
+
+    .testimonial-calendar,
+    .testimonial-calendar i {
+        font-size: 0.8rem;
+    }
+
+    #testimonal-img {
+        width: 30%;
+    }
+
+    .contact {
+        min-height: 100vh;
+        height: 60vh;
+        align-items: center;
+    }
+
+    .contact .container .heading {
+        margin-top: 0;
+        padding-top: 1%;
+        margin-bottom: 1rem;
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: white;
+    }
+
+    .contact .contact-container {
+        padding-top: 0;
+        margin-top: 0;
+    }
+
+    .contact .contact-container h5 {
+        font-size: 0.8rem;
+    }
+
+    .contact form input,
+    .contact form textarea {
+        font-size: 0.75rem;
+    }
+
+
+
+}

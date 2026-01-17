@@ -1,0 +1,3210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huda S.</title>
+    <link rel="icon" href="./assets/my-icon.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header fixed-top d-md-block">
+        <div id="nav" class="container-fluid d-flex justify-content-between align-items-center">
+            <h2 id="name" class="mb-0">Noor Ul Huda Ajmal</h2>
+            <i id="menu-btn" class="ri-menu-fill" onclick="toggleMenu()"></i>
+        </div>
+    </header>
+    
+    <div id="menu-div" class="menu-hidden">
+        <a href="#about" onclick="closeMenu()">
+            <h4>About</h4>
+        </a>
+        <a href="#portfolio" onclick="closeMenu()">
+            <h4>Portfolio</h4>
+        </a>
+        <a href="#testimonials" onclick="closeMenu()">
+            <h4>Testimonials</h4>
+        </a>
+        <a href="#contact" onclick="closeMenu()">
+            <h4>Contact</h4>
+        </a>
+        <div class="social social-icons-div">
+            <a href="https://www.linkedin.com/in/nhajmal/" target="_blank">
+                <i class="bx bxl-linkedin"></i>
+            </a>
+            <a href="https://github.com/noorulhudaajmal" target="_blank">
+                <i class="bx bxl-github"></i>
+            </a>
+            <a href="https://stackoverflow.com/users/17519369/huda" target="_blank">
+                <i class='bx bxl-stack-overflow'></i>
+            </a>
+            <a href="https://scholar.google.com/citations?user=qACY9Z0AAAAJ&hl=en" target="_blank">
+                <i class="bx bxs-graduation"></i>
+            </a>
+            <a href="https://medium.com/@noorulhudaajmal12" target="_blank">
+                <i class="bx bxl-medium"></i>
+            </a>
+            <a href="mailto:noorulhudaajmal12@gmail.com" target="_blank">
+                <i class="bx bxl-gmail"></i>
+            </a>
+        </div>
+    </div>
+    
+
+    <section class="home text-light d-flex justify-content-center align-items-center">
+        <div class="home-content text-center">
+            <h1 id="first-tag" class="mb-3">
+                Turning Data into Decisions
+            </h1>
+            <br>
+            <h1 id="second-tag">
+                Crafting Insights with Precision
+            </h1>
+        </div>
+    </section>
+
+    <section id="intro" class="intro">
+
+        <div class="intro-content container-fluid text-center">
+            <div class="row-1 row mb-4">
+                <div class="custom-icon-col col-12 col-md-3 mb-md-0 icon-text">
+                    <i class="ri-focus-2-line"></i>
+                    <div class="icon-below-text"><h6>Precision Modeling</h6></div>
+                </div>
+                <div class="custom-icon-col col-12 col-md-3 mb-md-0 icon-text">
+                    <i class="ri-lightbulb-line"></i>
+                    <div class="icon-below-text"><h6>Actionable Insights</h6></div>
+                </div>
+                <div class="custom-icon-col col-12 col-md-3 mb-md-0 icon-text">
+                    <i class="ri-bar-chart-2-line"></i>
+                    <div class="icon-below-text"><h6>Data-Driven Results</h6></div>
+                </div>
+                <div class="custom-icon-col col-12 col-md-3 mb-md-0 icon-text">
+                    <i class="ri-vip-diamond-line"></i>
+                    <div class="icon-below-text"><h6>Well Written Code</h6></div>
+                </div>
+            </div>
+
+            <div class="row-2 row" style="margin-top: 5%;">
+                <div class="intro-large-text col-12 col-md-6 mb-md-0">
+                    <h3>Hi! I am Huda, good to see you here. Please take a look around.</h3>
+                </div>
+                <div class="col-12 col-md-6 small-text intro-desc">
+                    <p>Machine learning engineer with expertise in building efficient pipelines and conducting in-depth data analysis. Focused on creating scalable solutions that turn raw data into valuable insights, and committed to improving model accuracy while streamlining processes for optimal performance across diverse projects and applications.</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="about" class="about">
+        <div class="about-box container">
+            <h2 class="heading text-center">About Me</h2>
+            <div class="about-items row">
+                <!-- Left Box -->
+                <div class="left-box col-lg-6 text-center" style="margin-top: 2rem;">
+                    <div class="profile-image mx-auto mb-3">
+                        <img src="./assets/image.png" alt="Profile Image" class="img-fluid rounded-circle">
+                    </div>
+                    <h1 id="my-name">Noor Ul Huda Ajmal</h1>
+                    <h5 id="my-title" class="text-animation">I am a <span></span></h5>
+                    <p id="my-intro">
+                        I am a Software Engineering graduate with massive interest in Data Space.
+                        As an freelance ML Engineer, I am helping clients to design, develop, and
+                        deploy machine learning solutions that address complex business problems
+                        and generate value for the organization. I am skilled in Tableau, Power BI and python
+                        tools for data insights.
+                    </p>
+                    <div id="about-links" class="about-links">
+                        <a href="./assets/NoorulHudaAjmal_ML.pdf" target="_blank" class="links">Resume <i class="fa-solid fa-download"></i></a>
+                        <a href="#contact" class="links">Contact Me <i class="fa-brands fa-telegram"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Right Box -->
+                <div class="right-col col-lg-6">
+                    <h4 class="text-center">My Skill Set</h4>                        
+                    <div class="skill-description">
+                        <div class="skill-bar">
+                            <span class="label text-center">Python</span>
+                            <span class="level" style="width: 70%;"></span>
+                            <span class="todo"></span>
+                        </div>
+                        <div class="skill-bar">
+                            <span class="label">Data Analysis</span>
+                            <span class="level" style="width: 68%;"></span>
+                            <span class="todo"></span>
+                        </div>
+                        <div class="skill-bar">
+                            <span class="label text-center">Tableau</span>
+                            <span class="level" style="width: 68%;"></span>
+                            <span class="todo"></span>
+                        </div>
+                        <div class="skill-bar">
+                            <span class="label text-center">PowerBI</span>
+                            <span class="level" style="width: 65%;"></span>
+                            <span class="todo"></span>
+                        </div>
+                        <div class="skill-bar">
+                            <span class="label text-center">Java</span>
+                            <span class="level" style="width: 66%;"></span>
+                            <span class="todo"></span>
+                        </div>
+                        <div class="skill-bar">
+                            <span class="label">Deep Learning</span>
+                            <span class="level" style="width: 65%;"></span>
+                            <span class="todo"></span>
+                        </div>
+                        <div class="skill-bar">
+                            <span class="label">MLOps</span>
+                            <span class="level" style="width: 55%;"></span>
+                            <span class="todo"></span>
+                        </div>
+                        <div class="skill-bar">
+                            <span class="label">GenAI/LLMs</span>
+                            <span class="level" style="width: 45%;"></span>
+                            <span class="todo"></span>
+                        </div>
+                        <div class="skill-bar">
+                            <span class="label">AWS</span>
+                            <span class="level" style="width: 37%;"></span>
+                            <span class="todo"></span>
+                        </div>
+                        <div class="skill-bar">
+                            <span class="label">CI/CD</span>
+                            <span class="level" style="width: 30%;"></span>
+                            <span class="todo"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="heading text-center mb-4">Projects</h2>
+            <div class="row">
+
+                <div class="custom-col col-lg-4 col-md-6 mb-4">
+                    <div class="project__box">
+                        <img class="project__img" src="projects/DDD/DDD_main.jpeg" alt="IMA">
+                        <h3 class="project__name">Driver Drowsiness Detection using onboard Camera</h3>
+                        <p class="project__domain">Deep Learning</p>
+                        <p class="project__domain">Edge Computing</p>
+
+                        <div class="hover__effect">
+                            <p> Driver Drowsiness Detection is a system that monitors driver behavior using a camera mounted
+                                on the dashboard. It is an application of computer vision utilizing an
+                                edge device to monitor the driver.
+                            </p>
+                            <div class="project__tags">
+                                <p class="project__tag">Raspberry PI</p>
+                                <p class="project__tag">Tensorflow</p>
+                            </div>
+                            <button class="view-more-btn btn" onclick="openPopup('project_DDD')">View More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-col col-lg-4 col-md-6 mb-4">
+                    <div class="project__box">
+                        <img class="project__img" src="projects/PTA/PTA_main.png" alt="PTA">
+                        <h3 class="project__name">Temporal Analysis of Pallidus MR1 Data</h3>
+                        <p class="project__domain">Data Analysis</p>
+                        <p class="project__domain">Data Visualization</p>
+                        <div class="hover__effect">
+                            <p>This project, conducted in collaboration with KravitzLab, Washington University St. Louis,
+                                that involved experiments on MOUSERAT using Pallidus MR1 to collect activity data. The study focused on
+                                temporal analysis to achieve desired insights.
+                            </p>
+                            <div class="project__tags">
+                                <p class="project__tag">Pallidus MR1</p>
+                                <p class="project__tag">Statictics</p>
+                            </div>
+                            <button class="view-more-btn btn" onclick="openPopup('project_MR1')">View More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-col col-lg-4 col-md-6 mb-4">
+                    <div class="project__box">
+                        <img class="project__img" src="projects/SI/SI_main.png" alt="SI">
+                        <h3 class="project__name">Stock Insights</h3>
+                        <p class="project__domain">Machine Learning</p>
+                        <p class="project__domain">Data Analysis</p>
+                        <div class="hover__effect">
+                            <p>
+                                An application of Deep Learning to forecast 
+                                future stock volumes and prices.
+                            </p>
+                            <div class="project__tags">
+                                <p class="project__tag">LSTM</p>
+                                <p class="project__tag">Data Scraping</p>
+                            </div>
+                            <button class="view-more-btn btn" onclick="openPopup('project_SI')">View More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-col col-lg-4 col-md-6 mb-4">
+                    <div class="project__box">
+                        <img class="project__img" src="projects/ONT/ONT_main.png" alt="ONT">
+                        <h3 class="project__name">Prediction of Light path in SDON</h3>
+                        <p class="project__domain">Machine Learning</p>
+                        <div class="hover__effect">
+                            <p>
+                                The project was completed as a part of internship at research lab for
+                                Software Defined Optical Networks. The task was to predict the state of
+                                the control switches when light with certain wavelngths pass through
+                                a specialized photonic switch.
+                            </p>
+                            <div class="project__tags">
+                                <p class="project__tag">Deep Learning</p>
+                                <p class="project__tag">Research</p>
+                            </div>
+                            <button class="view-more-btn btn" onclick="openPopup('project_ONT')">View More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-col col-lg-4 col-md-6 mb-4">
+                    <div class="project__box">
+                        <img class="project__img" src="projects/PLA/PLA_main.png" alt="PRA">
+                        <h3 class="project__name">Business Review Analyzer</h3>
+                        <p class="project__domain">Data Analysis</p>
+                        <p class="project__domain">Data Visualization</p>
+                        <div class="hover__effect">
+                            <p>
+                                A Streamlit app that uses the Google Places API to analyze and visualize reviews of various business places across different locations.
+                            </p>
+                            <div class="project__tags">
+                                <p class="project__tag">GooglePlaces API</p>
+                                <p class="project__tag">Folium</p>
+                            </div>
+                            <button class="view-more-btn btn" onclick="openPopup('project_PRA')">View More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-col col-lg-4 col-md-6 mb-4">
+                    <div class="project__box">
+                        <img class="project__img" src="projects/DINO/dino-main.png" alt="DINO">
+                        <h3 class="project__name">AI Plays Chrome Dino Game</h3>
+                        <p class="project__domain">NEAT-AI</p>
+                        <div class="hover__effect">
+                            <p>
+                            The project aimed at building an AI-agent that learns to play the famous chrome-dino game.
+                            </p>
+                            <div class="project__tags">
+                                <p class="project__tag">Deep Learning</p>
+                                <p class="project__tag">Pygame</p>
+                            </div>
+                            <button class="view-more-btn btn" onclick="openPopup('project_DINO')">View More</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="custom-col col-lg-4 col-md-6 mb-4">
+                    <div class="project__box">
+                        <img class="project__img" src="projects/FOAM/FOAM_main.png" alt="FOAM">
+                        <h3 class="project__name">Future Opportunity Assessment Manager</h3>
+                        <p class="project__domain">Data Analysis</p>
+                        <p class="project__domain">Data Visualization</p>
+                        <div class="hover__effect">
+                            <p>
+                            The F.O.A.M dashboard is a tool that provides insights into the past and
+                            current U.S. government contracts, to helps contractors and businesses
+                            identify new opportunities by analyzing relevant data and competitors info.
+                            </p>
+                            <div class="project__tags">
+                                <p class="project__tag">Data Analysis</p>
+                                <p class="project__tag">USAspending API</p>
+                            </div>
+                            <button class="view-more-btn btn" onclick="openPopup('project_FOAM')">View More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-col col-lg-4 col-md-6 mb-4">
+                    <div class="project__box">
+                        <img class="project__img" src="projects/IMA/IMA_main.jpeg" alt="IMA">
+                        <h3 class="project__name">Inventory Management App</h3>
+                        <p class="project__domain">Data Analysis</p>
+                        <p class="project__domain">Data Dashboards</p>
+                        <div class="hover__effect">
+                            <p>
+                                This project, in collaboration with Ammonite LLC, aimed to deliver real-time insights and analytics for improved decision-making. The solution helps optimize inventory management and trading activities for enhanced operational efficiency in the logistics sector.
+                            </p>
+                            <div class="project__tags">
+                                <p class="project__tag">Data Analysis</p>
+                                <p class="project__tag">Web Scraping</p>
+                            </div>
+                            <button class="view-more-btn btn" onclick="openPopup('project_IMA')">View More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-col col-lg-4 col-md-6 mb-4">
+                    <div class="project__box">
+                        <img class="project__img" src="projects/BPA/BPA_main.png" alt="BPA">
+                        <h3 class="project__name">Business Performance Analytics</h3>
+                        <p class="project__domain">Data Analysis</p>
+                        <p class="project__domain">Dashboards</p>
+                        <div class="hover__effect">
+                            <p>
+                            This project was developed for an eBay seller store, leveraging their sales data
+                             to generate meaningful insights.
+                            </p>
+                            <div class="project__tags">
+                                <p class="project__tag">Dashboard</p>
+                            </div>
+                            <button class="view-more-btn btn" onclick="openPopup('project_BPA')">View More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-col col-lg-4 col-md-6 mb-4">
+                    <div class="project__box">
+                        <img class="project__img" src="projects/LLM/DSLLM-main.png" alt="DSLLM">
+                        <h3 class="project__name">LLM Based Dialouge Summarization Tool</h3>
+                        <p class="project__domain">NLP</p>
+                        <p class="project__domain">Supervised Fine-Tuning</p>
+                        <div class="hover__effect">
+                            <p>
+                                This project was completed while learning about LLMs in the course
+                                <a href="https://www.coursera.org/learn/generative-ai-with-llms">Generative AI with LLMs</a>
+                                taught by DeepLearning.ai.
+                            </p>
+                            <div class="project__tags">
+                                <p class="project__tag">NLP</p>
+                                <p class="project__tag">Supervised Fine-Tuning</p>
+                            </div>
+                            <button class="view-more-btn btn" onclick="openPopup('project_DSLLM')">View More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-col col-lg-4 col-md-6 mb-4">
+                    <div class="project__box">
+                        <img class="project__img" src="projects/CCC/CCC-main.png" alt="CCC">
+                        <h3 class="project__name">Chest Cancer classification using MLFlow</h3>
+                        <p class="project__domain">Deep Learning</p>
+                        <p class="project__domain">MLOps</p>
+                        <p class="project__domain">AWS</p>
+                        <div class="hover__effect">
+                            <p>
+                                This project is designed for chest cancer classification using the keras Model API and MLflow for experiment tracking. 
+                            </p>
+                            <div class="project__tags">
+                                <p class="project__tag">Github Actions</p>
+                                <p class="project__tag">CI/CD</p>
+                                <p class="project__tag">Transfer Learning</p>
+                            </div>
+                            <button class="view-more-btn btn" onclick="openPopup('project_CCC')">View More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-col col-lg-4 col-md-6 mb-4">
+                    <div class="project__box">
+                        <img class="project__img" src="projects/HPP/HPP-main.jpg" alt="HPP">
+                        <h3 class="project__name">End to end House Price Prediction</h3>
+                        <p class="project__domain">MLOps</p>
+                        <p class="project__domain">Data Analysis</p>
+                        <div class="hover__effect">
+                            <p>
+                                This project is designed to predict house prices using an end-to-end machine learning (ML) pipeline. It incorporates MLOps principles to streamline the development, deployment, and maintenance of the model.
+                            </p>
+                            <div class="project__tags">
+                                <p class="project__tag">MLFlow</p>
+                                <p class="project__tag">Design Patterns</p>
+                            </div>
+                            <button class="view-more-btn btn" onclick="openPopup('project_HPP')">View More</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section id="testimonials" class="testimonials">
+        <div class="testimonals-box container-fluid">
+            <h2 class="heading text-center">Testimonials</h2>
+            <div class="wrapper column">
+                <div class="testimonial-item col-lg-4 col-md-6 col-sm-12">
+                    <img id="testimonal-img" src="reviewers/atangstephen.png" alt="">
+                    <h2>atangstephen 🇺🇸</h2>
+                    <p>Working with Huda on our data visualization project was a breath of fresh air! 😊 Her attention
+                        to detail and professionalism exceeded all expectations, and her cooperation and deep
+                        understanding of our needs were second to none. Always the best and most efficient worker -
+                        we're already collaborating on more projects!
+                    </p>
+                    <div class="testimonial-date">
+                        <div class="testimonial-calendar"><i class="bx bxs-calendar"></i>June 2024</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-item col-lg-4 col-md-6 col-sm-12">
+                    <img id="testimonal-img" src="reviewers/aokossi.png" alt="">
+                    <h2>aokossi 🇺🇸</h2>
+                    <p>Very very professional, very dedicated to excellent work, very good understanding of data and
+                        translating into meaningfull dashboards
+                    </p>
+                    <div class="testimonial-date">
+                        <div class="testimonial-calendar"><i class="bx bxs-calendar"></i>Nov 2023</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-item col-lg-4 col-md-6 col-sm-12">
+                    <img id="testimonal-img" src="reviewers/valentinaoni.png" alt="">
+                    <h2>valentinaoni 🇨🇦</h2>
+
+                    <p>She got my attention with her first response, and even though I had started the work with
+                        another, I still decided to go with her. I was able to understand the plot and also make
+                        changes, and she was there to assist with all my questions. I just learned about stream lit
+                        thanks to her. I highly recommend this freelancer.
+                    </p>
+                    <div class="testimonial-date">
+                        <div class="testimonial-calendar"><i class="bx bxs-calendar"></i>Nov 2023</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-item col-lg-4 col-md-6 col-sm-12">
+                    <img id="testimonal-img" src="reviewers/fcomir.png" alt="">
+                    <h2>fcomir 🇪🇸</h2>
+                    <p>Amazing performance and very high-quality delivery. Communication is great, engagement from her
+                        side is super and she does not stop until we get to the desired target. She masters streamlit
+                        and plotly which has been incredible valuable for me. We will keep working together for sure :-)
+                    </p>
+                    <div class="testimonial-date">
+                        <div class="testimonial-calendar"><i class="bx bxs-calendar"></i>Oct 2023</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-item col-lg-4 col-md-6 col-sm-12">
+                    <img id="testimonal-img" src="reviewers/tthedoublet.png" alt="">
+                    <h2>tthedoublet 🇩🇰</h2>
+                    <p>This is by the best person on Fiverr I have worked with! Extremely talented, and goes the extra
+                        mile to ensure you are happy with the order. 10/10 experience and will highly recommend you to
+                        pick this person. In my case she took a excel work and transferred it into python. Couldn’t be
+                        more happy :-)
+                    </p>
+                    <div class="testimonial-date">
+                        <div class="testimonial-calendar"><i class="bx bxs-calendar"></i>Oct 2023</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-item col-lg-4 col-md-6 col-sm-12">
+                    <img id="testimonal-img" src="reviewers/lexkravitz.png" alt="">
+                    <h2>lexkravitz 🇺🇸</h2>
+
+                    <p>This was an amazing developer. She is great at communication, answering questions, and she
+                        delivered an outstanding dashboard for me!
+                    </p>
+                    <div class="testimonial-date">
+                        <div class="testimonial-calendar"><i class="bx bxs-calendar"></i>Feb 2023</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-item col-lg-4 col-md-6 col-sm-12">
+                    <img id="testimonal-img" src="reviewers/purna.png" alt="">
+                    <h2>purna6541 🇬🇧</h2>
+
+                    <p>she is very passionate about work she does more work what we expect very kind and humble she has
+                        full idea about concepts she responds very quickly she helps once completed the project also
+                    </p>
+                    <div class="testimonial-date">
+                        <div class="testimonial-calendar"><i class="bx bxs-calendar"></i>Sept 2022</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-item col-lg-4 col-md-6 col-sm-12">
+                    <img id="testimonal-img" src="reviewers/allexchyu.png" alt="">
+                    <h2>allexchyu 🇬🇧</h2>
+
+                    <p>Did above an beyond to give me the result I wanted. Highly recommend !</p>
+                    <div class="testimonial-date">
+                        <div class="testimonial-calendar"><i class="bx bxs-calendar"></i>Aug 2022</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-item col-lg-4 col-md-6 col-sm-12">
+                    <img id="testimonal-img" src="reviewers/peter255.png" alt="">
+                    <h2>peter255 🇬🇧</h2>
+
+                    <p>It has been a pleasure to work with Hudiye. Very attentive to all questions. She takes her work
+                        seriously and diligently.
+                    </p>
+                    <div class="testimonial-date">
+                        <div class="testimonial-calendar"><i class="bx bxs-calendar"></i>July 2022</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Info -->
+    <section id="contact" class="contact">
+        <div class="contact-container container">
+            <h2 class="heading text-center">Contact Me</h2>
+            <div class="row text-center">
+                <div class="col-md-6">
+                    <h5 class="contact-form-title">Have a question or want to work together?</h5>
+                    <form action="mailto:noorulhudaajmal12@gmail.com" method="post" enctype="text/plain">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="message" name="message" rows="6"
+                                placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social">
+            <a href="https://www.linkedin.com/in/nhajmal/" target="_blank">
+                <i class="bx bxl-linkedin"></i>
+            </a>
+            <a href="https://github.com/noorulhudaajmal" target="_blank">
+                <i class="bx bxl-github"></i>
+            </a>
+            <a href="https://stackoverflow.com/users/17519369/huda" target="_blank">
+                <i class='bx bxl-stack-overflow'></i>
+            </a>
+            <a href="https://scholar.google.com/citations?user=qACY9Z0AAAAJ&hl=en" target="_blank">
+                <i class="bx bxs-graduation"></i>
+            </a>
+            <a href="https://medium.com/@noorulhudaajmal12" target="_blank">
+                <i class="bx bxl-medium"></i>
+            </a>
+            <a href="mailto:noorulhudaajmal12@gmail.com" target="_blank">
+                <i class="bx bxl-gmail"></i>
+            </a>
+        </div>
+
+        <p class="copyright">
+            &copy; Huda S. | All Rights Reserved
+        </p>
+
+    </footer>
+
+
+
+    <div class="popup" id="project_DDD-popup">
+        <div class="popup__content" style="display: block;">
+            <h3 class="popup__name">Driver Drowsiness Detection using onboard Camera</h3>
+            <span class="popup__close" onclick="closePopup('project_DDD')">
+                <div class="arrow-left" id="arrow-left"></div>
+            </span>
+
+            <p class="popup_project_intro">
+                Driver Drowsiness Detection is a system that monitors driver behavior using a camera mounted
+                            on
+                            the dashboard. It is an application of computer vision utilizing an
+                            edge device to monitor the driver. A buzzer is used to alert the drowsy driver.
+            </p>
+
+            <div class="closure">
+                <a href="./projects/DDD/Software Design Specifications.docx.pdf" class="popup__download"
+                    download> SRS <i class="fa fa-file-download"></i>
+                </a>
+                <a href="./projects/DDD/Driver Drowsiness Detection Using Onboard Camera.pdf"
+                    class="popup__download" download>
+                     Report <i class="fa fa-file-download"></i>
+                </a>
+                <a href="https://github.com/noorulhudaajmal/driver-drowsiness-detection-using-onboard-camera"
+                    target="_blank" class="popup__download" download>
+                    Source Code <i class="fa fa-external-link"></i>
+                </a>
+            </div>
+
+            <div class="popup__right">
+                <ul class="popup__proj_desc">
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Problem Statement</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                Despite the maturity of drowsiness detection technology, existing
+                                        solutions are often too expensive or unreliable for widespread use.
+                                        The growing number of road users highlights the need for an affordable
+                                        and dependable system to reduce accidents caused by driver inattentiveness,
+                                        thereby protecting both drivers and other road users.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Scope and Steps</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project involves developing a driver drowsiness detection system
+                                using an edge device with a camera and deploying a neural network model
+                                to monitor driver behavior. Key steps include:
+                                <ul class="normal_bullets">
+                                    <li>Designing the hardware setup with a camera and accelerometer.</li>
+                                    <li>Developing and training the machine learning model.</li>
+                                    <li>Implementing the detection and alert mechanisms.</li>
+                                    <li>Creating a web portal for updates and feedback.</li>
+                                    <li>Conducting extensive testing and continuous improvement.</li>
+                                </ul>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Environment</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project utilizes a combination of hardware and software technologies:
+                            <ul class="normal_bullets">
+                                <li><span>Hardware:</span> Infrared camera, MPU6050 accelerometer, and Raspberry
+                                    Pi 4.</li>
+                                <li><span>Software:</span> Python, TensorFlow, TensorFlow Lite, OpenCV, Dlib,
+                                    Django (backend), React (frontend), and Pytest for testing.</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Data Source and Data Gathering</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                Data for model training and testing is gathered from Kaggle and sources like
+                                <a href="https://sites.google.com/view/utarldd/home">UTA-LRDD</a>. The data
+                                gathered was very diverse and cover various scenarios.
+                                This data is transformed to have infrared effect and is pre-processed to
+                                extract relevant features such as facial landmarks. Additional data is collected
+                                via accelerometer readings to detect accidents.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Model Building</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The model is built using TensorFlow and converted to TensorFlow Lite to optimize
+                                for edge device deployment. It employs convolutional neural networks (CNNs) for
+                                detecting driver drowsiness by analyzing facial features. OpenCV and Dlib
+                                libraries
+                                are used for image processing and facial landmark detection.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>System Design and Architecture</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The system architecture consists of an edge device with a camera and
+                                accelerometer,
+                                running the drowsiness detection model. The architecture follows a procedural
+                                programming
+                                approach for the device and an MVC architecture for the web portal. The device
+                                continuously
+                                monitors driver behavior and triggers alerts if drowsiness is detected. The web
+                                portal
+                                allows users to download updates and report incidents.
+                            </p>
+                            <img src="projects/DDD/architecture.png" alt="System Architecture">
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>System Data Flow</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                <img src="projects/DDD/dataflow.png" alt="Data Flow Diagram">
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Implemention and Testing</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                Implementation includes integrating the hardware components,
+                                developing the machine learning model, and setting up the web portal.
+                                The system undergoes rigorous testing using Pytest to ensure
+                                reliability and performance. Real-world testing is conducted to
+                                validate the system's effectiveness in detecting driver drowsiness
+                                and preventing accidents. Continuous feedback and updates will be provided
+                                to enhance system safety and functionality.
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+
+                </br>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="project_MR1-popup">
+        <div class="popup__content" style="display: block;">
+            <h3 class="popup__name">Temporal Analysis of Pallidus MR1 Dataset</h3>
+            <span class="popup__close" onclick="closePopup('project_MR1')">
+                <div class="arrow-left" id="arrow-left"></div>
+            </span>
+
+            <p class="popup_project_intro">
+                This project, conducted in collaboration with KravitzLab, Washington University St. Louis,
+                that involved experiments on MOUSERAT using Pallidus MR1 to collect activity data. The study focused on
+                temporal analysis to achieve desired insights.
+            </p>
+
+            <div class="closure">
+                <a href="./projects/PTA/Palliuds-MR1-Analysis.pdf" class="popup__download" download>
+                    Analysis Report <i class="fa fa-file-download"></i>
+                </a>
+                <a href="https://github.com/noorulhudaajmal/Temporal-Analysis-of-Pallidus-MR1-Dataset"
+                    target="_blank" class="popup__download" download>
+                    Source Code <i class="fa fa-external-link"></i>
+                </a>
+            </div>
+
+            <div class="popup__right">
+                <ul class="popup__proj_desc">
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Introduction</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The <span>Temporal Analysis of MR1 Data</span> project was conducted
+                                for KravitzLab, focusing on the activity tracking data of subjects
+                                over time. The analysis involved identifying temporal patterns, testing
+                                hypotheses, and comparing day versus night activity levels using a
+                                Streamlit-based Python app featuring interactive Plotly charts.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Environment</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project was developed using Python with libraries such as Pandas for
+                                data manipulation, Plotly for interactive visualizations, and Streamlit for
+                                building the web app. The environment was set up to handle and visualize
+                                large datasets efficiently.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Scope and Project Steps</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project's scope included:
+                            <ul class="normal_bullets">
+                                <li>Gathering and preprocessing MR1 activity data.</li>
+                                <li>Conducting exploratory data analysis (EDA) and temporal analysis.</li>
+                                <li>Testing predefined hypotheses.</li>
+                                <li>Visualizing findings through interactive charts.</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Data Source and Data Gathering</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                Data was sourced from the Pallidus MR1 activity tracking system, provided by <a
+                                    href="https://kravitzlab.com/">KravitzLab</a>. The dataset contained
+                                timestamped activity readings for multiple subjects, recorded at regular
+                                intervals.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Data Analysis</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The analysis included:
+                            <ul class="normal_bullets">
+                                <li>Examining hourly and daily activity trends.</li>
+                                <li>Comparing activity patterns between subjects.</li>
+                                <li>Investigating day and night shifts in activity levels.</li>
+                                <li>Interactive Plotly charts were used to visualize these patterns
+                                    dynamically within the Streamlit app.</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Hypothesis Testing</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                Key hypotheses tested were:
+                            <ul class="normal_bullets">
+                                <li>Subjects exhibit higher activity levels during the night compared to the
+                                    day.</li>
+                                <li>Activity levels vary significantly between different light/dark cycles.</li>
+                                <li>The activity of one subject influences the activity of others.</li>
+                            </ul>
+                            </p>
+                            <p>Statistical tests such as t-tests and ANOVA were employed to validate these
+                                hypotheses.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Gallery</h2>
+                            </span>
+
+                        </div>
+                        <div id="pta_gallery" class="popup__description_detail gallery">
+                            <span class="gallery__arrow gallery__arrow--left">&#10094;</span>
+                            <p>
+                                <img src="" alt="Gallery Image">
+                            </p>
+                            <span class="gallery__arrow gallery__arrow--right">&#10095;</span>
+                        </div>
+                    </li>
+                </ul>
+
+                </br>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="project_SI-popup">
+        <div class="popup__content" style="display: block;">
+            <h3 class="popup__name">Stock Insights</h3>
+            <span class="popup__close" onclick="closePopup('project_SI')">
+                <div class="arrow-left" id="arrow-left"></div>
+            </span>
+
+            <p class="popup_project_intro">
+                The Stock Insights project aims to leverage machine learning to forecast future stock
+                values,
+                thereby assisting investors and businesses in making informed decisions. By analyzing
+                historical
+                stock data of top-performing companies on Pakistan Stock Exchange (PSX), the future volume
+                and opening prices of stocks are predicted.
+            </p>
+
+            <div class="closure">
+                <a href="./projects/SI/Stock-Insghts_Project-Report.pdf" class="popup__download"
+                    download> Report <i class="fa fa-file-download"></i>
+                </a>
+                <a href="https://github.com/noorulhudaajmal/Stock-Insight/tree/master/src" target="_blank"
+                    class="popup__download" download>
+                    Source Code <i class="fa fa-external-link"></i>
+                </a>
+            </div>
+
+            <div class="popup__right">
+                <ul class="popup__proj_desc">
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Problem Statement</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                Stock market forecasting is a challenging task due to the volatile
+                                and unpredictable nature of stock prices.
+                                This project addresses the need for a reliable and accurate
+                                forecasting method by using Long Short-Term Memory (LSTM) neural networks,
+                                which are well-suited for time series prediction.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Scope and Steps</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project focuses on forecasting two key stock indicators: volume and opening
+                                price. The process involves several steps:
+                            <ul class="normal_bullets">
+                                <li>Data Collection: Historical stock data is scraped from the PSX Data Portal.
+                                </li>
+                                <li>Feature Selection: Relevant features are identified for model training.</li>
+                                <li>Data Preprocessing: Data is split into training and testing sets, scaled,
+                                    and reshaped for LSTM.</li>
+                                <li>Model Training: An LSTM model is trained using the prepared data.</li>
+                                <li>Prediction: The trained model forecasts future stock trends.</li>
+                                <li>Evaluation: Model performance is evaluated and visualized.</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Environment</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project is developed using the following tools and technologies:
+                            <ul class="normal_bullets">
+                                <li>Python: For data processing, model training, and evaluation.</li>
+                                <li>Libraries: NumPy, Pandas, Scikit-learn, TensorFlow, Keras, Matplotlib.</li>
+                                <li>Development Tools: Jupyter Notebook for experimentation and development.
+                                </li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Data Source and Data Gathering</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                Historical data of top-performing PSX companies is collected by scraping
+                                the PSX Data Portal. The data includes variables such as
+                                Open, High, Low, Close, and Volume.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Model Building</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project utilizes LSTM neural networks, which are particularly effective
+                                for time series prediction. The data is preprocessed and transformed into a
+                                3-D shape required by LSTM models. Two separate models are trained:
+                            <ul class="normal_bullets">
+                                <li>Volume Forecast Model: Uses features Open, High, Low, Close, and Volume.
+                                </li>
+                                <li>Open Price Forecast Model: Uses features Open, High, Low, and Close.</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Model Performance</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The performance of the models is evaluated using Mean Squared Error (MSE)
+                                on the test set. The loss curves and accuracy metrics for both volume and
+                                open price forecasts are analyzed to assess the models' effectiveness.
+                                Regularization techniques, such as L2 regularization and dropout, are
+                                employed to improve model performance and reduce overfitting.
+                            </p>
+                            <img src="projects/SI/open_performance.png"
+                                alt="Loss Analysis of Open Price Forecasting Model">
+                            <br>
+                            <img src="projects/SI/volume_performance.png"
+                                alt="Loss Analysis of Volume Forecasting Model">
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Results and Inference</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                Future predictions are plotted to provide a clear insight into the stock's
+                                potential direction.
+                                The project demonstrates that while LSTM models can capture the overall trend in
+                                stock prices,
+                                achieving precise day-to-day predictions remains challenging due to the inherent
+                                volatility of
+                                the stock market.
+                            </p>
+                            <img src="projects/SI/results.png" alt="Results Plot">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Gallery</h2>
+                            </span>
+
+                        </div>
+                        <div id="si_gallery" class="popup__description_detail gallery">
+                            <span class="gallery__arrow gallery__arrow--left">&#10094;</span>
+                            <p>
+                                <img src="" alt="Gallery Image">
+                            </p>
+                            <span class="gallery__arrow gallery__arrow--right">&#10095;</span>
+                        </div>
+                    </li>
+                </ul>
+
+                </br>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="project_ONT-popup">
+        <div class="popup__content" style="display: block;">
+            <h3 class="popup__name">Prediction of Light path in SDON</h3>
+            <span class="popup__close" onclick="closePopup('project_ONT')">
+                <div class="arrow-left" id="arrow-left"></div>
+            </span>
+
+            <p class="popup_project_intro">
+                The project was completed as a part of internship at research lab for
+                Software Defined Optical Networks. The task was to predict the state of
+                the control switches when light with certain wavelngths pass through
+                a specialized photonic switch.
+            </p>
+
+            <div class="closure">
+                <a href="https://ieeexplore.ieee.org/abstract/document/10089124" target="_blank"
+                    class="popup__download" download>
+                    Paper <i class="fa fa-external-link"></i>
+                </a>
+            </div>
+
+            <div class="popup__right">
+                <ul class="popup__proj_desc">
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Problem Introduction</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The peojcts aims at building a model for Photonics Switching Systems employs
+                                the XGBoost algorithm with chain classifiers to optimize the control of optical
+                                switches. This approach aims to predict the precise control parameters required
+                                to achieve desired switching states, thereby improving the efficiency and
+                                reliability of photonics systems in high-speed communication networks.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Problem Statement</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                Photonics switching systems require precise control to manage the routing of
+                                light signals in communication networks. Traditional control methods can be
+                                complex and inefficient. This project addresses the challenge by developing an
+                                ML-based inverse model that learns from data to predict the necessary control
+                                actions, thereby simplifying the control process and improving system
+                                performance.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Scope and Steps</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project scope includes data collection, model training, evaluation, and
+                                deployment. Key steps involve:
+                            <ul class="normal_bullets">
+                                <li>Gathering and preprocessing control and state data from photonics switching
+                                    systems.
+                                </li>
+                                <li>Designing the XGBoost model with chain classifiers.
+                                </li>
+                                <li>Training and validating the model.
+                                </li>
+                                <li>Evaluating model performance with validation datasets.
+                                </li>
+                                <li>Refining the model iteratively based on performance on unseen newly
+                                    collected data.
+                                </li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Environment</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project is developed using Python, with libraries such as XGBoost for model
+                                implementation and Scikit-learn for preprocessing and evaluation. Development
+                                was done in Jupyter notebook and VS Code, with
+                                version control managed through Git.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Data Source and Data Gathering</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                Data is sourced from simulations and real-world photonics switching systems,
+                                including control inputs, system states, and resulting behaviors. Data gathering
+                                involves recording extensive operational data, which is then preprocessed
+                                through normalization, noise reduction, and splitting into training, validation,
+                                and test sets to ensure robust model training.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Model Building</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The model for controlling photonics switching systems is treated as a
+                                multilabel binary classification task, with each output being binary (0 or 1).
+                                The Classifier Chain approach from the Scikit-learn library is utilized, with
+                                XGBoost as the base estimator; to address the multi-label nature of control
+                                parameters, allowing sequential prediction of each control variable based on
+                                previous predictions.
+                            <ul class="normal_bullets">
+                                <li>Classifier Chains arrange n-binary classifiers in a sequence, where
+                                    each classifier's prediction informs the next.
+                                </li>
+                                <li>
+                                    The model is trained on a dataset with 8 features (wavelength combinations)
+                                    and 20 labels (control states)
+                                </li>
+                                <li>For model training the data is split into 80% training and 20% test set.
+                                </li>
+                                <li>Hyperparameters are optimized using GridSearchCV.
+                                    <table class="popup__table">
+                                        <tr>
+                                            <th>Hyperparameter</th>
+                                            <th>Description</th>
+                                            <th>Value</th>
+                                        </tr>
+                                        <tr>
+                                            <td>n_estimators</td>
+                                            <td>Number of Trees</td>
+                                            <td>140</td>
+                                        </tr>
+                                        <tr>
+                                            <td>max_depth</td>
+                                            <td>Maximum Tree Depth</td>
+                                            <td>5</td>
+                                        </tr>
+                                        <tr>
+                                            <td>reg_lambda</td>
+                                            <td>L2 Regularization</td>
+                                            <td>1</td>
+                                        </tr>
+                                    </table>
+                                </li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Model Architecture</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <img src="projects/ONT/model-architecture.png" alt="Chain classifier model">
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Model Performance</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                            <table class="popup__table">
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Description</th>
+                                    <th>Score</th>
+                                </tr>
+                                <tr>
+                                    <td>Hamming Loss</td>
+                                    <td>Fraction of incorrectly predicted labels</td>
+                                    <td>0.0401 (4%)</td>
+                                </tr>
+                                <tr>
+                                    <td>Precision</td>
+                                    <td>Ratio of correctly predicted labels to total labels</td>
+                                    <td>95%</td>
+                                </tr>
+                                <tr>
+                                    <td>Recall</td>
+                                    <td>Ratio of correctly predicted positive labels to total positive labels
+                                    </td>
+                                    <td>96%</td>
+                                </tr>
+                                <tr>
+                                    <td>Macro F1-Measure</td>
+                                    <td>Harmonic mean of precision and recall</td>
+                                    <td>95.6%</td>
+                                </tr>
+                            </table>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+
+                </br>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="project_PRA-popup">
+        <div class="popup__content" style="display: block;">
+            <h3 class="popup__name">Business Review Analyzer</h3>
+            <span class="popup__close" onclick="closePopup('project_PRA')">
+                <div class="arrow-left" id="arrow-left"></div>
+            </span>
+
+            <p class="popup_project_intro">
+                BizReview Analyzer is a Streamlit web application designed to analyze business reviews and provide insights. It allows users to visualize business locations on a map, explore review details, and conduct market comparison analytics based on location and business type.
+            </p>
+
+            <div class="closure">
+                <a href="https://github.com/noorulhudaajmal/business-performance-analytics" class="popup__download"
+                  target="_blank"  download>Source Code <i class="fa fa-external-link"></i>
+                </a>
+            </div>
+
+            <div class="popup__right">
+                <ul class="popup__proj_desc">
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Introduction</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                BizReview Analyzer is a web application built with Streamlit, aimed at delivering in-depth insights into business performance through the analysis of customer reviews. Users can visualize business locations on an interactive map, view detailed lists of businesses and reviews, and conduct market analysis based on geographic locations and business categories.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Scope</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                This project focuses on helping users make data-driven decisions by offering location-based business insights. It includes features such as mapping business locations, analyzing customer reviews, and comparing market performance across different regions and business types, making it useful for business owners and market analysts.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Steps</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                BizReview Analyzer features four core functionalities:
+                            <ul class="normal_bullets">
+                                <li>
+                                    <span>Integrating Google Places API</span>
+                                    <br>
+                                    <p>to fetch business locations and reviews.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Fetching and processing location and review data</span>
+                                    <br>
+                                    <p>using Python requests and pandas for data handling.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Data Visualization</span>
+                                    <br>
+                                    <p>using geopandas, folium, and plotly to create interactive maps and analytical charts.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Building a Streamlit web interface</span>
+                                    <br>
+                                    <p>to display business data on a map, list reviews, and perform analytics.
+                                    </p>
+                                </li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Environment</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project is developed using Python 3 in a Streamlit environment. 
+                                It requires access to the Google Places API for data gathering.
+                                Key frameworks include:
+                            <ul class="normal_bullets">
+                                <li>Pandas for data handling and analysis.</li>
+                                <li>Geopandas for location information.</li>
+                                <li>Folium for mapping business points.</li>
+                                <li>Streamlit for creating the interactive app.</li>
+                                <li>Plotly for displaying data insights</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Data Source and Data Gathering</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The application retrieves live data from the Google Places API. This includes business information such as location, reviews, and ratings. The data is filtered and presented based on user selections like business type, country, and city, enabling dynamic insights.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>App Specifications</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                BizReview Analyzer features four core functionalities:
+                            <ul class="normal_bullets">
+                                <li>
+                                    <span>Map View</span>
+                                    <br>
+                                    <p>Visualizes business locations on an interactive map.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Detailed View</span>
+                                    <br>
+                                    <p>Displays detailed information about businesses and their reviews.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Reviews Analytics</span>
+                                    <br>
+                                    <p>Provides statistical insights and visualizations of customer reviews.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Market Analysis</span>
+                                    <br>
+                                    <p>Compares the performance of various businesses based on location and review data.
+                                    </p>
+                                </li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Stakeholders</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The primary stakeholders for the app include business 
+                                owners, market analysts, and investors who seek to 
+                                gain insights into business performance based on 
+                                customer reviews and location data. It also serves 
+                                data-driven decision-makers in industries like retail, 
+                                hospitality, and services, helping them understand market 
+                                trends, customer sentiment, and competitive positioning 
+                                in specific geographic areas.
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Gallery</h2>
+                            </span>
+
+                        </div>
+                        <div id="pra_gallery" class="popup__description_detail gallery">
+                            <span class="gallery__arrow gallery__arrow--left">&#10094;</span>
+                            <p>
+                                <img src="" alt="Gallery Image">
+                            </p>
+                            <span class="gallery__arrow gallery__arrow--right">&#10095;</span>
+                        </div>
+                    </li>
+                </ul>
+
+                </br>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="project_DINO-popup">
+        <div class="popup__content" style="display: block;">
+            <h3 class="popup__name">AI Plays Chrome Dino Game</h3>
+            <span class="popup__close" onclick="closePopup('project_DINO')">
+                <div class="arrow-left" id="arrow-left"></div>
+            </span>
+
+            <p class="popup_project_intro">
+                NEAT Chrome Dino Game is an AI-driven project where an 
+                agent is trained using the NEAT algorithm to play the 
+                Chrome Dino game autonomously.
+            </p>
+
+            <div class="closure">
+                <a href="https://github.com/noorulhudaajmal/NEAT-chrome-dino-game" class="popup__download"
+                  target="_blank"  download>Source Code <i class="fa fa-external-link"></i>
+                </a>
+            </div>
+
+            <div class="popup__right">
+                <ul class="popup__proj_desc">
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Introduction</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                NEAT Chrome Dino Game is an AI-powered Python application where the AI agent learns to play the popular Chrome Dino game. The AI model is trained using the NEAT (NeuroEvolution of Augmenting Topologies) algorithm, and after successful training, it can autonomously achieve high scores.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Scope</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project aims to develop an AI model that learns to play and improve at the Chrome Dino game using NEAT. The goal is for the agent to consistently score 1000+ points, demonstrating the success of the NEAT algorithm in reinforcement learning.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Steps</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                BizReview Analyzer features four core functionalities:
+                            <ul class="normal_bullets">
+                                <li>
+                                    <p>
+                                        Developed the Chrome Dino game from scratch using Pygame, applying OOP principles.
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        Integrated the NEAT algorithm to evolve an AI agent that learns to play the game.
+
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        Trained the AI model, saving the best-performing agent.
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        Tested and refined the agent to ensure it reaches a score of 1000+.
+                                    </p>
+                                </li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Environment</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p> The project is done in Python 3 with following key tools:
+                            <ul class="normal_bullets">
+                                <li>Pygame</li>
+                                <li>NEAT-Python</li>
+                                <li>OOP principles</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Game Development</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The game was built in Pygame, using object-oriented principles. 
+                                Key classes include:
+                            <ul class="normal_bullets">
+                                <li>Dino.</li>
+                                <li>Ground.</li>
+                                <li>Bird.</li>
+                                <li>Cactus.</li>
+                                <li>Obstacles superclass to create Bird and Cactus.</li>
+                                <br>
+                                <p>                                The game simulates the original Chrome Dino game, with randomized obstacles and a scoring system.
+                                </p>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>AI Integration (NEAT Algorithm)</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The NEAT algorithm was integrated to train an AI agent 
+                                to control the Dino’s actions 
+                                <ul class="normal_bullets">
+                                    <li>jump</li>
+                                    <li>duck</li>
+                                    <li>do nothing</li>
+                                </ul>
+                                <p>based on game state observations. The NEAT library was 
+                                    used to evolve neural networks, optimizing the agent 
+                                    to survive longer and score higher.</p>
+                                <p>The AI agent was trained over multiple generations using 
+                                    the NEAT algorithm. The fitness function was designed to 
+                                    reward the agent for surviving longer(scoring higher) and avoiding obstacles. 
+                                    After training, the best-performing agent was saved for 
+                                    future use.</p>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+
+                </br>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="project_FOAM-popup">
+        <div class="popup__content" style="display: block;">
+            <h3 class="popup__name">Future Opportunity Assessment Manager</h3>
+            <span class="popup__close" onclick="closePopup('project_FOAM')">
+                <div class="arrow-left" id="arrow-left"></div>
+            </span>
+
+            <p class="popup_project_intro">
+                The F.O.A.M dashboard is a tool that retrieves and consolidates past and
+                current U.S. government contracts. It helps contractors and businesses
+                identify new opportunities and craft winning proposals by analyzing relevant
+                data and competitor successes.
+            </p>
+
+            <div class="closure">
+                <a href="./projects/FOAM/FOAM-Project Specs Doc.pdf" class="popup__download"
+                    download>Project Specification Document <i class="fa fa-file-download"></i>
+                </a>
+            </div>
+
+            <div class="popup__right">
+                <ul class="popup__proj_desc">
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Introduction</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The Future Opportunity Assessment Manager (F.O.A.M) is a dashboard designed
+                                to consolidate new government contract opportunities and past competitor
+                                successes into a single, accessible location. The dashboard aims to aid users
+                                in spotting relevant contracts and assist in crafting proposals using previously
+                                successful strategies. The project is developed using Python and various
+                                libraries,
+                                with a focus on data manipulation, analysis, and interactive web application
+                                development.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Scope and Steps</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The scope of the F.O.A.M project includes developing a user-friendly
+                                dashboard for accessing and analyzing government contract data,
+                                providing filters and visualizations to identify relevant opportunities,
+                                and implementing features to display and analyze past competitor successes.
+                                Key steps involve:
+                            <ul class="normal_bullets">
+                                <li>Data gathering from the USAspending and SAM.gov APIs.
+                                </li>
+                                <li>Data processing with Pandas.</li>
+                                <li>Building an interactive web interface using Streamlit.</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Environment</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The F.O.A.M dashboard is built using Python, for its robust libraries for data
+                                manipulation and web application development. Key technologies include:
+                            <ul class="normal_bullets">
+                                <li>Pandas for data handling and analysis.</li>
+                                <li>Streamlit for creating the interactive dashboard</li>
+                                <li>Plotly for charting and graphing data insights</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Data Source and Data Gathering</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                Data gathering for the F.O.A.M project involves
+                            <ul class="normal_bullets">
+                                <li>USAspending API to fetch past awards data.</li>
+                                <li>SAM.gov API for current opportunities.</li>
+                            </ul>
+                            Users need to create an account on SAM.gov to obtain an API key for data access.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Dashboard</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The F.O.A.M dashboard is designed to be user-friendly and interactive,
+                                allowing users to analyze government contract opportunities and
+                                competitor information using various filters. It features various sections,
+                                including current opportunities, competitor analysis, and forecast recompetes,
+                                each equipped with filters, KPIs and visualizations to aid in data
+                                interpretation.
+                            <ul class="normal_bullets">
+                                <li>
+                                    <span>Current Opportunities</span>
+                                    <br>
+                                    <p>This section allows users to explore and filter current government
+                                        contract
+                                        opportunities. It provides detailed insights and
+                                        visualizations on different types of opportunities, agencies, and
+                                        posting dates,
+                                        helping users identify and prioritize potential contracts.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Competitor Info</span>
+                                    <br>
+                                    <p>The Competitor Info section offers detailed information about past
+                                        government
+                                        contracts awarded to competitors. It includes key metrics and
+                                        visualizations
+                                        showing the number and value of past awards by recipient and agency,
+                                        helping
+                                        users understand competitive landscape and strategies.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Forecast Recompetes</span>
+                                    <br>
+                                    <p>In the Forecast Recompetes section, users can analyze upcoming contract
+                                        recompetes and expiring contracts. Visualizations display award amounts
+                                        and timelines, aiding users in planning and preparing for future
+                                        contract
+                                        opportunities.
+                                    </p>
+                                </li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Stakeholders</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The primary stakeholders for the F.O.A.M dashboard include
+                            <ul class="normal_bullets">
+                                <li>Government contractors</li>
+                                <li>Business development teams</li>
+                                <li>Proposal writers</li>
+                            </ul>
+                            <p>These users benefit from the dashboard's ability to consolidate and analyze
+                                contract data, helping them identify new opportunities and understand
+                                competitor strategies.
+                            </p>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Gallery</h2>
+                            </span>
+
+                        </div>
+                        <div id="foam_gallery" class="popup__description_detail gallery">
+                            <span class="gallery__arrow gallery__arrow--left">&#10094;</span>
+                            <p>
+                                <img src="" alt="Gallery Image">
+                            </p>
+                            <span class="gallery__arrow gallery__arrow--right">&#10095;</span>
+                        </div>
+                    </li>
+                </ul>
+
+                </br>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="project_BPA-popup">
+        <div class="popup__content" style="display: block;">
+            <h3 class="popup__name">Business Performance Analytics</h3>
+            <span class="popup__close" onclick="closePopup('project_BPA')">
+                <div class="arrow-left" id="arrow-left"></div>
+            </span>
+
+            <p class="popup_project_intro">
+                This project was developed for an eBay seller store, leveraging their sales data
+                to generate meaningful insights.
+            </p>
+
+            <div class="closure">
+                <a href="https://github.com/noorulhudaajmal/business-performance-analytics" target="_blank"
+                    class="popup__download" download>
+                    Source Code <i class="fa fa-external-link"></i>
+                </a>
+            </div>
+
+            <div class="popup__right">
+                <ul class="popup__proj_desc">
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Introduction</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The "Business Performance Analytics" project is designed to provide a
+                                comprehensive and interactive dashboard for the Chief Financial Officer (CFO) of
+                                a company. This dashboard aims to offer deep insights into the company’s
+                                financial health, sales performance, customer behavior, demand elasticity, and
+                                marketing effectiveness. By consolidating data from various departments of the
+                                company, the
+                                dashboard enables informed decision-making and strategic planning to drive
+                                business growth and efficiency.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Scope</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The scope of the Business Performance Analytics project includes the development
+                                of a multi-functional dashboard with the following key aspects:
+                            <ul class="normal_bullets">
+                                <li>
+                                    High-level summary of financial performance and key metrics.
+                                </li>
+                                <li>Detailed analysis of sales performance, revenue, and costs.</li>
+                                <li>Insights into customer behavior, value, and segmentation.</li>
+                                <li>Analysis of how changes in price affect product demand.</li>
+                                <li>Evaluation of the effectiveness of marketing channels.</li>
+                                <li>Detailed financial reports and expense breakdown.</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Objectives</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The primary objectives of the Business Performance Analytics project are:
+                            <ul class="normal_bullets">
+                                <li>To provide the CFO with a centralized and interactive dashboard for
+                                    real-time business performance monitoring.
+                                </li>
+                                <li>To offer detailed insights into sales, customer behavior, demand elasticity,
+                                    and marketing effectiveness.</li>
+                                <li>To enhance decision-making capabilities by presenting data in a visually
+                                    appealing and easy-to-understand manner.</li>
+                                <li>To streamline financial reporting and analysis by integrating various data
+                                    sources into a single platform.</li>
+                                <li>To identify key areas for cost reduction, revenue optimization, and
+                                    strategic investment.</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Environment</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project is developed using the following technologies and tools:
+                            <ul class="normal_bullets">
+                                <li>Programming Language: Python</li>
+                                <li>Web Framework: Streamlit</li>
+                                <li>Data Visualization: Plotly, Matplotlib, Seaborn</li>
+                                <li>Data Management: Pandas, SQLAlchemy</li>
+                                <li>Version Control: Git/GitHub</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Data Specifications</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The Business Performance Analytics dashboard is structured into six main
+                                sections, each containing specific charts and figures to deliver targeted
+                                insights:
+                            <ul class="normal_bullets">
+                                <li>
+                                    <span>Overview</span>
+                                    <br>
+                                    <p>Provides a high-level summary of the company’s financial performance,
+                                        including key metrics and trends.</p>
+                                    <p>Includes visualizations for income statements, debt and equity analysis,
+                                        cash flow, and profit/loss over time.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Sales Insights</span>
+                                    <br>
+                                    <p>Focuses on detailed analysis of sales performance, revenue, and costs.
+                                    </p>
+                                    <p>Offers insights into revenue trends, product performance, cost
+                                        breakdowns, and sales volumes.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Customer's Report</span>
+                                    <br>
+                                    <p>Delivers insights into customer behavior, value, and segmentation.
+                                    </p>
+                                    <p>Includes metrics for customer lifetime value, customer acquisition costs,
+                                        sales by customer groups, and conversion rates.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Demand Elasticity</span>
+                                    <br>
+                                    <p>Analyzes the impact of price changes on product demand.
+                                    </p>
+                                    <p>Provides insights into price elasticity, product pricing strategies, and
+                                        the relationship between pricing and sales volumes.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Marketing Attribution</span>
+                                    <br>
+                                    <p>Evaluates the effectiveness of various marketing channels.</p>
+                                    <p>Includes analysis of advertising performance, conversion rates,
+                                        customer journey funnels, and average order value by marketing channels.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Accounts</span>
+                                    <br>
+                                    <p>Offers detailed financial reports and expense breakdowns.</p>
+                                    <p>Includes visualizations for cash flow, expense categorization, and
+                                        overall financial health.</p>
+                                </li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Gallery</h2>
+                            </span>
+
+                        </div>
+                        <div id="bpa_gallery" class="popup__description_detail gallery">
+                            <span class="gallery__arrow gallery__arrow--left">&#10094;</span>
+                            <p>
+                                <img src="" alt="Gallery Image">
+                            </p>
+                            <span class="gallery__arrow gallery__arrow--right">&#10095;</span>
+                        </div>
+                    </li>
+                </ul>
+
+                </br>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="project_DSLLM-popup">
+        <div class="popup__content" style="display: block;">
+            <h3 class="popup__name">Dialogue Summarization with PEFT Using Flan-T5</h3>
+            <span class="popup__close" onclick="closePopup('project_DSLLM')">
+                <div class="arrow-left" id="arrow-left"></div>
+            </span>
+
+            <p class="popup_project_intro">
+                This project was completed while learning about LLMs in the course
+                <a href="https://www.coursera.org/learn/generative-ai-with-llms">Generative AI with LLMs</a>
+                taught by DeepLearning.ai.
+            </p>
+
+            <div class="closure">
+                <a href="https://github.com/noorulhudaajmal/Generative-AI-with-LLMs/tree/main"
+                    target="_blank" class="popup__download" download>
+                    Source Code <i class="fa fa-external-link"></i>
+                </a>
+            </div>
+
+            <div class="popup__right">
+                <ul class="popup__proj_desc">
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Introduction</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                This project focuses on enhancing daily-life dialogue summarization
+                                by fine-tuning the Flan-T5 model. The objective is to explore Parameter
+                                Efficient Fine-Tuning (PEFT) techniques to improve the model's
+                                performance in generating concise and accurate summaries of everyday
+                                conversations.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Scope</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The scope of this project encompasses the implementation and
+                                comparison of two fine-tuning approaches:
+                            <ul class="normal_bullets">
+                                <li>Full Fine-Tuning</li>
+                                <li>PEFT using the LoRA (Low-Rank Adaptation) method</li>
+                            </ul>
+                            <p>The project aims to achieve better summarization results with reduced
+                                computational overhead and training time.
+                            </p>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Steps</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                            <ul class="normal_bullets">
+                                <li>
+                                    <span>Dataset Loading</span>
+                                    <br>
+                                    <p>Using the Hugging Face "knkarthick/dialogsum" dataset.</p>
+                                </li>
+                                <li>
+                                    <span>Model Initialization</span>
+                                    <br>
+                                    <p>Loading the base Flan-T5 model and tokenizer.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Zero-Shot Inferencing</span>
+                                    <br>
+                                    <p>Conducting initial tests to establish a baseline performance.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Data Preprocessing</span>
+                                    <br>
+                                    <p>Preparing the dataset by formatting dialogue-summary pairs into the
+                                        required prompt structure, i-e:
+                                        <br>
+                                        Prompt:
+                                        <span>
+                                            Summarize the following conversation.
+                                            <br>
+                                            Chris: This is his part of the conversation.
+                                            <br>
+                                            Antje: This is her part of the conversation.
+                                            <br>Summary:
+                                        </span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Full Fine-Tuning</span>
+                                    <br>
+                                    <p>Training the model with the entire dataset using standard fine-tuning
+                                        techniques.</p>
+                                </li>
+                                <li>
+                                    <span>PEFT Implementation</span>
+                                    <br>
+                                    <p>Introducing and training the model with LoRA adapters.</p>
+                                </li>
+                                <li>
+                                    <span>Model Evaluation</span>
+                                    <br>
+                                    <p>Assessing performance through qualitative human evaluations and
+                                        quantitative metrics like ROUGE.</p>
+                                </li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Environment</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project is developed using the following technologies and tools:
+                            <ul class="normal_bullets">
+                                <li>
+                                    Programming Language: <span>Python</span>
+                                </li>
+                                <li>
+                                    Libraries: <span>Hugging Face Transformers, Datasets, PyTorch, PEFT</span>
+                                </li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Data Source and Data Gathering</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The primary data source for this project is the "knkarthick/dialogsum"
+                                dataset available on Hugging Face. This dataset contains various
+                                dialogue-summary pairs, which are essential for training and evaluating
+                                the summarization model.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Model Building</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The model building process began with loading the Hugging Face
+                                "knkarthick/dialogsum" dataset and initializing the Flan-T5 base model along
+                                with its tokenizer. We first conducted zero-shot inferencing to establish a
+                                performance baseline. The dataset was then preprocessed by formatting
+                                dialogue-summary pairs into structured prompts suitable for the model. For full
+                                fine-tuning, the Flan-T5 model was trained using the entire dataset with
+                                specific parameters like learning rate, epochs, and weight decay. Subsequently,
+                                we implemented Parameter Efficient Fine-Tuning (PEFT) using the LoRA method,
+                                which involved adding low-rank adapter layers to the base model and freezing its
+                                parameters, allowing only the adapters to be trained. This dual approach allowed
+                                us to compare the efficacy of traditional fine-tuning against the more efficient
+                                PEFT method.
+                                <br>
+                                Below is the summary of approach-specific model training.
+                            <ul class="normal_bullets">
+                                <li>
+                                    <span>Full Fine-Tuning</span>
+                                    <br>
+                                    <p>Trained the Flan-T5 model on the entire dataset.</p>
+                                    <p>Training parameters such as learning rate, number of epochs,
+                                        and weight decay configured as follow:</p>
+                                    <p>
+                                    <table class="popup__table">
+                                        <tr>
+                                            <th>Training Parameter</th>
+                                            <th>Description</th>
+                                            <th>Value</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Learning Rate</td>
+                                            <td>Rate of learning updates</td>
+                                            <td>0.00001</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Epochs</td>
+                                            <td>Number of training steps</td>
+                                            <td>15</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Weight Decay</td>
+                                            <td>Regularization term</td>
+                                            <td>0.01</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Max Steps</td>
+                                            <td>Maximum training steps</td>
+                                            <td>10</td>
+                                        </tr>
+                                    </table>
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <span>PEFT with LoRA</span>
+                                    <br>
+                                    <p>Added with LoRA adapter layers to the base model.</p>
+                                    <p>Freezing the underlying model parameters and only training the adapter layers.</p>
+                                    <p>
+                                        PEFT-specific training parameters configured as:
+                                    <table class="popup__table">
+                                        <tr>
+                                            <th>PEFT-Training Parameter</th>
+                                            <th>Description</th>
+                                            <th>Value</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Rank</td>
+                                            <td>Low-rank matrix size</td>
+                                            <td>32</td>
+                                        </tr>
+                                        <tr>
+                                            <td>LoRA alpha</td>
+                                            <td>Scaling factor</td>
+                                            <td>32</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Target Modules</td>
+                                            <td>Modules to adapt</td>
+                                            <td>q, v</td>
+                                        </tr>
+                                        <tr>
+                                            <td>LoRA Dropout</td>
+                                            <td>Dropout rate</td>
+                                            <td>0.05</td>
+                                        </tr>
+                                    </table>
+                                    </p>
+                                    <p>
+                                    Grneral Model Training parameters configured as:
+                                    <table class="popup__table">
+                                        <tr>
+                                            <th>Training Parameter</th>
+                                            <td>Description</td>
+                                            <th>Value</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Leanring Rate</td>
+                                            <td>Rate of learning updates</td>
+                                            <td>32</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Epochs</td>
+                                            <td>Number of training cycles</td>
+                                            <td>32</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Max Steps</td>
+                                            <td>Maximum training steps</td>
+                                            <td>150</td>
+                                        </tr>
+                                    </table>
+                                    </p>
+                                </li>
+
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Model Results</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                            <ul class="normal_bullets">
+                                <li>
+                                    <span>Full Fine-Tuning Results</span>
+                                    <br>
+                                    <p>Qualitatively, the generated summaries be evaluated by humans.</p>
+                                    <p>
+                                    <table class="popup__table">
+                                        <tr>
+                                            <td>Baseline Summary</td>
+                                            <td>Person1 teaches Person2 how to upgrade software and hardware in
+                                                Person2's system.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Origional Model</td>
+                                            <td>Person1: Have you considered upgrading your system?</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fine-Tuned model</td>
+                                            <td>Person1: I'm thinking of upgrading my computer.</td>
+                                        </tr>
+                                    </table>
+                                    </p>
+                                    <p>Quantitative evaluation was done using ROUGE score.</p>
+                                    <p>
+                                    <table class="popup__table">
+                                        <tr>
+                                            <th></th>
+                                            <th>ROUGE-1</th>
+                                            <th>ROUGE-2</th>
+                                            <th>ROUGE-L</th>
+                                            <th>ROUGE-Lsum</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Origional Model</td>
+                                            <td>0.2111</td>
+                                            <td>0.0613</td>
+                                            <td>0.1799</td>
+                                            <td>0.1800</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Full Fine-Tuned Model</td>
+                                            <td>0.2329</td>
+                                            <td>0.0724</td>
+                                            <td>0.2015</td>
+                                            <td>0.2015</td>
+                                        </tr>
+                                    </table>
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <span>PEFT Results</span>
+                                    <br>
+                                    <p>Qualitatively, the generated summaries be evaluated as follows.</p>
+                                    <p>
+                                    <table class="popup__table">
+                                        <tr>
+                                            <td>Baseline Summary</td>
+                                            <td>Person1 teaches Person2 how to upgrade software and hardware in
+                                                Person2's system.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Origional Model</td>
+                                            <td>Person1: I'm thinking of upgrading my computer.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>PEFT model</td>
+                                            <td>Upgrade your computer.</td>
+                                        </tr>
+                                    </table>
+                                    </p>
+                                    <p>For Quantitative evaluation, ROUGE score was used.</p>
+                                    <p>
+                                    <table class="popup__table">
+                                        <tr>
+                                            <th></th>
+                                            <th>ROUGE-1</th>
+                                            <th>ROUGE-2</th>
+                                            <th>ROUGE-L</th>
+                                            <th>ROUGE-Lsum</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Origional Model</td>
+                                            <td>0.2409</td>
+                                            <td>0.1177</td>
+                                            <td>0.2200</td>
+                                            <td>0.2213</td>
+                                        </tr>
+                                        <tr>
+                                            <td>PEFT Model</td>
+                                            <td>0.3007</td>
+                                            <td>0.1434</td>
+                                            <td>0.2475</td>
+                                            <td>0.2506</td>
+                                        </tr>
+                                    </table>
+                                    </p>
+                                </li>
+                            </ul>
+                            <p>The PEFT-enhanced model demonstrated superior performance over the fully
+                                fine-tuned model, achieving higher ROUGE scores and producing more accurate
+                                and concise summaries. With a 5.98% improvement in ROUGE-1, the PEFT
+                                approach proves to be more efficient and effective for dialogue summarization.
+                            </p>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+
+                </br>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="project_CCC-popup">
+        <div class="popup__content" style="display: block;">
+            <h3 class="popup__name">Chest Cancer Classification Using MLFlow and CI/CD</h3>
+            <span class="popup__close" onclick="closePopup('project_CCC')">
+                <div class="arrow-left" id="arrow-left"></div>
+            </span>
+
+            <p class="popup_project_intro">
+                Chest Cancer Classification using MLFlow and CI/CD is a deep learning project that classifies chest cancer from CT scan images. It utilizes MLFlow for experiment tracking, employs pre-trained models, and integrates CI/CD for seamless deployment on AWS EC2 using GitHub Actions and Docker.
+            </p>
+
+            <div class="closure">
+                <a href="https://github.com/noorulhudaajmal/chest-cancer-classification-using-MLfLow" target="_blank"
+                    class="popup__download" target="_blank" download>
+                    Source Code <i class="fa fa-external-link"></i>
+                </a>
+            </div>
+
+            <div class="popup__right">
+                <ul class="popup__proj_desc">
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Introduction</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                Chest Cancer Classification using MLFlow is a deep learning project focused on detecting chest cancer from CT scan images. The project incorporates MLFlow for experiment tracking, CI/CD for deployment, and utilizes pre-trained models like VGG16, MobileNet, and ResNet50 for classification.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Scope</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project aims to streamline chest cancer detection by training deep learning classifiers using chest CT scan images. It also practices CI/CD principles for seamless deployment and robustness in machine learning applications.
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Steps</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                            <ul class="normal_bullets">
+                                <li>Integrated the Kaggle chest CT scan dataset for data ingestion.
+                                </li>
+                                <li>Implemented pre-trained models (VGG16, MobileNet, ResNet50) using the Keras API for classification.
+                                </li>
+                                <li>Tracked experiments, hyperparameters, and performance using MLFlow.
+                                </li>
+                                <li>Deployed the model using GitHub Actions, Docker, and AWS EC2 for production.
+                                </li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Data Source & Data Handling</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project uses a Kaggle chest CT scan dataset for classification tasks. 
+                                Data ingestion is managed using the Strategy pattern, supporting local, Kaggle, and Google Drive data sources, that
+                                can be configured in YAML configuration file.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Tech Stack</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                Key technologies and tools used in building the project include:
+                            <ul class="normal_bullets">
+                                <li>Python</li>
+                                <li>Keras Pre-trained models (VGG16, MobileNet, ResNet50)</li>
+                                <li>MLFlow</li>
+                                <li>GitHub Actions</li>
+                                <li>AWS EC2</li>
+                                <li>Docker</li>
+                                <li>Streamlit</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Model Training & Experiment Tracking
+                                </h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                            <ul class="normal_bullets">
+                                <li>The project utilizes Keras pre-trained models, enabling flexibility in model selection.</li>
+                                <li> MLFlow is employed to track experiments, log metrics, and store model artifacts for comparison and versioning.
+                                </li>
+                                <li>YAML configuration files allow customization of training parameters and data ingestion methods.</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>CI/CD & Deployment</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                            <ul class="normal_bullets">
+                                <li>GitHub Actions was set up for continuous integration, building a Docker image of the application, and pushing it to AWS ECR.</li>
+                                <li>The application was deployed on an EC2 instance to serve the model through a Streamlit app for real-time prediction.</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+                </br>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="project_HPP-popup">
+        <div class="popup__content" style="display: block;">
+            <h3 class="popup__name">US House Price Prediction Modeling</h3>
+            <span class="popup__close" onclick="closePopup('project_HPP')">
+                <div class="arrow-left" id="arrow-left"></div>
+            </span>
+
+            <p class="popup_project_intro">
+                House Price Prediction is a comprehensive ML project that predicts house prices using the Ames Housing dataset from Kaggle. It employs MLflow for experiment tracking, integrates a Flask API for real-time predictions, and features a Streamlit app for user interaction.
+            </p>
+
+            <div class="closure">
+                <a href="https://github.com/noorulhudaajmal/price-predictor" target="_blank"
+                    class="popup__download" target="_blank" download>
+                    Source Code <i class="fa fa-external-link"></i>
+                </a>
+            </div>
+
+            <div class="popup__right">
+                <ul class="popup__proj_desc">
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Introduction</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                House Price Prediction is an end-to-end machine learning project that predicts house prices based on input features. It leverages MLflow for experiment tracking and model management, and integrates a Flask API with a Streamlit app for real-time predictions.                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Scope</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project aims to predict house prices using a comprehensive ML pipeline that includes data preprocessing, model training, and deployment. It focuses on using design patterns for robust code, with a strong emphasis on data analysis and feature engineering.                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Steps</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                            <ul class="normal_bullets">
+                                <li>Performed extensive data analysis and preprocessing to enhance model performance.
+                                </li>
+                                <li>Developed a training pipeline and tracked experiments using MLflow.
+                                </li>
+                                <li>Deployed the model with a Flask API for real-time predictions.
+                                </li>
+                                <li>Created a Streamlit app for user interaction and integrated it with the Flask API.
+                                </li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Data Source</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project utilizes the Ames Housing dataset from Kaggle, 
+                                which contains comprehensive information about housing features and sale prices. 
+                                It has rich set of attributes, including both numerical and categorical features 
+                                that provide insights into various aspects of the properties.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Tech Stack</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                Key technologies and tools used in building the project include:
+                            <ul class="normal_bullets">
+                                <li>Python</li>
+                                <li>MLFlow</li>
+                                <li>Flask</li>
+                                <li>Streamlit</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Model Training & Experiment Tracking
+                                </h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The model training pipeline uses MLflow to track experiments, log metrics, and manage model versions. The trained model is registered in MLflow, allowing for easy versioning and comparison of different models.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Local Deployment</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The trained model is served through a Flask API with an endpoint /predict for real-time predictions. The API uses an inference pipeline to load the model from MLflow and respond to prediction requests.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Frontend Integration
+                                </h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                A Streamlit app provides a user-friendly interface for inputting data and receiving predictions. The app communicates with the Flask API to get predictions and display results to the user.                            </p>
+                        </div>
+                    </li>
+                </ul>
+
+                </br>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="project_IMA-popup">
+        <div class="popup__content" style="display: block;">
+            <h3 class="popup__name">Inventory Management App</h3>
+            <span class="popup__close" onclick="closePopup('project_IMA')">
+                <div class="arrow-left" id="arrow-left"></div>
+            </span>
+
+            <p class="popup_project_intro">
+                The project was done in collaboration with <a href="https://www.ammoniteco.com/"
+                    target="_blank">Ammonite LLC</a>, a shipping company that offers intermodal logistics
+                services to traders, retailers, freight forwarders, shipping lines, and other groups. The
+                goal is to provide company with real-time insights and analytics to make informed decisions
+                regarding inventory management and trading activities.
+            </p>
+
+            <div class="closure">
+                <a href="./projects/IMA/IMA-Project proposal.pdf" class="popup__download" download>Project
+                    Proposal    <i class="fa fa-file-download"></i>
+                </a>
+                <a href="./projects/IMA/IMA-Specification Document.pdf" class="popup__download" download>Project
+                    Specs    <i class="fa fa-file-download"></i>
+                </a>
+                <a href="https://github.com/noorulhudaajmal/Inventory-Management-Dashboard" class="popup__download" target="_blank" >Source Code<i class="ri-code-line"></i>
+                </a>
+            </div>
+
+            <div class="popup__right">
+                <ul class="popup__proj_desc">
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Introduction</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The Inventory Management App for Ammonite LLC is a web-based
+                                application designed to streamline the analysis and presentation of container
+                                shipping, inventory management, and trading activities. Utilizing the power of
+                                the Streamlit framework, this app integrates multiple data sources to provide
+                                real-time insights and analytics, helping Ammonite LLC optimize their operations
+                                and decision-making processes.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Scope and Steps</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The project aims to develop a comprehensive dashboard that covers various
+                                aspects of inventory management, including tracking inventory levels, analyzing
+                                sales and costs, monitoring inventory movement, updating sales port information,
+                                analyzing trading prices, and providing commodity prices and relevant news.
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Steps</h2>
+                            </span>
+
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                            <ul class="normal_bullets">
+                                <li>Requirements Gathering: Collaborate with Ammonite LLC to understand their
+                                    needs and identify key metrics and functionalities.
+                                </li>
+                                <li>Data Collection: Gather data from various sources, including internal
+                                    databases and external APIs.</li>
+                                <li>Data Processing: Clean and preprocess the collected data to ensure it is
+                                    suitable for analysis.</li>
+                                <li>Dashboard Design: Design the layout and user interface of the dashboard to
+                                    ensure it is intuitive and user-friendly.</li>
+                                <li>Feature Implementation: Develop and integrate the required features into the
+                                    dashboard, including various plots and analytics.</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Project Environment</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The app is built using Python. Key technologies & tools include:
+                            <ul class="normal_bullets">
+                                <li>Framework: Streamlit</li>
+                                <li>Libraries: Pandas, Plotly, yfinance, BeautifulSoup and other data processing
+                                    and visualization libraries
+                                </li>
+                                <li>Version Control: Git and GitHub for version control and collaboration</li>
+                                <li>Deployment Platform: Streamlit Cloud Sharing</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Data Source and Data Gathering</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                            <ul class="normal_bullets">
+                                <li>Internal Databases: Data on inventory levels, sales, costs, and transactions
+                                    from Ammonite LLC’s internal systems.</li>
+                                <li>External APIs: Commodity prices fetched from yfinance API.</li>
+                                <li>News Sources: Company news integrated from the company’s Telegram channel.
+                                </li>
+                                <li>Frieght Pricig Data: Acquired from <a
+                                        href="https://moverdb.com/container-shipping/united-states/"
+                                        target="_blank">MoverDB.com</a>, the Sea Freight Container Shipping
+                                    Rates To & From The US.</li>
+                                <li>Global Events Data: Geo-political calendar data collected from <a
+                                        href="https://www.controlrisks.com/our-thinking/geopolitical-calendar"
+                                        target="_blank">ControlRisk.com</a>.
+                                </li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>App Specifications</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                                The Inventory Management App features a comprehensive dashboard with multiple
+                                tabs, each providing crucial insights and functionalities for effective
+                                inventory and trading management. These tabs includes:
+                            <ul class="normal_bullets">
+                                <li>
+                                    <span>Overview</span>
+                                    <br>
+                                    <p>Offers a snapshot of key metrics, helping users quickly
+                                        grasp the overall status of inventory levels and financial performance.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Sales & Costs</span>
+                                    <br>
+                                    <p>Provides detailed analysis of inventory sales and cost structure.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Inventory In/Out</span>
+                                    <br>
+                                    <p>Tracks the movement of inventory, ensuring accurate stock management and
+                                        timely replenishment.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Sales' Ports</span>
+                                    <br>
+                                    <p>Provides updates on sales activities across different ports, facilitating
+                                        better logistics planning and coordination.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Trading Prices</span>
+                                    <br>
+                                    <p>Offers real-time analysis of commodity prices, aiding users in making
+                                        informed trading decisions.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Commodities</span>
+                                    <br>
+                                    <p> Integrates data from yfinance to provide up-to-date information on
+                                        commodity prices and market
+                                        trends.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>Calendar</span>
+                                    <br>
+                                    <p>Includes a geo-political calendar to keep users
+                                        informed about global events that might impact operations.
+                                    </p>
+                                </li>
+                                <li>
+                                    <span>News</span>
+                                    <br>
+                                    <p>Consolidates relevant news and updates from the company's Telegram
+                                        channel,
+                                        keeping users informed about recent developments and strategic insights.
+                                    </p>
+                                </li>
+                            </ul>
+                            <p>All combined, the App provide a holistic view of operations, helping users make
+                                well-informed decisions, optimize
+                                inventory levels, enhance sales strategies, and stay updated on market trends
+                                and global events.</p>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="popup__description_item">
+                            <span class="popup__arrow"></span>
+                            <span style="display: inline-block;">
+                                <h2>Goal</h2>
+                            </span>
+                        </div>
+                        <div class="popup__description_detail">
+                            <p>
+                            <ul class="normal_bullets">
+                                <li>Provide Ammonite LLC with real-time insights and analytics to make informed
+                                    decisions regarding inventory management and trading activities.
+                                </li>
+                                <li>Streamline the process of tracking inventory and analyzing sales and costs,
+                                    reducing manual effort and increasing efficiency.
+                                </li>
+                                <li>Ensure the app is user-friendly, encouraging widespread adoption within the
+                                    company.
+                                </li>
+                            </ul>
+
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+
+                </br>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
