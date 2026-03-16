@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chest Cancer Classification</title>
+  <link rel="stylesheet" href="../style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+
+    body {
+      background: white;
+    }
+
+    .page-wrap {
+      padding: 0 clamp(28px, 6vw, 96px) 120px;
+    }
+
+    /* ── Hero ── */
+    .proj-hero {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-card);
+      padding: 112px clamp(28px, 6vw, 96px) 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proj-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 55% 70% at 80% 35%, rgba(37, 99, 235, 0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 48px;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-secondary);
+      background: rgba(124, 58, 237, 0.07);
+      border: 1px solid rgba(124, 58, 237, 0.18);
+      border-radius: 3px;
+      padding: 4px 10px;
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.8vw, 3rem);
+      color: var(--text-primary);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(0.98rem, 1.7vw, 1.22rem);
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      /* max-width: 620px; */
+      margin-bottom: 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 9px 16px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+
+    .hero-btn.primary {
+      background: var(--accent-primary);
+      color: #fff;
+      border: 1px solid var(--accent-primary);
+    }
+
+    .hero-btn.primary:hover {
+      background: #1d4ed8;
+      border-color: #1d4ed8;
+    }
+
+    .hero-btn.secondary {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-card);
+    }
+
+    .hero-btn.secondary:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .meta-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .meta-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    .meta-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    .meta-value {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .meta-value.green {
+      color: #16a34a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meta-value.green::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: #16a34a;
+      border-radius: 50%;
+    }
+
+    /* ── Back link ── */
+    .back-link-wrap {
+      padding: 32px 0 0;
+    }
+
+    .back-link-wrap a {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .back-link-wrap a:hover {
+      color: var(--accent-primary);
+    }
+
+    /* ── Sections ── */
+    .proj-section {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border-card);
+    }
+
+    .proj-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .proj-section-title {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-primary);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .proj-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-card);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px 56px;
+      align-items: start;
+    }
+
+    .two-col.wide-left {
+      grid-template-columns: 1.4fr 1fr;
+    }
+
+    .proj-p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.88;
+      margin-bottom: 16px;
+    }
+
+    .proj-p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ── Lists ── */
+    .proj-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .proj-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      font-size: 0.97rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding: 13px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+    }
+
+    .proj-list li .li-icon {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--accent-primary);
+      flex-shrink: 0;
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(37, 99, 235, 0.15);
+      border-radius: 3px;
+      padding: 2px 7px;
+    }
+
+    .proj-list-2col {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .proj-list-2col li {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-size: 0.97rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      padding: 13px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+    }
+
+    .proj-list-2col li .li-icon {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--accent-primary);
+      flex-shrink: 0;
+      background: rgba(37, 99, 235, 0.07);
+      border: 1px solid rgba(37, 99, 235, 0.14);
+      border-radius: 3px;
+      padding: 2px 6px;
+    }
+
+    /* ── Learning callout ── */
+    .learning-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      background: rgba(124, 58, 237, 0.04);
+      border: 1px solid rgba(124, 58, 237, 0.16);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 32px;
+    }
+
+    .learning-box-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .learning-box-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-secondary);
+      margin-bottom: 4px;
+    }
+
+    .learning-box p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.68;
+      margin: 0;
+    }
+
+    /* ── Model comparison cards ── */
+    .model-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+
+    .model-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 20px 22px;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .model-card:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    }
+
+    .model-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .model-card:nth-child(1)::before {
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
+    }
+
+    .model-card:nth-child(2)::before {
+      background: linear-gradient(90deg, #7c3aed, #a78bfa);
+    }
+
+    .model-card:nth-child(3)::before {
+      background: linear-gradient(90deg, #0891b2, #67e8f9);
+    }
+
+    .model-card-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .model-card-type {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .model-card p {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* ── Pipeline steps ── */
+    .pipeline-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+
+    .pipeline-steps::before {
+      content: '';
+      position: absolute;
+      left: 23px;
+      top: 28px;
+      bottom: 28px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent-primary), rgba(37, 99, 235, 0.1));
+    }
+
+    .pipeline-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 16px 0;
+    }
+
+    .pipeline-step-num {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1.5px solid rgba(37, 99, 235, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--accent-primary);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 0 4px var(--bg-primary);
+    }
+
+    .pipeline-step-body {
+      padding-top: 10px;
+      flex: 1;
+    }
+
+    .pipeline-step-name {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .pipeline-step-desc {
+      font-size: 0.87rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .pipeline-step-tag {
+      display: inline-block;
+      margin-top: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--accent-primary);
+      background: rgba(37, 99, 235, 0.06);
+      border: 1px solid rgba(37, 99, 235, 0.14);
+      border-radius: 3px;
+      padding: 2px 8px;
+    }
+
+    /* ── CI/CD flow ── */
+    .cicd-flow {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+    }
+
+    .cicd-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      min-width: 90px;
+    }
+
+    .cicd-step-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid var(--border-card);
+      background: var(--bg-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .cicd-step-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .cicd-arrow {
+      font-size: 1rem;
+      color: var(--text-muted);
+      padding: 0 4px;
+      flex-shrink: 0;
+      margin-bottom: 16px;
+    }
+
+    /* ── MLFlow callout ── */
+    .mlflow-box {
+      background: rgba(37, 99, 235, 0.04);
+      border: 1px solid rgba(37, 99, 235, 0.14);
+      border-radius: var(--radius-md);
+      padding: 24px 26px;
+    }
+
+    .mlflow-box-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mlflow-box-title span {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-primary);
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(37, 99, 235, 0.18);
+      border-radius: 3px;
+      padding: 2px 8px;
+    }
+
+    .mlflow-box p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    /* ── Challenges ── */
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .challenge-item {
+      padding: 22px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-top: 3px solid var(--accent-primary);
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .challenge-item:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    }
+
+    .challenge-badge {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #b45309;
+      background: rgba(180, 83, 9, 0.07);
+      border: 1px solid rgba(180, 83, 9, 0.18);
+      border-radius: 3px;
+      padding: 2px 8px;
+    }
+
+    .challenge-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .challenge-desc {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.68;
+    }
+
+    .challenge-solution-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #16a34a;
+      margin-top: 14px;
+      margin-bottom: 5px;
+    }
+
+    /* ── Impact ── */
+    .impact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .impact-item {
+      display: flex;
+      align-items: stretch;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .impact-item-accent {
+      width: 4px;
+      flex-shrink: 0;
+      background: linear-gradient(to bottom, var(--accent-primary), var(--accent-secondary));
+    }
+
+    .impact-item-body {
+      padding: 18px 22px;
+      flex: 1;
+    }
+
+    .impact-desc {
+      font-size: 0.97rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* ── Outcome ── */
+    .outcome-box {
+      background: rgba(37, 99, 235, 0.04);
+      border: 1px solid rgba(37, 99, 235, 0.14);
+      border-left: 4px solid var(--accent-primary);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 32px 36px;
+    }
+
+    .outcome-box p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.88;
+      margin-bottom: 14px;
+    }
+
+    .outcome-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .bottom-nav {
+      padding-top: 48px;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .meta-stack {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .meta-card {
+        flex: 1 1 150px;
+      }
+
+      .two-col,
+      .two-col.wide-left {
+        grid-template-columns: 1fr;
+      }
+
+      .model-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .challenge-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cicd-flow {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .proj-list-2col {
+        grid-template-columns: 1fr;
+      }
+
+      .model-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .meta-stack {
+        flex-direction: column;
+      }
+
+      .meta-card {
+        flex: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav id="navbar">
+    <a href="../index.html" class="nav-logo">H<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#contact" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="proj-hero">
+    <div class="hero-grid" id="heroContent">
+      <div>
+        <span class="hero-badge">ML Infrastructure & MLOps</span>
+        <h1 class="hero-title">Chest Cancer Classification<br>using MLflow & CI/CD</h1>
+        <p class="hero-subtitle">Deep learning + MLOps pipeline · VGG16 · MobileNet · ResNet50 · AWS</p>
+        <p class="hero-desc">
+          A deep learning project that classifies chest cancer from CT scan images, built as an end-to-end MLOps
+          learning exercise covering transfer learning with pre-trained CNNs, MLflow experiment tracking and a full
+          CI/CD deployment pipeline using GitHub Actions, Docker and AWS EC2.
+        </p>
+        <div class="hero-actions">
+          <a href="https://github.com/noorulhudaajmal/chest-cancer-classification-using-MLfLow" target="_blank"
+            class="hero-btn primary">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+            </svg>
+            View Source Code
+          </a>
+        </div>
+        <div class="hero-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Keras</span>
+          <span class="tech-tag">VGG16</span>
+          <span class="tech-tag">MobileNet</span>
+          <span class="tech-tag">ResNet50</span>
+          <span class="tech-tag">MLflow</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">GitHub Actions</span>
+          <span class="tech-tag">AWS EC2</span>
+          <span class="tech-tag">Streamlit</span>
+        </div>
+      </div>
+      <div class="meta-stack">
+        <div class="meta-card">
+          <div class="meta-label">Domain</div>
+          <div class="meta-value">Medical Imaging · MLOps</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Context</div>
+          <div class="meta-value">MLOps learning project</div>
+        </div>
+        <!-- <div class="meta-card">
+          <div class="meta-label">Models</div>
+          <div class="meta-value">VGG16 · MobileNet · ResNet50</div>
+        </div> -->
+        <div class="meta-card">
+          <div class="meta-label">Tracking</div>
+          <div class="meta-value">MLflow experiment logging</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Deployment</div>
+          <div class="meta-value">Docker · AWS EC2 · GitHub Actions</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-wrap">
+    <div class="back-link-wrap">
+      <a href="../index.html#projects">← Back to Projects</a>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="proj-section" id="s-overview">
+      <div class="proj-section-title">Overview</div>
+
+      <div class="learning-box">
+        <div class="learning-box-icon">📚</div>
+        <div>
+          <div class="learning-box-label">MLOps Learning Project</div>
+          <p>This project was built while learning MLOps practices, specifically to get hands-on experience with
+            experiment tracking, model versioning, containerization and CI/CD deployment pipelines in a real deep
+            learning context.</p>
+        </div>
+      </div>
+
+      <div class="wide-left">
+        <div>
+          <p class="proj-p">
+            This project combines deep learning for medical image classification with a full MLOps pipeline, the goal
+            being not just to build a working classifier but to practice the infrastructure and workflows that make ML
+            models reproducible, trackable and deployable in production.
+          </p>
+          <p class="proj-p">
+            The classification task involves detecting chest cancer from CT scan images using transfer learning with
+            pre-trained convolutional neural networks (VGG16, MobileNet, ResNet50) via Keras. MLflow is used throughout
+            training to log hyperparameters, track metrics across experiments, store model artifacts and compare runs.
+            The deployment pipeline uses GitHub Actions to build a Docker image on each commit, push it to AWS ECR and
+            deploy the updated application to an EC2 instance, where a Streamlit app serves real-time predictions. Data
+            ingestion is designed using the Strategy pattern with YAML configuration, supporting local, Kaggle and
+            Google Drive sources interchangeably.
+          </p>
+        </div>
+        <div>
+          <!-- <div
+            style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px;margin-bottom:16px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+              What this project practices</div>
+            <ul class="proj-list" style="gap:8px;">
+              <li><span class="li-icon">→</span> Transfer learning with Keras pre-trained CNNs</li>
+              <li><span class="li-icon">→</span> MLflow experiment tracking and model registry</li>
+              <li><span class="li-icon">→</span> Configurable data ingestion via Strategy pattern</li>
+              <li><span class="li-icon">→</span> CI/CD with GitHub Actions + Docker</li>
+              <li><span class="li-icon">→</span> Cloud deployment on AWS EC2 via ECR</li>
+              <li><span class="li-icon">→</span> Streamlit app for real-time model serving</li>
+            </ul>
+          </div> -->
+          <div
+            style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px; margin-top: 20px; max-width: max-content;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">
+              Data source</div>
+            <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">
+              <a href="https://www.kaggle.com/datasets/mohamedhanyyy/chest-ctscan-images/data" style="text-decoration: none;">Kaggle chest CT scan dataset</a> for binary cancer classification. Ingestion method is configurable via YAML and supports Kaggle
+              API, Google Drive or local file paths without code changes.</p>
+            <div style="display:flex;gap:6px;"><span class="tech-tag">Kaggle Dataset</span><span class="tech-tag">YAML
+                Config</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODELS -->
+    <div class="proj-section" id="s-models">
+      <div class="proj-section-title">Pre-trained Models</div>
+      <!-- max-width:720px; -->
+      <p class="proj-p" style="margin-bottom:28px;">
+        Three Keras pre-trained CNN architectures were used and compared, all fine-tuned on the chest CT scan
+        dataset. MLflow tracked each model's training run separately, enabling direct metric comparison across
+        architectures.
+      </p>
+      <div class="model-grid">
+        <div class="model-card">
+          <div class="model-card-name">VGG16</div>
+          <div class="model-card-type">Deep CNN · Oxford VGG Group</div>
+          <p>16-layer deep convolutional network with uniform 3×3 filter architecture. Strong baseline for image
+            classification with well-understood feature representations from ImageNet pretraining.</p>
+        </div>
+        <div class="model-card">
+          <div class="model-card-name">MobileNet</div>
+          <div class="model-card-type">Lightweight CNN · Google</div>
+          <p>Depth-wise separable convolutions for efficient inference with significantly fewer parameters. Suited for
+            resource-constrained deployment while maintaining competitive accuracy.</p>
+        </div>
+        <div class="model-card">
+          <div class="model-card-name">ResNet50</div>
+          <div class="model-card-type">Residual Network · Microsoft</div>
+          <p>50-layer residual network with skip connections that solve the vanishing gradient problem. Enables deeper
+            feature extraction without degradation, strong performance on medical imaging tasks.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MLFLOW + TRAINING -->
+    <div class="proj-section" id="s-training">
+      <div class="proj-section-title">Experiment Tracking with MLflow</div>
+      <div class="two-col wide-left">
+        <div class="pipeline-steps">
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">01</div>
+            <div class="pipeline-step-body">
+              <div class="pipeline-step-name">Data Ingestion</div>
+              <div class="pipeline-step-desc">Dataset source is configured in a YAML file and Strategy pattern allows
+                switching between Kaggle API, Google Drive and local paths without changing code. Raw CT scan images
+                are fetched and staged for preprocessing.</div>
+              <span class="pipeline-step-tag">Strategy Pattern · YAML Config</span>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">02</div>
+            <div class="pipeline-step-body">
+              <div class="pipeline-step-name">Preprocessing & Augmentation</div>
+              <div class="pipeline-step-desc">CT scan images are resized to match each model's input requirements,
+                normalized and augmented with flips, rotations and zoom to improve generalization on the limited
+                medical dataset.</div>
+              <span class="pipeline-step-tag">Keras ImageDataGenerator</span>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">03</div>
+            <div class="pipeline-step-body">
+              <div class="pipeline-step-name">Transfer Learning Fine-tuning</div>
+              <div class="pipeline-step-desc">Pre-trained ImageNet weights are loaded for each model. The classification
+                head is replaced with task-specific dense layers and upper layers are fine-tuned on the CT scan dataset
+                with configurable training parameters.</div>
+              <span class="pipeline-step-tag">Keras · VGG16 · MobileNet · ResNet50</span>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">04</div>
+            <div class="pipeline-step-body">
+              <div class="pipeline-step-name">MLflow Experiment Logging</div>
+              <div class="pipeline-step-desc">Each training run is logged to MLflow capturing hyperparameters, epoch-level metrics and the trained model artifact for versioning and comparison.</div>
+              <span class="pipeline-step-tag">MLflow · Experiment Tracking · Model Registry</span>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">05</div>
+            <div class="pipeline-step-body">
+              <div class="pipeline-step-name">Model Comparison & Selection</div>
+              <div class="pipeline-step-desc">MLflow UI enables side-by-side comparison of all tracked runs. The
+                best-performing model is registered to the MLflow Model Registry for downstream deployment use.</div>
+              <span class="pipeline-step-tag">MLflow UI · Model Registry</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="mlflow-box" style="margin-bottom:16px;">
+            <div class="mlflow-box-title">What MLflow tracks <span>Per run</span></div>
+            <p>Each experiment run logs model architecture, learning rate, batch size, number of epochs, dropout rate,
+              training loss, validation loss, training accuracy, validation accuracy and the serialized model artifact
+             , enabling full reproducibility and cross-run comparison.</p>
+          </div>
+          <div
+            style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+              YAML config controls</div>
+            <ul class="proj-list" style="gap:8px;">
+              <li><span class="li-icon">→</span> Data source type (Kaggle / Drive / local)</li>
+              <li><span class="li-icon">→</span> Model architecture selection</li>
+              <li><span class="li-icon">→</span> Training hyperparameters</li>
+              <li><span class="li-icon">→</span> Augmentation settings</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CI/CD & DEPLOYMENT -->
+    <div class="proj-section" id="s-cicd">
+      <div class="proj-section-title">CI/CD & Deployment Pipeline</div>
+      <div class="two-col wide-left">
+        <div>
+          <p class="proj-p">
+            A complete CI/CD pipeline was set up using GitHub Actions to automate the build, containerization and
+            deployment of the application on every code push, practicing the kind of automated deployment workflow used
+            in production ML systems.
+          </p>
+
+          <!-- Flow -->
+          <div class="cicd-flow" style="margin-bottom:24px;">
+            <div class="cicd-step">
+              <div class="cicd-step-icon">📝</div>
+              <div class="cicd-step-label">Git Push</div>
+            </div>
+            <div class="cicd-arrow">→</div>
+            <div class="cicd-step">
+              <div class="cicd-step-icon">⚙️</div>
+              <div class="cicd-step-label">GitHub Actions</div>
+            </div>
+            <div class="cicd-arrow">→</div>
+            <div class="cicd-step">
+              <div class="cicd-step-icon">🐳</div>
+              <div class="cicd-step-label">Docker Build</div>
+            </div>
+            <div class="cicd-arrow">→</div>
+            <div class="cicd-step">
+              <div class="cicd-step-icon">☁️</div>
+              <div class="cicd-step-label">Push to ECR</div>
+            </div>
+            <div class="cicd-arrow">→</div>
+            <div class="cicd-step">
+              <div class="cicd-step-icon">🖥</div>
+              <div class="cicd-step-label">Deploy EC2</div>
+            </div>
+            <div class="cicd-arrow">→</div>
+            <div class="cicd-step">
+              <div class="cicd-step-icon">🚀</div>
+              <div class="cicd-step-label">Streamlit App</div>
+            </div>
+          </div>
+
+          <ul class="proj-list">
+            <li><span class="li-icon">01</span> Code push triggers GitHub Actions workflow automatically</li>
+            <li><span class="li-icon">02</span> Docker image built with all dependencies and model artifacts</li>
+            <li><span class="li-icon">03</span> Image pushed to AWS Elastic Container Registry (ECR)</li>
+            <li><span class="li-icon">04</span> EC2 instance pulls latest image and restarts the container</li>
+            <li><span class="li-icon">05</span> Streamlit app serves real-time predictions from the deployed model</li>
+          </ul>
+        </div>
+
+        <div>
+          <div
+            style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px;margin-bottom:16px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+              Infrastructure components</div>
+            <ul class="proj-list" style="gap:8px;">
+              <li><span class="li-icon">GH</span> GitHub Actions, CI/CD automation runner</li>
+              <li><span class="li-icon">🐳</span> Docker, reproducible container packaging</li>
+              <li><span class="li-icon">ECR</span> AWS ECR, private Docker image registry</li>
+              <li><span class="li-icon">EC2</span> AWS EC2, cloud compute for model serving</li>
+            </ul>
+          </div>
+          <div
+            style="background:rgba(37,99,235,0.04);border:1px solid rgba(37,99,235,0.14);border-radius:var(--radius-md);padding:22px 24px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent-primary);margin-bottom:10px;">
+              Why this pipeline matters</div>
+            <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.75;margin:0;">Every push automatically
+              builds and deploys, eliminating manual deployment steps and ensuring the production model always reflects
+              the latest committed code. Containerization ensures the app runs identically in development and
+              production.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TECHNOLOGY STACK -->
+    <div class="proj-section" id="s-tech">
+      <div class="proj-section-title">Technology Stack</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:14px;">
+        <div
+          style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+            Language</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">Python</span></div>
+        </div>
+        <div
+          style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+            Deep Learning</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">Keras</span><span
+              class="tech-tag">VGG16</span><span class="tech-tag">MobileNet</span><span class="tech-tag">ResNet50</span>
+          </div>
+        </div>
+        <div
+          style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+            MLOps</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">MLflow</span></div>
+        </div>
+        <div
+          style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+            CI/CD & Cloud</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">GitHub Actions</span><span
+              class="tech-tag">Docker</span><span class="tech-tag">AWS EC2</span><span class="tech-tag">AWS ECR</span>
+          </div>
+        </div>
+        <!-- <div
+          style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+            Interface</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">Streamlit</span></div>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- LEARNINGS / CHALLENGES -->
+    <div class="proj-section" id="s-challenges">
+      <div class="proj-section-title">Key Learnings</div>
+      <div class="challenge-grid">
+        <div class="challenge-item">
+          <span class="challenge-badge">Learned</span>
+          <div class="challenge-title">MLflow Experiment Tracking</div>
+          <div class="challenge-desc">Managing and comparing multiple training runs, across different model
+            architectures and hyperparameter sets quickly becomes unmanageable without structured tracking.</div>
+          <div class="challenge-solution-label">Takeaway</div>
+          <div class="challenge-desc">MLflow's experiment logging, metric comparison UI and model registry provide a
+            structured workflow for reproducible ML experimentation that scales across team members and projects.</div>
+        </div>
+        <div class="challenge-item">
+          <span class="challenge-badge">Learned</span>
+          <div class="challenge-title">Containerised ML Deployment</div>
+          <div class="challenge-desc">Deploying ML applications to cloud infrastructure introduces dependency management
+            and environment consistency challenges that don't exist in local development.</div>
+          <div class="challenge-solution-label">Takeaway</div>
+          <div class="challenge-desc">Docker containers encapsulate the full application environment, making
+            deployments fully reproducible and eliminating environment-specific failures between development and
+            production.</div>
+        </div>
+        <div class="challenge-item">
+          <span class="challenge-badge">Learned</span>
+          <div class="challenge-title">CI/CD for ML Pipelines</div>
+          <div class="challenge-desc">Manually building and deploying ML applications after each change is slow,
+            error-prone and doesn't scale to team-based or frequent-iteration workflows.</div>
+          <div class="challenge-solution-label">Takeaway</div>
+          <div class="challenge-desc">GitHub Actions automates the full build-push-deploy pipeline on every commit,
+            enforcing consistent deployment practices and making the release process immediate and reliable.</div>
+        </div>
+        <div class="challenge-item">
+          <span class="challenge-badge">Learned</span>
+          <div class="challenge-title">Configurable Data Ingestion</div>
+          <div class="challenge-desc">Hardcoding data sources into training pipelines creates brittle code that breaks
+            when datasets move, team members have different access or ingestion methods need to change.</div>
+          <div class="challenge-solution-label">Takeaway</div>
+          <div class="challenge-desc">The Strategy pattern with YAML configuration separates the ingestion logic from
+            the pipeline, making it trivial to switch between Kaggle, Google Drive or local data sources without
+            touching training code.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMPACT -->
+    <!-- <div class="proj-section" id="s-impact">
+      <div class="proj-section-title">Impact</div>
+      <div class="impact-list">
+        <div class="impact-item">
+          <div class="impact-item-accent"></div>
+          <div class="impact-item-body">
+            <div class="impact-desc">Built an end-to-end MLOps pipeline for chest cancer classification, implementing
+              transfer learning with VGG16, MobileNet and ResNet50 via Keras, with MLflow tracking all experiment runs,
+              hyperparameters and model artifacts for systematic comparison and versioning.</div>
+          </div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-item-accent"></div>
+          <div class="impact-item-body">
+            <div class="impact-desc">Designed a configurable data ingestion pipeline using the Strategy pattern and YAML
+              configuration, supporting Kaggle, Google Drive and local file sources interchangeably without code
+              changes, following software engineering best practices for ML pipelines.</div>
+          </div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-item-accent"></div>
+          <div class="impact-item-body">
+            <div class="impact-desc">Deployed the model to AWS EC2 through a fully automated CI/CD pipeline, GitHub
+              Actions builds a Docker image on every push, pushes it to AWS ECR and redeploys the Streamlit
+              application, practicing the infrastructure workflows used in production ML systems.</div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- OUTCOME -->
+    <div class="proj-section" id="s-outcome">
+      <div class="proj-section-title">Outcome</div>
+      <div class="outcome-box">
+        <p>
+          This project successfully delivered a working chest cancer classification system while building practical
+          experience across the full MLOps stack, from experiment tracking with MLflow, through containerized
+          deployment with Docker to cloud serving on AWS EC2 via an automated GitHub Actions pipeline.
+        </p>
+        <p>
+          Beyond the classification task itself, the project demonstrates how the infrastructure surrounding ML models like
+          experiment logging, reproducible packaging, automated deployment and configurable pipelines is as important
+          as model accuracy when building systems that need to be maintained, iterated on and operated in production.
+        </p>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <a href="../index.html#projects" class="btn-secondary">← View All Projects</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-left">H<span>.</span></div>
+    <div class="footer-center">© 2026 Huda . Machine Learning Engineer</div>
+    <div class="footer-right">
+      <a href="https://github.com/noorulhudaajmal" target="_blank" class="footer-social">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+        </svg>
+      </a>
+      <a href="https://linkedin.com/in/nhajmal" target="_blank" class="footer-social">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); });
+
+    gsap.fromTo('.hero-grid > div:first-child > *',
+      { opacity: 0, y: 22 },
+      { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out', delay: 0.2 }
+    );
+    gsap.fromTo('.meta-card',
+      { opacity: 0, x: 18 },
+      { opacity: 1, x: 0, duration: 0.5, stagger: 0.07, ease: 'power3.out', delay: 0.35 }
+    );
+    gsap.utils.toArray('.proj-section').forEach(section => {
+      gsap.fromTo(section, { opacity: 0, y: 24 },
+        {
+          opacity: 1, y: 0, duration: 0.65, ease: 'power3.out',
+          scrollTrigger: { trigger: section, start: 'top 84%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.model-card').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, y: 18 },
+        {
+          opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', delay: i * 0.1,
+          scrollTrigger: { trigger: '#s-models', start: 'top 80%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.pipeline-step').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, x: -14 },
+        {
+          opacity: 1, x: 0, duration: 0.4, ease: 'power2.out', delay: i * 0.07,
+          scrollTrigger: { trigger: '#s-training', start: 'top 78%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.cicd-step').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, y: 14 },
+        {
+          opacity: 1, y: 0, duration: 0.35, ease: 'power2.out', delay: i * 0.07,
+          scrollTrigger: { trigger: '#s-cicd', start: 'top 80%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.challenge-item').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, y: 14 },
+        {
+          opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', delay: i * 0.09,
+          scrollTrigger: { trigger: '#s-challenges', start: 'top 80%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.impact-item').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, x: -12 },
+        {
+          opacity: 1, x: 0, duration: 0.45, ease: 'power2.out', delay: i * 0.1,
+          scrollTrigger: { trigger: '#s-impact', start: 'top 82%', toggleActions: 'play none none reverse' }
+        });
+    });
+  </script>
+</body>
+
+</html>

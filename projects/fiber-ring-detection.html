@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fiber Ring Detection</title>
+  <link rel="stylesheet" href="../style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    body {
+      background: white;
+    }
+
+    .page-wrap {
+      padding: 0 clamp(28px, 6vw, 96px) 120px;
+    }
+
+    .proj-hero {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-card);
+      padding: 112px clamp(28px, 6vw, 96px) 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proj-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 50% 80% at 80% 40%, rgba(37, 99, 235, 0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 48px;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-secondary);
+      background: rgba(124, 58, 237, 0.07);
+      border: 1px solid rgba(124, 58, 237, 0.18);
+      border-radius: 3px;
+      padding: 4px 10px;
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 4vw, 3.1rem);
+      color: var(--text-primary);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1rem, 1.7vw, 1.25rem);
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      /* max-width: 620px; */
+      margin-bottom: 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+
+    .hero-btn.primary {
+      background: var(--accent-primary);
+      color: #fff;
+      border: 1px solid var(--accent-primary);
+    }
+
+    .hero-btn.primary:hover {
+      background: #1d4ed8;
+      border-color: #1d4ed8;
+    }
+
+    .hero-btn.secondary {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-card);
+    }
+
+    .hero-btn.secondary:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .meta-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .meta-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    .meta-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    .meta-value {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .meta-value.green {
+      color: #16a34a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meta-value.green::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: #16a34a;
+      border-radius: 50%;
+    }
+
+    .meta-value.amber {
+      color: #b45309;
+    }
+
+    .back-link-wrap {
+      padding: 32px 0 0;
+    }
+
+    .back-link-wrap a {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .back-link-wrap a:hover {
+      color: var(--accent-primary);
+    }
+
+    .proj-section {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border-card);
+    }
+
+    .proj-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .proj-section-title {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-primary);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .proj-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-card);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px 56px;
+      align-items: start;
+    }
+
+    .two-col.wide-left {
+      grid-template-columns: 1.4fr 1fr;
+    }
+
+    .proj-p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.88;
+      margin-bottom: 16px;
+    }
+
+    .proj-p:last-child {
+      margin-bottom: 0;
+    }
+
+    .proj-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .proj-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      font-size: 0.97rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding: 13px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+    }
+
+    .proj-list li .li-icon {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--accent-primary);
+      flex-shrink: 0;
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(37, 99, 235, 0.15);
+      border-radius: 3px;
+      padding: 2px 7px;
+    }
+
+    .proj-list-2col {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .proj-list-2col li {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-size: 0.97rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      padding: 13px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+    }
+
+    .proj-list-2col li .li-icon {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--accent-primary);
+      flex-shrink: 0;
+      background: rgba(37, 99, 235, 0.07);
+      border: 1px solid rgba(37, 99, 235, 0.14);
+      border-radius: 3px;
+      padding: 2px 6px;
+    }
+
+    /* Stage cards */
+    .stage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .stage-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 28px 26px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stage-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .stage-card.dl-card::before {
+      background: linear-gradient(90deg, var(--accent-primary), #60a5fa);
+    }
+
+    .stage-card.cv-card::before {
+      background: linear-gradient(90deg, var(--accent-secondary), #a78bfa);
+    }
+
+    .stage-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .stage-badge.dl {
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      color: var(--accent-primary);
+    }
+
+    .stage-badge.cv {
+      background: rgba(124, 58, 237, 0.07);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      color: var(--accent-secondary);
+    }
+
+    .stage-card-title {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .stage-card p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    /* Architecture flow */
+    .arch-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      max-width: 560px;
+    }
+
+    .arch-node {
+      width: 100%;
+      padding: 16px 22px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .arch-node.highlight-dl {
+      border-color: rgba(37, 99, 235, 0.3);
+      background: rgba(37, 99, 235, 0.04);
+    }
+
+    .arch-node.highlight-cv {
+      border-color: rgba(124, 58, 237, 0.25);
+      background: rgba(124, 58, 237, 0.04);
+    }
+
+    .arch-node-label {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+
+    .arch-node-sub {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    .arch-node-tags {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 8px;
+    }
+
+    .arch-arrow {
+      width: 1px;
+      height: 28px;
+      background: var(--border-card);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .arch-arrow::after {
+      content: '▾';
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      position: absolute;
+      bottom: -6px;
+    }
+
+    .arch-group-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 6px 0 4px;
+      align-self: flex-start;
+      padding-left: 2px;
+    }
+
+    /* Pipeline steps */
+    .pipeline-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+
+    .pipeline-steps::before {
+      content: '';
+      position: absolute;
+      left: 23px;
+      top: 28px;
+      bottom: 28px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent-primary), rgba(37, 99, 235, 0.1));
+    }
+
+    .pipeline-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 16px 0;
+    }
+
+    .pipeline-step-num {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1.5px solid rgba(37, 99, 235, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--accent-primary);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 0 4px var(--bg-primary);
+    }
+
+    .pipeline-step-body {
+      padding-top: 10px;
+      flex: 1;
+    }
+
+    .pipeline-step-name {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .pipeline-step-desc {
+      font-size: 0.87rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .pipeline-step-tag {
+      display: inline-block;
+      margin-top: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--accent-primary);
+      background: rgba(37, 99, 235, 0.06);
+      border: 1px solid rgba(37, 99, 235, 0.14);
+      border-radius: 3px;
+      padding: 2px 8px;
+    }
+
+    /* Image comparison */
+    .image-comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .image-slot {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .image-slot-header {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border-card);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .image-slot-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .image-slot-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    /*
+      IMAGE REPLACEMENT INSTRUCTIONS:
+      Replace each .image-placeholder div with an <img> tag:
+        <img src="../assets/images/fiber-original.jpg"
+             alt="Original fiber cross-section"
+             style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" />
+      Place images in: portfolio/assets/images/
+    */
+    .image-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--bg-secondary);
+    }
+
+    .image-placeholder-icon {
+      font-size: 2.4rem;
+      opacity: 0.22;
+    }
+
+    .image-placeholder-text {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .image-placeholder-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      opacity: 0.6;
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .image-caption {
+      padding: 10px 18px 14px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Measurements Table */
+    /* ── Measurements Table ── */
+    .measurements-table-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      background: var(--bg-card);
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+      margin: 12px 100px;
+    }
+
+    .measurements-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    .measurements-table thead tr {
+      background: var(--bg-secondary);
+      border-bottom: 2px solid var(--border-card);
+    }
+
+    .measurements-table th {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 12px 20px;
+      text-align: left;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .measurements-table td {
+      padding: 11px 20px;
+      border-bottom: 1px solid var(--border-card);
+      line-height: 1.4;
+    }
+
+    .measurements-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .measurements-table tbody tr:hover {
+      background: var(--bg-secondary);
+      transition: background 0.15s ease;
+    }
+
+    .measurements-table td.ring-id {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      background: rgba(37, 99, 235, 0.04);
+      border-right: 1px solid var(--border-card);
+    }
+
+    .measurements-table td.metric-value {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-align: right;
+    }
+
+    .measurements-table th:not(:first-child) {
+      text-align: right;
+    }
+
+    /* Challenges */
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+
+    .challenge-item {
+      padding: 22px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-top: 3px solid var(--accent-primary);
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .challenge-item:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    }
+
+    .challenge-badge {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #b45309;
+      background: rgba(180, 83, 9, 0.07);
+      border: 1px solid rgba(180, 83, 9, 0.18);
+      border-radius: 3px;
+      padding: 2px 8px;
+    }
+
+    .challenge-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .challenge-desc {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.68;
+    }
+
+    .challenge-solution-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #16a34a;
+      margin-top: 14px;
+      margin-bottom: 5px;
+    }
+
+    /* Impact */
+    .impact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .impact-item {
+      display: flex;
+      align-items: stretch;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .impact-item-accent {
+      width: 4px;
+      flex-shrink: 0;
+      background: linear-gradient(to bottom, var(--accent-primary), var(--accent-secondary));
+    }
+
+    .impact-item-body {
+      padding: 18px 22px;
+      flex: 1;
+    }
+
+    .impact-metric {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--accent-primary);
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .impact-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* Outcome */
+    .outcome-box {
+      background: rgba(37, 99, 235, 0.04);
+      border: 1px solid rgba(37, 99, 235, 0.14);
+      border-left: 4px solid var(--accent-primary);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 32px 36px;
+    }
+
+    .outcome-box p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.88;
+      margin-bottom: 14px;
+    }
+
+    .outcome-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .context-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .context-chip {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-card);
+      border-radius: 100px;
+      padding: 5px 14px;
+    }
+
+    .bottom-nav {
+      padding-top: 48px;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .meta-stack {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .meta-card {
+        flex: 1 1 150px;
+      }
+
+      .two-col,
+      .two-col.wide-left {
+        grid-template-columns: 1fr;
+      }
+
+      .challenge-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .image-comparison-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stage-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .proj-list-2col {
+        grid-template-columns: 1fr;
+      }
+
+      .challenge-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .meta-stack {
+        flex-direction: column;
+      }
+
+      .meta-card {
+        flex: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav id="navbar">
+    <a href="../index.html" class="nav-logo">H<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#contact" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO-->
+  <div class="proj-hero">
+    <div class="hero-grid" id="heroContent">
+      <div>
+        <span class="hero-badge">AI & Deep Learning Systems</span>
+        <h1 class="hero-title">Fiber Cross-Section Ring<br>Detection & Measurement</h1>
+        <p class="hero-subtitle">Hybrid YOLO + classical CV on a near-zero-data problem</p>
+        <p class="hero-desc">
+          A two-stage computer vision system that automatically detects and measures ring structures in microscopic
+          fiber cross-section images combining a YOLO-based detection model to localise fiber ring regions with an
+          OpenCV geometric pipeline to extract precise structural measurements, built to work reliably on a dataset of
+          only 4-8 unlabeled images.
+        </p>
+        <div class="hero-actions">
+          <a href="https://github.com/noorulhudaajmal/ring-detection-experiment" target="_blank"
+            class="hero-btn primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+            </svg>
+            View Source Code
+          </a>
+        </div>
+        <div class="hero-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">YOLO</span>
+          <span class="tech-tag">OpenCV</span>
+          <span class="tech-tag">NumPy</span>
+          <span class="tech-tag">ONNX Runtime</span>
+          <span class="tech-tag">Ellipse Fitting</span>
+          <span class="tech-tag">HSV Segmentation</span>
+        </div>
+      </div>
+      <div class="meta-stack">
+        <div class="meta-card">
+          <div class="meta-label">Domain</div>
+          <div class="meta-value">Computer Vision · Industrial QA</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Approach</div>
+          <div class="meta-value">Hybrid YOLO + Classical CV</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Dataset Size</div>
+          <div class="meta-value amber">4-8 unlabeled images</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Stage 1</div>
+          <div class="meta-value">YOLO object detection</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Stage 2</div>
+          <div class="meta-value">OpenCV geometric analysis</div>
+        </div>
+        <!-- <div class="meta-card">
+          <div class="meta-label">Status</div>
+          <div class="meta-value green">Completed</div>
+        </div>-->
+      </div>
+    </div>
+  </div>
+
+  <div class="page-wrap">
+    <div class="back-link-wrap">
+      <a href="../index.html#projects">← Back to Projects</a>
+    </div>
+
+    <!-- OVERVIEW-->
+    <div class="proj-section" id="s-overview">
+      <div class="proj-section-title">Overview</div>
+      <div class="wide-left">
+        <div>
+          <p class="proj-p">
+            This project is a computer vision system that automatically detects and measures ring structures in
+            microscopic cross-section images of industrial fibers. The rings represent distinct internal layers fiber
+            core, intermediate structural material and outer cladding and their geometry is a direct indicator of
+            manufacturing quality.
+          </p>
+          <p class="proj-p">
+            The dataset was extremely limited, only 4-8 images with no labeled annotations, compounded by uneven
+            lighting, microscope reflections and visibly distorted ring shapes. These factors made traditional machine
+            learning segmentation approaches unreliable, since they require large labeled datasets to generalize.
+          </p>
+          <p class="proj-p">
+            To solve this, I designed a <strong>two-stage hybrid system</strong> combining deep learning and classical
+            computer vision. A YOLO-based object detection model first identifies regions of interest containing
+            individual fiber rings. Each detected region is then processed through an OpenCV-based geometric analysis
+            pipeline to extract precise measurements including ring radii, layer thickness and structural ratios. This
+            approach
+            enabled accurate automated measurements even under small-dataset constraints and challenging microscopy
+            conditions.
+          </p>
+          <div
+            style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px; width: max-content;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">
+              Likely fiber applications</div>
+            <div class="context-chips">
+              <span class="context-chip">Sports equipment strings</span>
+              <span class="context-chip">High-strength cordage</span>
+              <span class="context-chip">Advanced textiles</span>
+              <span class="context-chip">Composite reinforcement</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <!-- <div
+            style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px;margin-bottom:16px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+              What ring layers represent</div>
+            <ul class="proj-list" style="gap:8px;">
+              <li><span class="li-icon">L1</span> Fiber core material</li>
+              <li><span class="li-icon">L2</span> Intermediate structural layers</li>
+              <li><span class="li-icon">L3</span> Outer cladding or coating</li>
+            </ul>
+          </div> -->
+
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM-->
+    <div class="proj-section" id="s-problem">
+      <div class="proj-section-title">Problem Statement</div>
+      <div class="">
+        <div>
+          <p class="proj-p">
+            Fiber manufacturers need to measure ring structures in cross-section images to verify layer thickness,
+            structural symmetry, manufacturing consistency and potential production defects. Manual measurement is slow
+            and subjective but the conditions of this dataset made standard automated approaches equally inadequate.
+          </p>
+          <p class="proj-p">
+            Simple computer vision techniques are unreliable on noisy microscopy images with inconsistent lighting.
+            Conventional deep learning models require large labeled datasets that didn't exist here. The combined
+            constraints created a scenario where neither approach alone was sufficient.
+          </p>
+        </div>
+        <div class="two-col">
+          <ul class="proj-list">
+            <li><span class="li-icon">↑</span> Microscope reflections causing bright artifacts</li>
+            <li><span class="li-icon">↑</span> Rings appear distorted not perfect circles</li>
+            <li><span class="li-icon">↑</span> ML segmentation impractical no labeled training data</li>
+          </ul>
+          <ul class="proj-list">
+            <li><span class="li-icon">↑</span> Only 4-8 sample images available</li>
+            <li><span class="li-icon">↑</span> No labels, annotations or ground truth</li>
+            <li><span class="li-icon">↑</span> Strong and uneven illumination variation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOLUTION-->
+    <div class="proj-section" id="s-solution">
+      <div class="proj-section-title">Solution</div>
+      <!-- max-width:760px; -->
+      <p class="proj-p" style="margin-bottom:32px;">
+        I implemented a two-stage hybrid pipeline that separates the detection problem from the measurement problem
+        using the most appropriate technique for each task rather than forcing a single approach to do both.
+      </p>
+      <div class="stage-grid">
+        <div class="stage-card dl-card">
+          <span class="stage-badge dl">Stage 1 Deep Learning</span>
+          <div class="stage-card-title">YOLO Object Detection</div>
+          <p>A YOLO-based model detects regions containing individual fiber rings, giving output in form of bounding
+            boxes around each
+            ring of interest. This isolates individual fiber segments from the larger microscopy image and handles
+            scene-level noise that would confuse a purely geometric approach.</p>
+          <!-- <ul class="proj-list" style="gap:7px;">
+            <li><span class="li-icon">→</span> Handles lighting variation across the full image</li>
+            <li><span class="li-icon">→</span> Robust to image artifacts and irregular fiber positioning</li>
+            <li><span class="li-icon">→</span> Outputs clean ROIs for downstream geometric analysis</li>
+          </ul> -->
+        </div>
+        <div class="stage-card cv-card">
+          <span class="stage-badge cv">Stage 2 Classical CV</span>
+          <div class="stage-card-title">OpenCV Geometric Analysis</div>
+          <p>Each detected ROI is processed through an OpenCV pipeline to extract precise geometric measurements.
+            Classical algorithms are deterministic they need no training data and produce reproducible results, making
+            them ideal where measurement accuracy matters most.</p>
+          <!-- <ul class="proj-list" style="gap:7px;">
+            <li><span class="li-icon">→</span> HSV segmentation isolates ring layers by color</li>
+            <li><span class="li-icon">→</span> Ellipse fitting accurately models distorted rings</li>
+            <li><span class="li-icon">→</span> Extracts radius, thickness and core/cladding ratios</li>
+          </ul> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- SYSTEM ARCHITECTURE-->
+    <div class="proj-section" id="s-arch">
+      <div class="proj-section-title">System Architecture</div>
+      <div class="two-col wide-left">
+        <div class="arch-flow">
+          <div class="arch-node">
+            <div class="arch-node-label">Microscope Image</div>
+            <div class="arch-node-sub">Raw input unprocessed cross-section capture</div>
+          </div>
+          <div class="arch-arrow"></div>
+          <span class="arch-group-label">Stage 1 Deep Learning</span>
+          <div class="arch-node highlight-dl">
+            <div class="arch-node-label">YOLO Object Detection</div>
+            <div class="arch-node-sub">Detect fiber ring regions · output bounding boxes per ROI</div>
+            <div class="arch-node-tags">
+              <span class="tech-tag">YOLO</span>
+              <span class="tech-tag">ONNX Runtime</span>
+            </div>
+          </div>
+          <div class="arch-arrow"></div>
+          <div class="arch-node" style="border-color:rgba(37,99,235,0.15);">
+            <div class="arch-node-label">Region Cropping</div>
+            <div class="arch-node-sub">Isolate individual ring ROIs from detected bounding boxes</div>
+          </div>
+          <div class="arch-arrow"></div>
+          <span class="arch-group-label">Stage 2 Classical Computer Vision</span>
+          <div class="arch-node highlight-cv">
+            <div class="arch-node-label">OpenCV Processing Pipeline</div>
+            <div class="arch-node-sub">HSV segmentation · Noise filtering · Contour detection · Ellipse fitting</div>
+            <div class="arch-node-tags">
+              <span class="tech-tag">OpenCV</span>
+              <span class="tech-tag">NumPy</span>
+            </div>
+          </div>
+          <div class="arch-arrow"></div>
+          <div class="arch-node highlight-cv" style="border-color:rgba(124,58,237,0.2);">
+            <div class="arch-node-label">Geometric Measurements</div>
+            <div class="arch-node-sub">Ring radius · Core/cladding ratio · Layer thickness · Structural metrics</div>
+          </div>
+        </div>
+
+        <div>
+          <div
+            style="background:rgba(37,99,235,0.04);border:1px solid rgba(37,99,235,0.14);border-radius:var(--radius-md);padding:22px 24px;margin-bottom:16px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent-primary);margin-bottom:12px;">
+              Why this hybrid architecture works</div>
+            <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.75;margin-bottom:10px;">
+              YOLO handles the detection task robustly despite imaging noise; its learned representations generalize
+              better than hand-crafted rules when lighting and positioning vary. Classical CV handles measurement
+              precisely, without the need of labeled training data.
+            </p>
+            <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.75;">
+              Neither approach alone would be sufficient. Together they cover the full pipeline cleanly.
+            </p>
+          </div>
+          <div
+            style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+              Measurements extracted</div>
+            <ul class="proj-list" style="gap:8px;">
+              <li><span class="li-icon">→</span> Ring radius per detected layer</li>
+              <li><span class="li-icon">→</span> Layer thickness (Δ between rings)</li>
+              <li><span class="li-icon">→</span> Core-to-cladding ratios</li>
+              <li><span class="li-icon">→</span> Ellipse semi-axes (a, b) and orientation</li>
+              <li><span class="li-icon">→</span> Structural coverage metrics</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KEY FEATURES-->
+    <!-- <div class="proj-section" id="s-features">
+      <div class="proj-section-title">Key Features</div>
+      <ul class="proj-list-2col">
+        <li><span class="li-icon">✓</span> Hybrid deep learning + classical CV pipeline</li>
+        <li><span class="li-icon">✓</span> Automatic detection of fiber ring regions via YOLO</li>
+        <li><span class="li-icon">✓</span> Robust to lighting variation and microscope reflections</li>
+        <li><span class="li-icon">✓</span> Accurate measurement of distorted rings via ellipse fitting</li>
+        <li><span class="li-icon">✓</span> Color-based HSV segmentation to isolate fiber layers</li>
+        <li><span class="li-icon">✓</span> Automated extraction of ring radii and structural ratios</li>
+        <li><span class="li-icon">✓</span> Exportable geometric measurements for engineering analysis</li>
+        <li><span class="li-icon">✓</span> Functional on 4-8 images no large labeled dataset required</li>
+      </ul>
+    </div> -->
+
+    <!-- OPENCV PIPELINE DETAIL-->
+    <div class="proj-section" id="s-pipeline">
+      <div class="proj-section-title">OpenCV Processing Pipeline Stage 2 Detail</div>
+      <div class="two-col wide-left">
+        <div class="pipeline-steps">
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">01</div>
+            <div class="pipeline-step-body">
+              <div class="pipeline-step-name">Color Space Conversion</div>
+              <div class="pipeline-step-desc">Convert cropped ROIs from RGB to HSV color space to decouple brightness
+                from color, making downstream segmentation far less sensitive to illumination variation between images.
+              </div>
+              <span class="pipeline-step-tag">OpenCV · HSV</span>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">02</div>
+            <div class="pipeline-step-body">
+              <div class="pipeline-step-name">Color-Based Segmentation</div>
+              <div class="pipeline-step-desc">Apply HSV threshold masks to isolate distinct fiber layers core,
+                intermediate structure and outer cladding based on their spectral characteristics in the
+                cross-section image.</div>
+              <span class="pipeline-step-tag">Thresholding · Masking</span>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">03</div>
+            <div class="pipeline-step-body">
+              <div class="pipeline-step-name">Noise Reduction & Morphological Filtering</div>
+              <div class="pipeline-step-desc">Before contour extraction, erosion, dilation, opening and closing
+                operations are used to reduce microscope reflections, fill gaps in ring boundaries and remove small
+                noise artifacts.</div>
+              <span class="pipeline-step-tag">Erosion · Dilation · Opening · Closing</span>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">04</div>
+            <div class="pipeline-step-body">
+              <div class="pipeline-step-name">Contour Detection</div>
+              <div class="pipeline-step-desc">Contours are extracted from the filtered binary mask to identify potential
+                ring boundaries. These candidates are then filtered using area, hierarchy and shape checks to eliminate
+                false detections and keep only the genuine rings.</div>
+              <span class="pipeline-step-tag">Contour Analysis · Hierarchy Filtering</span>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">05</div>
+            <div class="pipeline-step-body">
+              <div class="pipeline-step-name">Ellipse Fitting</div>
+              <div class="pipeline-step-desc">Ellipses are fitted to each detected contour to better model rings that
+                are not perfectly circular, capturing geometric variations caused by fiber deformation or imaging angle.
+                The process outputs the semi-axes, center coordinates and orientation of each ring.</div>
+              <span class="pipeline-step-tag">Ellipse Fitting · Least Squares</span>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">06</div>
+            <div class="pipeline-step-body">
+              <div class="pipeline-step-name">Geometric Validation & Measurement</div>
+              <div class="pipeline-step-desc">Rings are validated for correct concentric nesting and layer order before
+                extracting final measurements such as ring radius, layer thickness, core-to-cladding ratios and
+                structural coverage metrics.</div>
+              <span class="pipeline-step-tag">Geometric Validation · Metric Extraction</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            style="background:rgba(37,99,235,0.04);border:1px solid rgba(37,99,235,0.14);border-radius:var(--radius-md);padding:22px 24px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent-primary);margin-bottom:12px;">
+              Why ellipse fitting, not circle detection</div>
+            <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.75;margin-bottom:12px;">
+              Standard <b>Hough circle detection</b> assumes perfectly circular rings. Fiber deformation and microscope
+              viewing
+              angle produce elliptical distortions that break this assumption causing missed detections and incorrect
+              radius values.
+            </p>
+            <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.75;">
+              Ellipse fitting uses a least-squares approach to find the best-fit ellipse for any contour shape,
+              accurately capturing true ring geometry regardless of how much it deviates from circular.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VISUAL RESULTS-->
+    <!--
+    IMAGE INSTRUCTIONS:
+    In the two slots below, replace each .image-placeholder div with:
+      <img src="../assets/images/YOUR-FILENAME.jpg"
+           alt="description"
+           style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" />
+    Recommended image size: 800×600px or larger.
+    Save images to: portfolio/assets/images/
+ -->
+    <div class="proj-section" id="s-visuals">
+      <div class="proj-section-title">Visual Results</div>
+      <!-- max-width:720px; -->
+      <!-- <p class="proj-p" style="margin-bottom:32px;">
+        The comparison below shows a raw input image alongside the annotated system output with YOLO-detected bounding
+        boxes, fitted ellipses, ring boundaries and measurement overlays.
+      </p> -->
+      <div class="image-comparison-grid">
+        <div class="image-slot">
+          <div class="image-slot-header">
+            <div class="image-slot-dot" style="background:#9ca3af;"></div>
+            <span class="image-slot-label">Original Raw Microscope Image</span>
+          </div>
+          <!-- ▼ REPLACE THIS DIV WITH YOUR <img> TAG ▼-->
+          <!-- <div class="image-placeholder">
+            <div class="image-placeholder-icon">🔬</div>
+            <div class="image-placeholder-text">Original Image</div>
+            <div class="image-placeholder-sub">Raw microscope cross-section<br>before processing</div>
+          </div>-->
+          <!-- ▲ END REPLACE ▲-->
+          <img src="../assets/projects/FRD/raw_image.png" alt="description"
+            style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" />
+          <div class="image-caption">Unprocessed input uneven illumination, microscope reflections and distorted
+            rings visible.</div>
+        </div>
+        <div class="image-slot">
+          <div class="image-slot-header">
+            <div class="image-slot-dot" style="background:#2563eb;"></div>
+            <span class="image-slot-label">Annotated Detected Rings</span>
+          </div>
+          <!-- ▼ REPLACE THIS DIV WITH YOUR <img> TAG ▼-->
+          <!-- <div class="image-placeholder">
+            <div class="image-placeholder-icon">📐</div>
+            <div class="image-placeholder-text">Annotated Output</div>
+            <div class="image-placeholder-sub">Detected rings, fitted ellipses,<br>and measurements overlaid</div>
+          </div>-->
+          <!-- ▲ END REPLACE ▲-->
+          <img src="../assets/projects/FRD/processed_image_1.0.png" alt="description"
+            style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" />
+          <div class="image-caption">Extracted rings overlaid on the input.</div>
+        </div>
+      </div>
+
+      <!-- Measurement Results Table -->
+      <div class="measurements-table-wrapper">
+        <table class="measurements-table">
+          <thead>
+            <tr>
+              <th>Ring ID</th>
+              <th>Blue Radius (mm)</th>
+              <th>White Radius (mm)</th>
+              <th>Radius Ratio</th>
+              <th>Coverage Ratio</th>
+              <th>Confidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="ring-id">1</td>
+              <td class="metric-value">22.36</td>
+              <td class="metric-value">11.70</td>
+              <td class="metric-value">0.52</td>
+              <td class="metric-value">0.27</td>
+              <td class="metric-value">0.89</td>
+            </tr>
+            <tr>
+              <td class="ring-id">2</td>
+              <td class="metric-value">22.88</td>
+              <td class="metric-value">9.36</td>
+              <td class="metric-value">0.41</td>
+              <td class="metric-value">0.17</td>
+              <td class="metric-value">0.87</td>
+            </tr>
+            <tr>
+              <td class="ring-id">3</td>
+              <td class="metric-value">20.54</td>
+              <td class="metric-value">12.48</td>
+              <td class="metric-value">0.61</td>
+              <td class="metric-value">0.37</td>
+              <td class="metric-value">0.87</td>
+            </tr>
+            <tr>
+              <td class="ring-id">4</td>
+              <td class="metric-value">25.48</td>
+              <td class="metric-value">10.66</td>
+              <td class="metric-value">0.42</td>
+              <td class="metric-value">0.18</td>
+              <td class="metric-value">0.80</td>
+            </tr>
+            <tr>
+              <td class="ring-id">5</td>
+              <td class="metric-value">20.80</td>
+              <td class="metric-value">0.00</td>
+              <td class="metric-value">0.00</td>
+              <td class="metric-value">0.00</td>
+              <td class="metric-value">0.76</td>
+            </tr>
+            <tr>
+              <td class="ring-id">6</td>
+              <td class="metric-value">23.14</td>
+              <td class="metric-value">9.36</td>
+              <td class="metric-value">0.40</td>
+              <td class="metric-value">0.16</td>
+              <td class="metric-value">0.72</td>
+            </tr>
+            <tr>
+              <td class="ring-id">7</td>
+              <td class="metric-value">22.10</td>
+              <td class="metric-value">7.28</td>
+              <td class="metric-value">0.33</td>
+              <td class="metric-value">0.11</td>
+              <td class="metric-value">0.46</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TECHNOLOGY STACK-->
+    <div class="proj-section" id="s-tech">
+      <div class="proj-section-title">Technology Stack</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;">
+        <div
+          style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+            Languages</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">Python</span></div>
+        </div>
+        <div
+          style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+            Deep Learning</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">YOLO</span><span
+              class="tech-tag">ONNX Runtime</span></div>
+        </div>
+        <div
+          style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+            Libraries</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">OpenCV</span><span
+              class="tech-tag">NumPy</span></div>
+        </div>
+        <div
+          style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+            Techniques</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span class="tech-tag">Object Detection</span>
+            <span class="tech-tag">Image Segmentation</span>
+            <span class="tech-tag">Morphological Filtering</span>
+            <span class="tech-tag">Contour Detection</span>
+            <span class="tech-tag">Ellipse Fitting</span>
+            <span class="tech-tag">Geometric Feature Extraction</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHALLENGES-->
+    <div class="proj-section" id="s-challenges">
+      <div class="proj-section-title">Challenges & Solutions</div>
+      <div class="challenge-grid">
+        <div class="challenge-item">
+          <span class="challenge-badge">Challenge</span>
+          <div class="challenge-title">Extremely Limited & Unlabeled Data</div>
+          <div class="challenge-desc">Only 4-8 images were available with no labels, annotations or ground truth
+            making supervised deep learning segmentation completely infeasible from the start.</div>
+          <div class="challenge-solution-label">Solution</div>
+          <div class="challenge-desc">Used YOLO for robust region detection and classical CV for precise measurement
+            separating the two tasks so neither required large labeled segmentation training data.</div>
+        </div>
+        <div class="challenge-item">
+          <span class="challenge-badge">Challenge</span>
+          <div class="challenge-title">Lighting Variation & Reflections</div>
+          <div class="challenge-desc">Microscope lighting produced bright specular reflections and inconsistent
+            brightness gradients across images, thereby corrupting edge detection and direct segmentation approaches.
+          </div>
+          <div class="challenge-solution-label">Solution</div>
+          <div class="challenge-desc">Converted to HSV color space to decouple brightness from color information, then
+            applied morphological filtering to suppress reflection artifacts before ring boundary detection.</div>
+        </div>
+        <div class="challenge-item">
+          <span class="challenge-badge">Challenge</span>
+          <div class="challenge-title">Distorted Ring Geometry</div>
+          <div class="challenge-desc">Rings appeared elliptical rather than circular due to fiber deformation and
+            microscope viewing angle breaking Hough circle detection assumptions and producing inaccurate radius
+            estimates.</div>
+          <div class="challenge-solution-label">Solution</div>
+          <div class="challenge-desc">Least-squares ellipse fitting was applied to the detected contours to capture
+            non-circular ring geometry and reliably estimate the semi-axes and orientation, even in the presence of
+            distortion.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMPACT-->
+    <!-- <div class="proj-section" id="s-impact">
+      <div class="proj-section-title">Impact</div>
+      <div class="impact-list">
+        <div class="impact-item">
+          <div class="impact-item-accent"></div>
+          <div class="impact-item-body">
+            <div class="impact-metric">~80%</div>
+            <div class="impact-desc">Reduction in manual fiber inspection time achieved by developing an automated
+              ring detection and measurement pipeline combining YOLO object detection and OpenCV geometric analysis.
+            </div>
+          </div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-item-accent"></div>
+          <div class="impact-item-body">
+            <div class="impact-desc">Handled distorted microscopy images with reflections and lighting variation by
+              implementing HSV color-space segmentation, morphological noise filtering, contour detection and
+              ellipse-fitting algorithms producing reliable results on images that confounded simpler single-stage
+              approaches.</div>
+          </div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-item-accent"></div>
+          <div class="impact-item-body">
+            <div class="impact-desc">Extracted geometric quality metrics ring radius, core-to-cladding ratios, layer
+              thickness and structural coverage from unlabeled fiber cross-section images with no ground truth data
+              required.</div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- OUTCOME-->
+    <div class="proj-section" id="s-outcome">
+      <div class="proj-section-title">Outcome</div>
+      <div class="outcome-box">
+        <p>
+          The system successfully automated the analysis of fiber cross-section images and produced consistent,
+          reproducible structural measurements across all available samples with no training labels, no per-image
+          manual tuning and no intervention required once the pipeline is configured.
+        </p>
+        <p>
+          Key outcomes included automated YOLO-based detection of fiber ring regions, precise geometric measurement of
+          distorted rings via ellipse fitting and a significant reduction in manual inspection effort. The hybrid
+          architecture demonstrates how combining deep learning robustness with classical CV precision can address real
+          problems that neither approach could solve independently particularly under severe data constraints.
+        </p>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <a href="../index.html#projects" class="btn-secondary">← View All Projects</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-left">H<span>.</span></div>
+    <div class="footer-center">© 2026 Huda . Machine Learning Engineer</div>
+    <div class="footer-right">
+      <a href="https://github.com/noorulhudaajmal" target="_blank" class="footer-social">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+        </svg>
+      </a>
+      <a href="https://linkedin.com/in/nhajmal" target="_blank" class="footer-social">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); });
+
+    gsap.fromTo('.hero-grid > div:first-child > *',
+      { opacity: 0, y: 22 },
+      { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out', delay: 0.2 }
+    );
+    gsap.fromTo('.meta-card',
+      { opacity: 0, x: 18 },
+      { opacity: 1, x: 0, duration: 0.5, stagger: 0.07, ease: 'power3.out', delay: 0.35 }
+    );
+    gsap.utils.toArray('.proj-section').forEach(section => {
+      gsap.fromTo(section, { opacity: 0, y: 24 },
+        {
+          opacity: 1, y: 0, duration: 0.65, ease: 'power3.out',
+          scrollTrigger: { trigger: section, start: 'top 84%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.stage-card').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, y: 20 },
+        {
+          opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', delay: i * 0.12,
+          scrollTrigger: { trigger: '#s-solution', start: 'top 78%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.arch-node').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, y: 14 },
+        {
+          opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', delay: i * 0.09,
+          scrollTrigger: { trigger: '#s-arch', start: 'top 78%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.pipeline-step').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, x: -14 },
+        {
+          opacity: 1, x: 0, duration: 0.4, ease: 'power2.out', delay: i * 0.07,
+          scrollTrigger: { trigger: '#s-pipeline', start: 'top 75%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.challenge-item').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, y: 14 },
+        {
+          opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', delay: i * 0.1,
+          scrollTrigger: { trigger: '#s-challenges', start: 'top 80%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.impact-item').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, x: -12 },
+        {
+          opacity: 1, x: 0, duration: 0.45, ease: 'power2.out', delay: i * 0.1,
+          scrollTrigger: { trigger: '#s-impact', start: 'top 82%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.image-slot').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, y: 16 },
+        {
+          opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', delay: i * 0.12,
+          scrollTrigger: { trigger: '#s-visuals', start: 'top 80%', toggleActions: 'play none none reverse' }
+        });
+    });
+  </script>
+</body>
+
+</html>

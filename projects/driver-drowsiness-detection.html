@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Driver Drowsiness Detection</title>
+  <link rel="stylesheet" href="../style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    body {
+      background: white;
+    }
+
+    .page-wrap {
+      padding: 0 clamp(28px, 6vw, 96px) 120px;
+    }
+
+    /* ── Hero ── */
+    .proj-hero {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-card);
+      padding: 112px clamp(28px, 6vw, 96px) 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proj-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 55% 70% at 80% 35%, rgba(37, 99, 235, 0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 48px;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-secondary);
+      background: rgba(124, 58, 237, 0.07);
+      border: 1px solid rgba(124, 58, 237, 0.18);
+      border-radius: 3px;
+      padding: 4px 10px;
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.8vw, 3rem);
+      color: var(--text-primary);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(0.98rem, 1.7vw, 1.22rem);
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      /* max-width: 620px; */
+      margin-bottom: 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 9px 16px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+
+    .hero-btn.primary {
+      background: var(--accent-primary);
+      color: #fff;
+      border: 1px solid var(--accent-primary);
+    }
+
+    .hero-btn.primary:hover {
+      background: #1d4ed8;
+      border-color: #1d4ed8;
+    }
+
+    .hero-btn.secondary {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-card);
+    }
+
+    .hero-btn.secondary:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .meta-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .meta-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    .meta-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    .meta-value {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .meta-value.green {
+      color: #16a34a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meta-value.green::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: #16a34a;
+      border-radius: 50%;
+    }
+
+    /* ── Back link ── */
+    .back-link-wrap {
+      padding: 32px 0 0;
+    }
+
+    .back-link-wrap a {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .back-link-wrap a:hover {
+      color: var(--accent-primary);
+    }
+
+    /* ── Sections ── */
+    .proj-section {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border-card);
+    }
+
+    .proj-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .proj-section-title {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-primary);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .proj-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-card);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px 56px;
+      align-items: start;
+    }
+
+    .two-col.wide-left {
+      grid-template-columns: 1.4fr 1fr;
+    }
+
+    .proj-p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.88;
+      margin-bottom: 16px;
+    }
+
+    .proj-p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ── Lists ── */
+    .proj-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .proj-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      font-size: 0.97rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding: 13px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+    }
+
+    .proj-list li .li-icon {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--accent-primary);
+      flex-shrink: 0;
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(37, 99, 235, 0.15);
+      border-radius: 3px;
+      padding: 2px 7px;
+    }
+
+    .proj-list-2col {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .proj-list-2col li {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-size: 0.97rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      padding: 13px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+    }
+
+    .proj-list-2col li .li-icon {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--accent-primary);
+      flex-shrink: 0;
+      background: rgba(37, 99, 235, 0.07);
+      border: 1px solid rgba(37, 99, 235, 0.14);
+      border-radius: 3px;
+      padding: 2px 6px;
+    }
+
+    /* ── Capstone callout ── */
+    .capstone-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      background: rgba(124, 58, 237, 0.04);
+      border: 1px solid rgba(124, 58, 237, 0.16);
+      border-radius: var(--radius-md);
+      padding: 22px 26px;
+      margin-bottom: 32px;
+    }
+
+    .capstone-box-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .capstone-box-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-secondary);
+      margin-bottom: 5px;
+    }
+
+    .capstone-box-title {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+
+    .capstone-box p {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* ── Architecture flow ── */
+    .arch-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      width: 100%;
+    }
+
+    .arch-node {
+      width: 100%;
+      padding: 14px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .arch-node.highlight {
+      border-color: rgba(37, 99, 235, 0.3);
+      background: rgba(37, 99, 235, 0.04);
+    }
+
+    .arch-node.highlight-out {
+      border-color: rgba(124, 58, 237, 0.25);
+      background: rgba(124, 58, 237, 0.04);
+    }
+
+    .arch-node.highlight-warn {
+      border-color: rgba(234, 88, 12, 0.25);
+      background: rgba(234, 88, 12, 0.04);
+    }
+
+    .arch-node-label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+
+    .arch-node-sub {
+      font-family: var(--font-mono);
+      font-size: 0.67rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      line-height: 1.5;
+    }
+
+    .arch-node-tags {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 8px;
+    }
+
+    .arch-arrow {
+      width: 1px;
+      height: 24px;
+      background: var(--border-card);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .arch-arrow::after {
+      content: '▾';
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      position: absolute;
+      bottom: -5px;
+    }
+
+    /* Fork for dual output */
+    .arch-fork {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .arch-fork-arrow {
+      width: 100%;
+      height: 24px;
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .arch-fork-arrow::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      right: auto;
+      width: 1px;
+      height: 100%;
+      background: var(--border-card);
+    }
+
+    /* ── PERCLOS formula card ── */
+    .formula-card {
+      background: rgba(37, 99, 235, 0.04);
+      border: 1px solid rgba(37, 99, 235, 0.16);
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+      margin: 24px 0;
+    }
+
+    .formula-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-primary);
+      margin-bottom: 14px;
+    }
+
+    .formula {
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      margin-bottom: 14px;
+      padding: 14px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+    }
+
+    .formula span.weight {
+      color: var(--accent-primary);
+    }
+
+    .formula-desc {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── CNN architecture mini-grid ── */
+    .cnn-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .cnn-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 20px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cnn-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .cnn-card.eye::before {
+      background: linear-gradient(90deg, var(--accent-primary), #60a5fa);
+    }
+
+    .cnn-card.yawn::before {
+      background: linear-gradient(90deg, var(--accent-secondary), #a78bfa);
+    }
+
+    .cnn-card-badge {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    .cnn-card-badge.eye {
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      color: var(--accent-primary);
+    }
+
+    .cnn-card-badge.yawn {
+      background: rgba(124, 58, 237, 0.07);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      color: var(--accent-secondary);
+    }
+
+    .cnn-card-title {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .cnn-card p {
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    /* ── Hardware chips ── */
+    .hw-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .hw-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .hw-card-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .hw-card-title {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+
+    .hw-card-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ── Diagram swiper ── */
+    /* .swiper-wrap {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-card);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+      user-select: none;
+    }
+
+    .swiper-track {
+      display: flex;
+      transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .swiper-slide {
+      min-width: 100%;
+      flex-shrink: 0;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-secondary);
+    }
+
+    .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .swiper-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--border-card);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      transition: all 0.18s ease;
+      z-index: 10;
+    }
+
+    .swiper-btn:hover {
+      background: #fff;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+      color: var(--accent-primary);
+    }
+
+    .swiper-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .swiper-prev {
+      left: 14px;
+    }
+
+    .swiper-next {
+      right: 14px;
+    }
+
+    .swiper-dots {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 7px;
+      z-index: 10;
+    }
+
+    .swiper-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.45);
+      transition: all 0.2s ease;
+      padding: 0;
+    }
+
+    .swiper-dot.active {
+      background: #fff;
+      transform: scale(1.25);
+    }
+
+    .swiper-counter {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.8);
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 100px;
+      padding: 3px 10px;
+      z-index: 10;
+    }
+
+    .swiper-label {
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.8);
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 3px;
+      padding: 3px 10px;
+      z-index: 10;
+      transition: opacity 0.3s ease;
+    } */
+
+    /* ── Image swiper ── */
+    .swiper-wrap {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-card);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+      user-select: none;
+      max-width: 860px;
+      /* smaller viewer */
+      margin: 0 auto;
+    }
+
+    .swiper-track {
+      display: flex;
+      transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+      /* track = wrapper width only */
+    }
+
+    .swiper-slide {
+      min-width: 100%;
+      /* each slide = full wrapper width */
+      width: 100%;
+      flex-shrink: 0;
+      /* never squish slides */
+      box-sizing: border-box;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-secondary);
+    }
+
+    .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      max-height: 400px;
+      /* slightly smaller than the 500px on the other page */
+    }
+
+    .swiper-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--border-card);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      transition: all 0.18s ease;
+      z-index: 10;
+    }
+
+    .swiper-btn:hover {
+      background: #fff;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+      color: var(--accent-primary);
+    }
+
+    .swiper-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .swiper-prev {
+      left: 14px;
+    }
+
+    .swiper-next {
+      right: 14px;
+    }
+
+    .swiper-dots {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 7px;
+      z-index: 10;
+    }
+
+    .swiper-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.5);
+      transition: all 0.2s ease;
+      padding: 0;
+    }
+
+    .swiper-dot.active {
+      background: #fff;
+      transform: scale(1.25);
+    }
+
+    .swiper-counter {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.75);
+      background: rgba(0, 0, 0, 0.28);
+      border-radius: 100px;
+      padding: 3px 10px;
+      z-index: 10;
+    }
+
+    .swiper-label {
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.8);
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 3px;
+      padding: 3px 10px;
+      z-index: 10;
+      transition: opacity 0.3s ease;
+    }
+
+    /* ── Challenges ── */
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+
+    .challenge-item {
+      padding: 22px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-top: 3px solid var(--accent-primary);
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .challenge-item:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    }
+
+    .challenge-badge {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #b45309;
+      background: rgba(180, 83, 9, 0.07);
+      border: 1px solid rgba(180, 83, 9, 0.18);
+      border-radius: 3px;
+      padding: 2px 8px;
+    }
+
+    .challenge-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .challenge-desc {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.68;
+    }
+
+    .challenge-solution-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #16a34a;
+      margin-top: 14px;
+      margin-bottom: 5px;
+    }
+
+    /* ── Impact ── */
+    .impact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .impact-item {
+      display: flex;
+      align-items: stretch;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .impact-item-accent {
+      width: 4px;
+      flex-shrink: 0;
+      background: linear-gradient(to bottom, var(--accent-primary), var(--accent-secondary));
+    }
+
+    .impact-item-body {
+      padding: 18px 22px;
+      flex: 1;
+    }
+
+    .impact-desc {
+      font-size: 0.97rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* ── Outcome ── */
+    .outcome-box {
+      background: rgba(37, 99, 235, 0.04);
+      border: 1px solid rgba(37, 99, 235, 0.14);
+      border-left: 4px solid var(--accent-primary);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 32px 36px;
+    }
+
+    .outcome-box p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.88;
+      margin-bottom: 14px;
+    }
+
+    .outcome-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .bottom-nav {
+      padding-top: 48px;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .meta-stack {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .meta-card {
+        flex: 1 1 150px;
+      }
+
+      .two-col,
+      .two-col.wide-left {
+        grid-template-columns: 1fr;
+      }
+
+      .challenge-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .cnn-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .proj-list-2col {
+        grid-template-columns: 1fr;
+      }
+
+      .challenge-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .meta-stack {
+        flex-direction: column;
+      }
+
+      .meta-card {
+        flex: none;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav id="navbar">
+    <a href="../index.html" class="nav-logo">H<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#contact" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="proj-hero">
+    <div class="hero-grid" id="heroContent">
+      <div>
+        <span class="hero-badge">AI & Deep Learning Systems</span>
+        <h1 class="hero-title">Driver Drowsiness Detection System</h1>
+        <p class="hero-subtitle">Real-time edge AI safety system using onboard infrared camera</p>
+        <p class="hero-desc">
+          A real-time embedded AI system that monitors driver facial behavior using an infrared camera to detect
+          drowsiness combining CNN-based eye and yawning detection with a modified PERCLOS algorithm on Raspberry Pi,
+          triggering buzzer alerts before fatigue leads to an accident.
+        </p>
+        <div class="hero-actions">
+          <a href="https://github.com/noorulhudaajmal/driver-drowsiness-detection-using-onboard-camera" target="_blank"
+            class="hero-btn primary">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+            </svg>
+            Source Code
+          </a>
+          <a href="../assets/projects/DDD/Software Design Specifications.docx.pdf" class="hero-btn secondary"
+            target="_blank">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+            SRS Document
+          </a>
+          <a href="../assets/projects/DDD/Driver Drowsiness Detection Using Onboard Camera.pdf"
+            class="hero-btn secondary" target="_blank">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+              <polyline points="10 9 9 9 8 9" />
+            </svg>
+            Project Report
+          </a>
+        </div>
+        <div class="hero-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">TensorFlow Lite</span>
+          <span class="tech-tag">OpenCV</span>
+          <span class="tech-tag">Dlib</span>
+          <span class="tech-tag">Raspberry Pi 4</span>
+          <span class="tech-tag">Django</span>
+          <span class="tech-tag">React</span>
+          <span class="tech-tag">PERCLOS</span>
+        </div>
+      </div>
+      <div class="meta-stack">
+        <div class="meta-card">
+          <div class="meta-label">Project Type</div>
+          <div class="meta-value">Bachelor's Capstone Project</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Domain</div>
+          <div class="meta-value">Edge AI · Road Safety · Embedded CV</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Hardware</div>
+          <div class="meta-value">Raspberry Pi 4 · IR Camera · MPU6050</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Models</div>
+          <div class="meta-value">2× CNN (eye state + yawning)</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Algorithm</div>
+          <div class="meta-value">Modified PERCLOS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-wrap">
+    <div class="back-link-wrap">
+      <a href="../index.html#projects">← Back to Projects</a>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="proj-section" id="s-overview">
+      <div class="proj-section-title">Overview</div>
+
+      <div class="capstone-box">
+        <div class="capstone-box-icon">🎓</div>
+        <div>
+          <div class="capstone-box-label">Bachelor's Degree Capstone Project</div>
+          <div class="capstone-box-title">Final Year Project . Software Engineering</div>
+          <p>This project was developed as the capstone project of my bachelor's degree; combining embedded systems,
+            computer vision and machine learning and applied to a real-world road
+            safety problem.</p>
+        </div>
+      </div>
+
+      <div class="wide-left">
+        <div>
+          <p class="proj-p">
+            Driver fatigue is a leading cause of road accidents worldwide. Long-distance driving, night shifts and
+            irregular sleep cycles progressively impair a driver's alertness often without them realising it until it
+            is too late. While some modern vehicles include driver monitoring systems, these are typically proprietary
+            solutions available only in high-end vehicles and not accessible as affordable aftermarket options.
+          </p>
+          <p class="proj-p">
+            This project addresses that gap by building a <strong>low-cost, edge-based driver monitoring system</strong>
+            that can be installed in any vehicle. An infrared camera continuously captures the driver's face and
+            extracts eye and mouth regions. Two convolutional neural networks predict eye closure and yawning in real
+            time and a modified PERCLOS algorithm combines both signals into a drowsiness score. If the score exceeds a
+            threshold, a buzzer alarm alerts the driver immediately.
+          </p>
+          <p class="proj-p">
+            The system also includes an <strong>accelerometer-based accident detection module</strong> that
+            automatically saves recent footage when a collision is detected and a <strong>companion web portal</strong>
+            (Django + React) for distributing model updates and collecting real-world feedback for continuous
+            improvement.
+          </p>
+
+          <div
+            style="background:rgba(234,88,12,0.04);border:1px solid rgba(234,88,12,0.15);border-radius:var(--radius-md);padding:18px 22px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin-bottom:8px;">
+              Design constraint</div>
+            <p style="font-size:0.86rem;color:var(--text-secondary);line-height:1.7;margin:0;">All inference runs
+              <strong>on-device</strong> with no internet connection required. TensorFlow Lite models optimized for
+              Raspberry Pi 4's constrained compute budget.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <!-- <div
+            style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px;margin-bottom:16px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+              System capabilities</div>
+            <ul class="proj-list" style="gap:8px;">
+              <li><span class="li-icon">→</span> Real-time eye closure detection via CNN</li>
+              <li><span class="li-icon">→</span> Real-time yawning detection via CNN</li>
+              <li><span class="li-icon">→</span> PERCLOS-based drowsiness scoring</li>
+              <li><span class="li-icon">→</span> Buzzer alert on drowsiness threshold</li>
+              <li><span class="li-icon">→</span> Collision detection + footage recording</li>
+              <li><span class="li-icon">→</span> Web portal for model updates & feedback</li>
+            </ul>
+          </div> -->
+
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="proj-section" id="s-problem">
+      <div class="proj-section-title">Problem Statement</div>
+      <div>
+        <p class="proj-p">
+          Driver fatigue significantly increases the risk of road accidents. The problem is that drowsiness develops
+          gradually and is difficult for drivers to self-monitor by the time a driver notices they are fatigued,
+          their reaction time and attention have already been compromised. Existing driver monitoring solutions are
+          either integrated into expensive new vehicles or require
+          proprietary hardware. There is no widely accessible, affordable aftermarket system that can be retrofitted
+          into any car to provide real-time drowsiness detection.
+        </p>
+        <p class="proj-p">
+
+        </p>
+      </div>
+      <div class="two-col">
+
+        <div>
+          <ul class="proj-list">
+            <li><span class="li-icon">↑</span> Fatigue is a leading global cause of road accidents</li>
+            <li><span class="li-icon">↑</span> Drivers cannot reliably self-assess drowsiness in real time</li>
+            <li><span class="li-icon">↑</span> OEM monitoring systems only available in premium vehicles</li>
+          </ul>
+        </div>
+
+        <div>
+          <ul class="proj-list">
+            <li><span class="li-icon">↑</span> No affordable aftermarket solution existed for retrofitting</li>
+            <li><span class="li-icon">↑</span> Edge inference needed: no connectivity in rural/remote areas</li>
+            <li><span class="li-icon">↑</span> Night driving requires infrared camera for low-light operation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SYSTEM ARCHITECTURE -->
+    <div class="proj-section" id="s-arch">
+      <div class="proj-section-title">System Architecture</div>
+      <div class="two-col wide-left">
+        <div class="arch-flow">
+          <div class="arch-node">
+            <div class="arch-node-label">Infrared Camera + MPU6050 Accelerometer</div>
+            <div class="arch-node-sub">Continuous face capture · 3-axis motion sensing</div>
+          </div>
+          <div class="arch-arrow"></div>
+          <div class="arch-node">
+            <div class="arch-node-label">Video Capture Module</div>
+            <div class="arch-node-sub">Raspberry Pi Camera Interface · Frame extraction · Circular buffer</div>
+            <div class="arch-node-tags"><span class="tech-tag">OpenCV</span><span class="tech-tag">Raspberry Pi 4</span>
+            </div>
+          </div>
+          <div class="arch-arrow"></div>
+          <div class="arch-node">
+            <div class="arch-node-label">Image Preprocessing</div>
+            <div class="arch-node-sub">Grayscale conversion · Facial landmark detection (68 points)</div>
+            <div class="arch-node-tags"><span class="tech-tag">Dlib</span></div>
+          </div>
+          <div class="arch-arrow"></div>
+          <div class="arch-node">
+            <div class="arch-node-label">Feature Extraction</div>
+            <div class="arch-node-sub">Left eye region · Right eye region · Mouth region: cropped & resized</div>
+          </div>
+          <div class="arch-arrow"></div>
+          <div class="arch-node highlight">
+            <div class="arch-node-label">Deep Learning Inference</div>
+            <div class="arch-node-sub">CNN Eye-State Detection · CNN Yawning Detection</div>
+            <div class="arch-node-tags"><span class="tech-tag">TensorFlow Lite</span></div>
+          </div>
+          <div class="arch-arrow"></div>
+          <div class="arch-node highlight">
+            <div class="arch-node-label">Drowsiness Estimation</div>
+            <div class="arch-node-sub">Modified PERCLOS: weighted eye closure + yawning score</div>
+          </div>
+          <div class="arch-arrow"></div>
+          <!-- Fork -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;">
+            <div class="arch-node highlight-warn">
+              <div class="arch-node-label">Driver Alert</div>
+              <div class="arch-node-sub">Buzzer alarm triggered on threshold breach</div>
+            </div>
+            <div class="arch-node">
+              <div class="arch-node-label">Accident Detection</div>
+              <div class="arch-node-sub">Sudden decel &gt;8 m/s² → save footage locally</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div
+            style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px;margin-bottom:16px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+              Edge hardware components</div>
+            <ul class="proj-list" style="gap:8px;">
+              <li><span class="li-icon">π</span> Raspberry Pi 4: main compute unit</li>
+              <li><span class="li-icon">IR</span> Infrared camera module: night vision capable</li>
+              <li><span class="li-icon">G</span> MPU6050 accelerometer: 3-axis motion sensing</li>
+              <li><span class="li-icon">🔔</span> Onboard buzzer: real-time driver alert</li>
+            </ul>
+          </div>
+          <div
+            style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+              Web portal (companion app)</div>
+            <ul class="proj-list" style="gap:8px;">
+              <li><span class="li-icon">↓</span> Download updated ML models to device</li>
+              <li><span class="li-icon">↑</span> Upload accident footage for review</li>
+              <li><span class="li-icon">✎</span> Submit feedback and issue reports</li>
+            </ul>
+            <div style="display:flex;gap:6px;margin-top:12px;">
+              <span class="tech-tag">Django</span>
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">JavaScript</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DROWSINESS DETECTION PIPELINE -->
+    <div class="proj-section" id="s-pipeline">
+      <div class="proj-section-title">Drowsiness Detection Pipeline</div>
+      <div class="two-col wide-left">
+        <div>
+          <p class="proj-p">
+            The detection pipeline processes each video frame in real time. Dlib's 68-point facial landmark model
+            identifies key facial feature locations, from which the left eye, right eye and mouth regions are cropped
+            and passed to the CNN models. The two model outputs are then combined by the PERCLOS scoring algorithm to
+            compute a continuous drowsiness estimate.
+          </p>
+
+          <div class="cnn-grid">
+            <div class="cnn-card eye">
+              <span class="cnn-card-badge eye">CNN Model 1</span>
+              <div class="cnn-card-title">Eye-State Detection</div>
+              <p>Binary classifier predicting whether the driver's eyes are open or closed from the cropped eye region.
+              </p>
+              <!-- <ul class="proj-list" style="gap:6px;">
+                <li style="font-size:0.82rem;padding:8px 12px;"><span class="li-icon"
+                    style="font-size:0.58rem;">→</span> Conv layers → MaxPool → Dropout</li>
+                <li style="font-size:0.82rem;padding:8px 12px;"><span class="li-icon"
+                    style="font-size:0.58rem;">→</span> Dense layers → Sigmoid output</li>
+              </ul> -->
+            </div>
+            <div class="cnn-card yawn">
+              <span class="cnn-card-badge yawn">CNN Model 2</span>
+              <div class="cnn-card-title">Yawning Detection</div>
+              <p>Binary classifier detecting yawning behavior from the cropped mouth region across consecutive frames.
+              </p>
+              <!-- <ul class="proj-list" style="gap:6px;">
+                <li style="font-size:0.82rem;padding:8px 12px;"><span class="li-icon"
+                    style="font-size:0.58rem;">→</span> Conv layers → MaxPool → Dropout</li>
+                <li style="font-size:0.82rem;padding:8px 12px;"><span class="li-icon"
+                    style="font-size:0.58rem;">→</span> Dense layers → Sigmoid output</li>
+              </ul> -->
+            </div>
+          </div>
+
+          <div class="formula-card">
+            <div class="formula-label">Modified PERCLOS Drowsiness Score</div>
+            <div class="formula">
+              Score = <span class="weight">0.75</span> × Eye Closure + <span class="weight">0.25</span> × Yawning
+            </div>
+            <div class="formula-desc">
+              PERCLOS (Percentage of Eye Closure) is a validated fatigue metric that measures the proportion of time
+              eyes are 80%+ closed over a rolling window. This implementation extends the standard PERCLOS with a
+              weighted yawning component thereby reducing false positives that arise from relying on eye closure alone.
+              If the
+              computed score exceeds the predefined threshold, the buzzer alarm is triggered immediately.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div
+            style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px;margin-bottom:16px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+              Facial landmark extraction</div>
+            <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.72;margin-bottom:14px;">Dlib's
+              68-point model identifies precise facial feature locations from each frame, enabling consistent region
+              extraction regardless of head pose or slight movement.</p>
+            <ul class="proj-list" style="gap:8px;">
+              <li><span class="li-icon">L</span> Left eye: landmarks 36–41</li>
+              <li><span class="li-icon">R</span> Right eye: landmarks 42–47</li>
+              <li><span class="li-icon">M</span> Mouth: landmarks 48–67</li>
+            </ul>
+          </div>
+          <div
+            style="background:rgba(234,88,12,0.04);border:1px solid rgba(234,88,12,0.15);border-radius:var(--radius-md);padding:22px 24px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:#ea580c;margin-bottom:10px;">
+              Accident detection trigger</div>
+            <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.72;margin:0;">The MPU6050
+              accelerometer continuously monitors vehicle acceleration. If sudden deceleration exceeds <strong>8
+                m/s²</strong>, the system saves the most recent frames from its circular buffer to local storage,
+              enabling post-incident review and model improvement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESIGN DIAGRAMS (SWIPER) -->
+    <div class="proj-section" id="s-diagrams">
+      <div class="proj-section-title">Design Diagrams</div>
+      <p class="proj-p" style="">
+        The diagrams below document the system design covering the high-level architecture, data flow between
+        components and sequence interactions between modules.
+      </p>
+
+      <!--
+      SWIPER — 3 slides: system architecture, data flow, sequence diagram
+      Images expected at: ../assets/images/drowsiness-arch.png
+                          ../assets/images/drowsiness-dataflow.png
+                          ../assets/images/drowsiness-sequence.png
+
+      TO REPLACE PLACEHOLDERS: swap each .swiper-slide-placeholder div with:
+        <img src="../assets/images/YOUR-FILE.png"
+             alt="description"
+             style="width:100%;height:100%;object-fit:contain;display:block;" />
+    -->
+      <div class="swiper-wrap" id="diagramSwiper">
+        <div class="swiper-track" id="diagramTrack">
+
+          <div class="swiper-slide">
+            <img src="../assets/projects/DDD/architecture.png" alt="description"
+              style="width:100%;height:100%;object-fit:contain;display:block;" />
+            <!-- ▼ REPLACE: system architecture diagram ▼ -->
+            <!-- <img src="../assets/images/drowsiness-arch.png" alt="System architecture diagram"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+              style="width:100%;height:100%;object-fit:contain;display:block;" />
+            <div
+              style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--bg-secondary);">
+              <div style="font-size:2.4rem;opacity:0.2;">🏗</div>
+              <div
+                style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);">
+                System Architecture Diagram</div>
+              <div style="font-size:0.78rem;color:var(--text-muted);opacity:0.6;">Add: assets/images/drowsiness-arch.png
+              </div>
+            </div> -->
+            <!-- ▲ END REPLACE ▲ -->
+          </div>
+
+          <div class="swiper-slide">
+            <img src="../assets/projects/DDD/dataflow.png" alt="description"
+              style="width:100%;height:100%;object-fit:contain;display:block;" />
+            <!-- ▼ REPLACE: data flow diagram ▼ -->
+            <!-- <img src="../assets/images/drowsiness-dataflow.png" alt="Data flow diagram"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+              style="width:100%;height:100%;object-fit:contain;display:block;" />
+            <div
+              style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--bg-secondary);">
+              <div style="font-size:2.4rem;opacity:0.2;">🔄</div>
+              <div
+                style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);">
+                Data Flow Diagram</div>
+              <div style="font-size:0.78rem;color:var(--text-muted);opacity:0.6;">Add:
+                assets/images/drowsiness-dataflow.png</div>
+            </div> -->
+            <!-- ▲ END REPLACE ▲ -->
+          </div>
+
+          <div class="swiper-slide">
+            <img src="../assets/projects/DDD/activity_diagram.png" alt="description"
+              style="width:100%;height:100%;object-fit:contain;display:block;" />
+            <!-- ▼ REPLACE: sequence diagram ▼ -->
+            <!-- <img src="../assets/images/drowsiness-sequence.png" alt="Sequence diagram"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+              style="width:100%;height:100%;object-fit:contain;display:block;" />
+            <div
+              style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--bg-secondary);">
+              <div style="font-size:2.4rem;opacity:0.2;">📋</div>
+              <div
+                style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);">
+                Sequence Diagram</div>
+              <div style="font-size:0.78rem;color:var(--text-muted);opacity:0.6;">Add:
+                assets/images/drowsiness-sequence.png</div>
+            </div> -->
+            <!-- ▲ END REPLACE ▲ -->
+          </div>
+
+        </div>
+
+        <button class="swiper-btn swiper-prev" id="diagramPrev" aria-label="Previous">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+        <button class="swiper-btn swiper-next" id="diagramNext" aria-label="Next">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+
+        <div class="swiper-label" id="diagramLabel">System Architecture</div>
+        <div class="swiper-counter"><span id="diagramCurrent">1</span> / 3</div>
+
+        <div class="swiper-dots" id="diagramDots">
+          <button class="swiper-dot active" data-index="0"></button>
+          <button class="swiper-dot" data-index="1"></button>
+          <button class="swiper-dot" data-index="2"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TECHNOLOGY STACK -->
+    <div class="proj-section" id="s-tech">
+      <div class="proj-section-title">Technology Stack</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:14px;">
+        <div
+          style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+            Languages</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">Python</span><span
+              class="tech-tag">JavaScript</span></div>
+        </div>
+        <div
+          style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+            Machine Learning</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">TensorFlow</span><span
+              class="tech-tag">TensorFlow Lite</span></div>
+        </div>
+        <div
+          style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+            Computer Vision</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">OpenCV</span><span
+              class="tech-tag">Dlib</span></div>
+        </div>
+        <div
+          style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+            Embedded Hardware</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">Raspberry Pi 4</span><span
+              class="tech-tag">IR Camera</span><span class="tech-tag">MPU6050</span></div>
+        </div>
+        <div
+          style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+            Web Platform</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">Django</span><span
+              class="tech-tag">React</span></div>
+        </div>
+        <div
+          style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+            Testing</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">Pytest</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHALLENGES -->
+    <div class="proj-section" id="s-challenges">
+      <div class="proj-section-title">Challenges & Solutions</div>
+      <div class="challenge-grid">
+        <div class="challenge-item">
+          <span class="challenge-badge">Challenge</span>
+          <div class="challenge-title">Real-Time Inference on Edge Hardware</div>
+          <div class="challenge-desc">Running two CNN models plus facial landmark detection in real time on a Raspberry
+            Pi 4 required significant optimization to avoid frame drops that would degrade detection reliability.</div>
+          <div class="challenge-solution-label">Solution</div>
+          <div class="challenge-desc">Converted models to TensorFlow Lite for hardware-optimized inference, used
+            grayscale preprocessing to reduce input dimensionality and minimized per-frame processing overhead through
+            efficient OpenCV pipelines.</div>
+        </div>
+        <div class="challenge-item">
+          <span class="challenge-badge">Challenge</span>
+          <div class="challenge-title">Robust Facial Feature Detection</div>
+          <div class="challenge-desc">Accurate, consistent extraction of eye and mouth regions was critical, slight
+            misalignment or missed detections would propagate errors directly into the drowsiness score and generate
+            false alarms.</div>
+          <div class="challenge-solution-label">Solution</div>
+          <div class="challenge-desc">Used Dlib's 68-point facial landmark model to consistently localize feature
+            regions with sub-pixel accuracy regardless of head pose variation, illumination changes or minor movement.
+          </div>
+        </div>
+        <div class="challenge-item">
+          <span class="challenge-badge">Challenge</span>
+          <div class="challenge-title">Reducing False Positive Alerts</div>
+          <div class="challenge-desc">Using eye closure alone as a drowsiness signal can cause false alarms, since
+            normal blinking, looking away or brief occlusions may trigger alerts and reduce driver confidence in the
+            system.</div>
+          <div class="challenge-solution-label">Solution</div>
+          <div class="challenge-desc">Implemented a modified PERCLOS metric that combines eye closure frequency
+            (weighted 0.75) with yawning frequency (weighted 0.25) over a rolling window thereby significantly improving
+            specificity without hurting sensitivity.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMPACT -->
+    <!-- <div class="proj-section" id="s-impact">
+      <div class="proj-section-title">Impact</div>
+      <div class="impact-list">
+        <div class="impact-item">
+          <div class="impact-item-accent"></div>
+          <div class="impact-item-body">
+            <div class="impact-desc">Developed an edge-based driver monitoring system using CNNs and computer vision to
+              detect driver fatigue in real time deploying two binary classifiers (eye-state and yawning detection) on
+              Raspberry Pi 4 with TensorFlow Lite for on-device inference without internet connectivity.</div>
+          </div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-item-accent"></div>
+          <div class="impact-item-body">
+            <div class="impact-desc">Implemented Dlib's 68-point facial landmark detection and a modified PERCLOS
+              algorithm combining weighted eye closure and yawning metrics: improving drowsiness detection specificity
+              over single-signal approaches and reducing false alarm rates.</div>
+          </div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-item-accent"></div>
+          <div class="impact-item-body">
+            <div class="impact-desc">Integrated embedded sensors (infrared camera, MPU6050 accelerometer) and deep
+              learning models on Raspberry Pi: enabling real-time drowsiness alerting, automatic accident footage
+              recording and a continuous improvement loop through a Django + React web portal for model updates and
+              field feedback.</div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- OUTCOME -->
+    <div class="proj-section" id="s-outcome">
+      <div class="proj-section-title">Outcome</div>
+      <div class="outcome-box">
+        <p>
+          The system successfully demonstrated real-time detection of driver fatigue using computer vision and edge AI
+          inference running entirely on a low-cost Raspberry Pi 4 with no cloud dependency, making it viable as an
+          affordable aftermarket safety solution for any vehicle.
+        </p>
+        <p>
+          Key outcomes included reliable detection of eye closure and yawning behavior, real-time alerting through the
+          onboard buzzer, automatic accident footage recording via the accelerometer module and a modular architecture
+          enabling ongoing model improvement through the companion web portal. The project demonstrates how embedded AI
+          systems can improve road safety by monitoring driver attentiveness in real time without requiring expensive
+          OEM hardware.
+        </p>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <a href="../index.html#projects" class="btn-secondary">← View All Projects</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-left">H<span>.</span></div>
+    <div class="footer-center">© 2026 Huda . Machine Learning Engineer</div>
+    <div class="footer-right">
+      <a href="https://github.com/noorulhudaajmal" target="_blank" class="footer-social">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+        </svg>
+      </a>
+      <a href="https://linkedin.com/in/nhajmal" target="_blank" class="footer-social">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); });
+
+    gsap.fromTo('.hero-grid > div:first-child > *',
+      { opacity: 0, y: 22 },
+      { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out', delay: 0.2 }
+    );
+    gsap.fromTo('.meta-card',
+      { opacity: 0, x: 18 },
+      { opacity: 1, x: 0, duration: 0.5, stagger: 0.07, ease: 'power3.out', delay: 0.35 }
+    );
+    gsap.utils.toArray('.proj-section').forEach(section => {
+      gsap.fromTo(section, { opacity: 0, y: 24 },
+        {
+          opacity: 1, y: 0, duration: 0.65, ease: 'power3.out',
+          scrollTrigger: { trigger: section, start: 'top 84%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.arch-node').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, y: 14 },
+        {
+          opacity: 1, y: 0, duration: 0.38, ease: 'power2.out', delay: i * 0.07,
+          scrollTrigger: { trigger: '#s-arch', start: 'top 78%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.cnn-card').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, y: 16 },
+        {
+          opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', delay: i * 0.12,
+          scrollTrigger: { trigger: '#s-pipeline', start: 'top 78%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.challenge-item').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, y: 14 },
+        {
+          opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', delay: i * 0.1,
+          scrollTrigger: { trigger: '#s-challenges', start: 'top 80%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.impact-item').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, x: -12 },
+        {
+          opacity: 1, x: 0, duration: 0.45, ease: 'power2.out', delay: i * 0.1,
+          scrollTrigger: { trigger: '#s-impact', start: 'top 82%', toggleActions: 'play none none reverse' }
+        });
+    });
+
+    // ── Diagram Swiper ──
+    (function () {
+      const LABELS = ['System Architecture', 'Data Flow', 'Activity Diagram'];
+      const track = document.getElementById('diagramTrack');
+      const prevBtn = document.getElementById('diagramPrev');
+      const nextBtn = document.getElementById('diagramNext');
+      const dots = document.querySelectorAll('#diagramDots .swiper-dot');
+      const counter = document.getElementById('diagramCurrent');
+      const label = document.getElementById('diagramLabel');
+      const total = 3;
+      let current = 0, startX = 0, isDragging = false;
+
+      function goTo(index) {
+        current = Math.max(0, Math.min(total - 1, index));
+        track.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        counter.textContent = current + 1;
+        label.textContent = LABELS[current];
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current === total - 1;
+      }
+
+      prevBtn.addEventListener('click', () => goTo(current - 1));
+      nextBtn.addEventListener('click', () => goTo(current + 1));
+      dots.forEach(d => d.addEventListener('click', () => goTo(parseInt(d.dataset.index))));
+
+      track.addEventListener('mousedown', e => { startX = e.clientX; isDragging = true; });
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDragging = true; }, { passive: true });
+      const endDrag = endX => {
+        if (!isDragging) return; isDragging = false;
+        if (Math.abs(startX - endX) > 50) goTo(startX - endX > 0 ? current + 1 : current - 1);
+      };
+      track.addEventListener('mouseup', e => endDrag(e.clientX));
+      track.addEventListener('touchend', e => endDrag(e.changedTouches[0].clientX));
+
+      goTo(0);
+    })();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pallidus Behavioral Analysis</title>
+    <link rel="stylesheet" href="../style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        body {
+            background: white;
+        }
+
+        .page-wrap {
+            padding: 0 clamp(28px, 6vw, 96px) 120px;
+        }
+
+        /* ── Hero ── */
+        .proj-hero {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-card);
+            padding: 112px clamp(28px, 6vw, 96px) 64px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .proj-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 55% 70% at 82% 35%, rgba(37, 99, 235, 0.06) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 48px;
+            align-items: start;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-mono);
+            font-size: 0.66rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent-secondary);
+            background: rgba(124, 58, 237, 0.07);
+            border: 1px solid rgba(124, 58, 237, 0.18);
+            border-radius: 3px;
+            padding: 4px 10px;
+            margin-bottom: 18px;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3.8vw, 3rem);
+            color: var(--text-primary);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: clamp(0.98rem, 1.7vw, 1.22rem);
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            /* max-width: 620px; */
+            margin-bottom: 24px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .hero-btn.primary {
+            background: var(--accent-primary);
+            color: #fff;
+            border: 1px solid var(--accent-primary);
+        }
+
+        .hero-btn.primary:hover {
+            background: #1d4ed8;
+            border-color: #1d4ed8;
+        }
+
+        .hero-btn.secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-card);
+        }
+
+        .hero-btn.secondary:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .meta-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .meta-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+        }
+
+        .meta-label {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .meta-value {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .meta-value.green {
+            color: #16a34a;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .meta-value.green::before {
+            content: '';
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            background: #16a34a;
+            border-radius: 50%;
+        }
+
+        /* ── Back link ── */
+        .back-link-wrap {
+            padding: 32px 0 0;
+        }
+
+        .back-link-wrap a {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .back-link-wrap a:hover {
+            color: var(--accent-primary);
+        }
+
+        /* ── Sections ── */
+        .proj-section {
+            padding: 56px 0;
+            border-bottom: 1px solid var(--border-card);
+        }
+
+        .proj-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .proj-section-title {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .proj-section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-card);
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px 56px;
+            align-items: start;
+        }
+
+        .two-col.wide-left {
+            grid-template-columns: 1.4fr 1fr;
+        }
+
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+
+        .proj-p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.88;
+            margin-bottom: 16px;
+        }
+
+        .proj-p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── Lists ── */
+        .proj-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .proj-list li {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            font-size: 0.97rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            padding: 13px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-sm);
+        }
+
+        .proj-list li .li-icon {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--accent-primary);
+            flex-shrink: 0;
+            background: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            border-radius: 3px;
+            padding: 2px 7px;
+        }
+
+        .proj-list-2col {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .proj-list-2col li {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            font-size: 0.97rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            padding: 13px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-sm);
+        }
+
+        .proj-list-2col li .li-icon {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--accent-primary);
+            flex-shrink: 0;
+            background: rgba(37, 99, 235, 0.07);
+            border: 1px solid rgba(37, 99, 235, 0.14);
+            border-radius: 3px;
+            padding: 2px 6px;
+        }
+
+        /* ── Hypothesis cards ── */
+        .hypothesis-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .hypothesis-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .hypothesis-card:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+        }
+
+        .hypothesis-num {
+            width: 56px;
+            flex-shrink: 0;
+            background: rgba(37, 99, 235, 0.06);
+            border-right: 1px solid var(--border-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            letter-spacing: 0.06em;
+        }
+
+        .hypothesis-body {
+            padding: 18px 22px;
+            flex: 1;
+        }
+
+        .hypothesis-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .hypothesis-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.72;
+            margin-bottom: 10px;
+        }
+
+        .hypothesis-test {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .test-badge {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            background: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.18);
+            border-radius: 3px;
+            padding: 2px 8px;
+            flex-shrink: 0;
+        }
+
+        /* ── Image swiper ── */
+        .swiper-wrap {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-card);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+            user-select: none;
+            max-width: 720px;
+            /* smaller viewer */
+            margin: 0 auto;
+        }
+
+        .swiper-track {
+            display: flex;
+            transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            /* track = wrapper width only */
+        }
+
+        .swiper-slide {
+            min-width: 100%;
+            /* each slide = full wrapper width */
+            width: 100%;
+            flex-shrink: 0;
+            /* never squish slides */
+            box-sizing: border-box;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-secondary);
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            max-height: 400px;
+            /* slightly smaller than the 500px on the other page */
+        }
+
+        .swiper-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid var(--border-card);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            transition: all 0.18s ease;
+            z-index: 10;
+        }
+
+        .swiper-btn:hover {
+            background: #fff;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+            color: var(--accent-primary);
+        }
+
+        .swiper-btn:disabled {
+            opacity: 0.35;
+            cursor: default;
+        }
+
+        .swiper-prev {
+            left: 14px;
+        }
+
+        .swiper-next {
+            right: 14px;
+        }
+
+        .swiper-dots {
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 7px;
+            z-index: 10;
+        }
+
+        .swiper-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.2s ease;
+            padding: 0;
+        }
+
+        .swiper-dot.active {
+            background: #fff;
+            transform: scale(1.25);
+        }
+
+        .swiper-counter {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.75);
+            background: rgba(0, 0, 0, 0.28);
+            border-radius: 100px;
+            padding: 3px 10px;
+            z-index: 10;
+        }
+
+        /* ── Feature cards (keep for fallback) ── */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-md);
+            padding: 24px 26px;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+        }
+
+        .feature-card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .feature-card-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.72;
+            margin-bottom: 14px;
+        }
+
+        .feature-card-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .feature-card-list li {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            padding-left: 14px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .feature-card-list li::before {
+            content: '–';
+            position: absolute;
+            left: 0;
+            color: var(--accent-primary);
+        }
+
+        /* ── Pipeline steps ── */
+        .pipeline-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            position: relative;
+        }
+
+        .pipeline-steps::before {
+            content: '';
+            position: absolute;
+            left: 23px;
+            top: 28px;
+            bottom: 28px;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--accent-primary), rgba(37, 99, 235, 0.1));
+        }
+
+        .pipeline-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 16px 0;
+        }
+
+        .pipeline-step-num {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1.5px solid rgba(37, 99, 235, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: var(--accent-primary);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 0 4px var(--bg-primary);
+        }
+
+        .pipeline-step-body {
+            padding-top: 10px;
+            flex: 1;
+        }
+
+        .pipeline-step-name {
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .pipeline-step-desc {
+            font-size: 0.87rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .pipeline-step-tag {
+            display: inline-block;
+            margin-top: 6px;
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.08em;
+            color: var(--accent-primary);
+            background: rgba(37, 99, 235, 0.06);
+            border: 1px solid rgba(37, 99, 235, 0.14);
+            border-radius: 3px;
+            padding: 2px 8px;
+        }
+
+        /* ── Stat cards ── */
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-md);
+            padding: 20px 22px;
+            text-align: center;
+        }
+
+        .stat-card-value {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--accent-primary);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-card-label {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ── Challenges ── */
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 14px;
+        }
+
+        .challenge-item {
+            padding: 22px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-top: 3px solid var(--accent-primary);
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .challenge-item:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+        }
+
+        .challenge-badge {
+            display: inline-block;
+            margin-bottom: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #b45309;
+            background: rgba(180, 83, 9, 0.07);
+            border: 1px solid rgba(180, 83, 9, 0.18);
+            border-radius: 3px;
+            padding: 2px 8px;
+        }
+
+        .challenge-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .challenge-desc {
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+            line-height: 1.68;
+        }
+
+        .challenge-solution-label {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #16a34a;
+            margin-top: 14px;
+            margin-bottom: 5px;
+        }
+
+        /* ── Collaboration callout ── */
+        .collab-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            background: rgba(124, 58, 237, 0.04);
+            border: 1px solid rgba(124, 58, 237, 0.15);
+            border-radius: var(--radius-md);
+            padding: 24px 28px;
+            margin-bottom: 32px;
+        }
+
+        .collab-box-icon {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .collab-box-title {
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .collab-box p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.72;
+            margin: 0;
+        }
+
+        .collab-box a {
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+
+        .collab-box a:hover {
+            text-decoration: underline;
+        }
+
+        /* ── Impact ── */
+        .impact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .impact-item {
+            display: flex;
+            align-items: stretch;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+
+        .impact-item-accent {
+            width: 4px;
+            flex-shrink: 0;
+            background: linear-gradient(to bottom, var(--accent-primary), var(--accent-secondary));
+        }
+
+        .impact-item-body {
+            padding: 18px 22px;
+            flex: 1;
+        }
+
+        .impact-desc {
+            font-size: 0.97rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+
+        /* ── Outcome ── */
+        .outcome-box {
+            background: rgba(37, 99, 235, 0.04);
+            border: 1px solid rgba(37, 99, 235, 0.14);
+            border-left: 4px solid var(--accent-primary);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 32px 36px;
+        }
+
+        .outcome-box p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.88;
+            margin-bottom: 14px;
+        }
+
+        .outcome-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .bottom-nav {
+            padding-top: 48px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .meta-stack {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .meta-card {
+                flex: 1 1 150px;
+            }
+
+            .two-col,
+            .two-col.wide-left {
+                grid-template-columns: 1fr;
+            }
+
+            .three-col {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .challenge-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .proj-list-2col {
+                grid-template-columns: 1fr;
+            }
+
+            .challenge-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .three-col {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .meta-stack {
+                flex-direction: column;
+            }
+
+            .meta-card {
+                flex: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav id="navbar">
+        <a href="../index.html" class="nav-logo">H<span>.</span></a>
+        <ul class="nav-links">
+            <li><a href="../index.html#about">About</a></li>
+            <li><a href="../index.html#skills">Skills</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../index.html#contact" class="nav-cta">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- ══════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════ -->
+    <div class="proj-hero">
+        <div class="hero-grid" id="heroContent">
+            <div>
+                <span class="hero-badge">Data Intelligence & Analytics</span>
+                <h1 class="hero-title">Temporal Analysis of Pallidus MR1 Data</h1>
+                <p class="hero-subtitle">Pallidus MR1 Activity Data · KravitzLab</p>
+                <p class="hero-desc">
+                    An interactive research platform for uploading, exploring and statistically analyzing circadian
+                    behavioral activity data collected from the Pallidus MR1 Activity Monitoring System. The platform
+                    enables temporal analysis of subjects' activity patterns and includes automated report generation to
+                    support research documentation and publication workflows.
+                </p>
+                <div class="hero-actions">
+                    <a href="https://github.com/noorulhudaajmal/Temporal-Analysis-of-Pallidus-MR1-Dataset"
+                        target="_blank" class="hero-btn primary">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+                        </svg>
+                        View Source Code
+                    </a>
+                    <a href="../assets/projects/PTA/Palliuds-MR1-Analysis.pdf" target="_blank" class="hero-btn secondary">
+                        Initial Report
+                    </a>
+                </div>
+                <div class="hero-tags">
+                    <span class="tech-tag">Python</span>
+                    <!-- <span class="tech-tag">Streamlit</span>
+                    <span class="tech-tag">Plotly</span> -->
+                    <span class="tech-tag">Pandas</span>
+                    <span class="tech-tag">SciPy</span>
+                    <!-- <span class="tech-tag">NumPy</span>
+                    <span class="tech-tag">XlsxWriter</span> -->
+                </div>
+            </div>
+            <div class="meta-stack">
+                <div class="meta-card">
+                    <div class="meta-label">Domain</div>
+                    <div class="meta-value">Neuroscience · Behavioral Research</div>
+                </div>
+                <div class="meta-card">
+                    <div class="meta-label">Built for</div>
+                    <div class="meta-value">KravitzLab</div>
+                </div>
+                <div class="meta-card">
+                    <div class="meta-label">Data Source</div>
+                    <div class="meta-value">Pallidus MR1 Activity Monitor</div>
+                </div>
+                <!-- <div class="meta-card">
+                    <div class="meta-label">Interface</div>
+                    <div class="meta-value">Streamlit web application</div>
+                </div> -->
+                <div class="meta-card">
+                    <div class="meta-label">Statistics</div>
+                    <div class="meta-value">t-test · ANOVA · Circadian segmentation</div>
+                </div>
+                <!-- <div class="meta-card">
+                    <div class="meta-label">Status</div>
+                    <div class="meta-value green">Completed</div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="page-wrap">
+        <div class="back-link-wrap">
+            <a href="../index.html#projects">← Back to Projects</a>
+        </div>
+
+        <!-- ══════════════════════════════════════
+       OVERVIEW
+  ═══════════════════════════════════════ -->
+        <div class="proj-section" id="s-overview">
+            <div class="proj-section-title">Overview</div>
+
+            <div class="collab-box">
+                <div class="collab-box-icon">🔬</div>
+                <div>
+                    <div class="collab-box-title">Built for Research Lab KravitzLab at Washington University in St.
+                        Louis</div>
+                    <p>This project was developed for <a href="https://kravitzlab.com/" target="_blank">KravitzLab</a>,
+                        a neuroscience research group studying neural circuit
+                        function and behavioral outcomes. The platform was built to support their analysis of Pallidus
+                        MR1 data recorded across multi-subject and multi-day experiments.</p>
+                </div>
+            </div>
+
+            <div class="wide-left">
+                <div>
+                    <p class="proj-p">
+                        The Pallidus MR1 system records timestamped activity measurements for multiple experimental
+                        subjects over extended periods generating rich behavioral time-series datasets that capture
+                        circadian rhythms, group dynamics and responses to pharmacological or genetic interventions.
+
+                        Analyzing these datasets manually using spreadsheets is slow, error-prone and difficult to
+                        scale across dozens of subjects or multiple experimental runs. Researchers need a way to rapidly
+                        explore temporal patterns, compare experimental groups and apply statistical validation
+                        without writing bespoke analysis scripts for each experiment.
+                    </p>
+                    <p class="proj-p">
+                        I developed an <strong>interactive Python-based analysis platform</strong> that brings
+                        together time-series visualization, circadian segmentation, statistical hypothesis testing and
+                        automated Excel report generation into a single researcher-facing interface enabling fast,
+                        reproducible behavioral data analysis.
+                    </p>
+                </div>
+                <div>
+                    <!-- <div
+                        style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px;margin-bottom:16px;">
+                        <div
+                            style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+                            Research use-cases enabled</div>
+                        <ul class="proj-list" style="gap:8px;">
+                            <li><span class="li-icon">→</span> Circadian rhythm behavioral analysis</li>
+                            <li><span class="li-icon">→</span> Neural circuit manipulation experiments</li>
+                            <li><span class="li-icon">→</span> Pharmacological intervention studies</li>
+                            <li><span class="li-icon">→</span> Genetic model behavioral comparisons</li>
+                            <li><span class="li-icon">→</span> Group behavioral dynamics over time</li>
+                        </ul>
+                    </div> -->
+                    <!-- <div
+                        style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px;">
+                        <div
+                            style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+                            What each data record includes</div>
+                        <ul class="proj-list" style="gap:8px;">
+                            <li><span class="li-icon">T</span> Timestamp of each activity measurement</li>
+                            <li><span class="li-icon">S</span> Per-subject sensor readings from multiple devices</li>
+                            <li><span class="li-icon">A</span> Continuous behavioral activity levels over time</li>
+                        </ul>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════
+       PROBLEM
+  ═══════════════════════════════════════ -->
+        <div class="proj-section" id="s-problem">
+            <div class="proj-section-title">Problem Statement</div>
+            <div class="two-col">
+                <div>
+                    <p class="proj-p">
+                        Large-scale behavioral time-series datasets pose significant analytical challenges.
+                        Multi-subject experiments recorded over days or weeks produce high-dimensional data with complex
+                        temporal structure circadian cycles, treatment-response windows and inter-subject variability
+                        that is difficult to examine systematically in a spreadsheet.
+                    </p>
+                    <p class="proj-p">
+                        Researchers also need to validate findings statistically, comparing treatment and control groups
+                        with appropriate tests. Without integrated tools, this typically requires custom code per
+                        experiment increasing time-to-insight and introducing reproducibility risks.
+                    </p>
+                </div>
+                <ul class="proj-list">
+                    <li><span class="li-icon">↑</span> High dimensionality dozens of subjects recorded simultaneously
+                    </li>
+                    <li><span class="li-icon">↑</span> Long time horizons experiments spanning days or weeks</li>
+                    <li><span class="li-icon">↑</span> Circadian variability activity patterns shift across day/night
+                    </li>
+                    <li><span class="li-icon">↑</span> Group comparisons treatment vs control analysis required</li>
+                    <!-- <li><span class="li-icon">↑</span> Statistical validation  rigorous hypothesis testing needed</li> -->
+                    <!-- <li><span class="li-icon">↑</span> Manual workflows  time-consuming and error-prone at scale</li> -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════
+       RESEARCH HYPOTHESES
+  ═══════════════════════════════════════ -->
+        <div class="proj-section" id="s-hypotheses">
+            <div class="proj-section-title">Research Hypotheses</div>
+            <div class="two-col wide-left">
+                <div>
+                    <p class="proj-p">
+                        A core objective of the platform was to provide researchers with the statistical tools needed to
+                        validate specific behavioral hypotheses derived from neuroscience literature and experimental
+                        design. The platform was built around three primary hypotheses concerning circadian activity
+                        patterns and inter-subject dynamics.
+                    </p>
+                    <!-- <p class="proj-p">
+                        Statistical tests including independent t-tests and ANOVA were integrated directly into the
+                        analysis workflow to validate these hypotheses against the MR1 activity data, with p-values and
+                        group-level summaries surfaced in both the interactive interface and the exported reports.
+                    </p> -->
+
+                    <div class="hypothesis-list">
+                        <div class="hypothesis-card">
+                            <div class="hypothesis-num">H1</div>
+                            <div class="hypothesis-body">
+                                <div class="hypothesis-title">Nocturnal Activity Elevation</div>
+                                <div class="hypothesis-desc">Subjects exhibit higher activity levels during the night
+                                    compared to the day consistent with nocturnal behavioral patterns typically
+                                    observed in rodent model systems.</div>
+                                <div class="hypothesis-test"><span class="test-badge">t-test</span> Day vs night
+                                    activity comparison per subject and group</div>
+                            </div>
+                        </div>
+                        <div class="hypothesis-card">
+                            <div class="hypothesis-num">H2</div>
+                            <div class="hypothesis-body">
+                                <div class="hypothesis-title">Light/Dark Cycle Variability</div>
+                                <div class="hypothesis-desc">Activity levels vary significantly between different
+                                    light/dark cycles over the course of the experiment indicating a consistent
+                                    circadian entrainment pattern rather than random fluctuation.</div>
+                                <div class="hypothesis-test"><span class="test-badge">ANOVA</span> Multi-cycle activity
+                                    variance across the full recording period</div>
+                            </div>
+                        </div>
+                        <div class="hypothesis-card">
+                            <div class="hypothesis-num">H3</div>
+                            <div class="hypothesis-body">
+                                <div class="hypothesis-title">Inter-Subject Behavioral Influence</div>
+                                <div class="hypothesis-desc">The activity of one subject influences the activity of
+                                    others suggesting social or environmental coupling effects that may reflect neural
+                                    circuit interactions or group behavioral dynamics.</div>
+                                <div class="hypothesis-test"><span class="test-badge">ANOVA</span> Cross-subject
+                                    activity correlation and group-level comparison</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div
+                        style="background:rgba(37,99,235,0.04);border:1px solid rgba(37,99,235,0.14);border-radius:var(--radius-md);padding:24px 26px;margin-bottom:16px;">
+                        <div
+                            style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent-primary);margin-bottom:14px;">
+                            Statistical methods used</div>
+                        <ul class="proj-list" style="gap:8px;">
+                            <li><span class="li-icon">t</span> Independent t-test two-group comparisons (day vs night,
+                                treatment vs control)</li>
+                            <li><span class="li-icon">F</span> One-way ANOVA multi-group and multi-cycle comparisons
+                            </li>
+                            <!-- <li><span class="li-icon">p</span> p-value reporting significance thresholding per
+                                hypothesis</li> -->
+                        </ul>
+                    </div>
+                    <div
+                        style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:24px 26px;">
+                        <div
+                            style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">
+                            Capabilities</div>
+                        <ul class="proj-list" style="gap:8px;">
+                            <li><span class="li-icon">→</span> Interactive time-series visualization with day/night
+                                highlights</li>
+                            <li><span class="li-icon">→</span> Custom group definition and side-by-side comparison</li>
+                            <li><span class="li-icon">→</span> SD bands and mean activity trend overlays</li>
+                            <li><span class="li-icon">→</span> Automated Excel report export with all statistics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════
+       PLATFORM SCREENSHOTS
+  ═══════════════════════════════════════ -->
+        <div class="proj-section" id="s-screenshots">
+            <!-- <div class="proj-section-title">Platform Screenshots</div>
+            <p class="proj-p" style="max-width:680px;margin-bottom:32px;">
+                The Streamlit interface provides researchers with an interactive dashboard for exploring activity data,
+                configuring experimental groups, running statistical tests and exporting reports  all without writing
+                code.
+            </p> -->
+
+            <!-- Image Swiper -->
+            <div class="swiper-wrap">
+                <div class="swiper-track" id="swiperTrack">
+                    <div class="swiper-slide">
+                        <img src="../assets/projects/PTA/pmr1.png" alt="Platform screenshot 1" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="../assets/projects/PTA/pmr2.png" alt="Platform screenshot 2" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="../assets/projects/PTA/pmr3.png" alt="Platform screenshot 3" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="../assets/projects/PTA/pmr4.png" alt="Platform screenshot 4" />
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <button class="swiper-btn swiper-prev" id="swiperPrev" aria-label="Previous">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                </button>
+                <button class="swiper-btn swiper-next" id="swiperNext" aria-label="Next">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </button>
+
+                <!-- Dots -->
+                <div class="swiper-dots" id="swiperDots">
+                    <button class="swiper-dot active" data-index="0"></button>
+                    <button class="swiper-dot" data-index="1"></button>
+                    <button class="swiper-dot" data-index="2"></button>
+                    <button class="swiper-dot" data-index="3"></button>
+                </div>
+
+                <!-- Counter -->
+                <div class="swiper-counter"><span id="swiperCurrent">1</span> / 4</div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════
+       DATA PROCESSING PIPELINE
+  ═══════════════════════════════════════ -->
+        <div class="proj-section" id="s-pipeline">
+            <div class="proj-section-title">Data Processing Pipeline</div>
+            <div class="two-col wide-left">
+                <div class="pipeline-steps">
+                    <div class="pipeline-step">
+                        <div class="pipeline-step-num">01</div>
+                        <div class="pipeline-step-body">
+                            <div class="pipeline-step-name">Dataset Upload & Ingestion</div>
+                            <div class="pipeline-step-desc">Researchers upload raw MR1 CSV datasets through the
+                                Streamlit interface. The system validates file structure, identifies device columns and
+                                prepares the dataset for processing.</div>
+                            <span class="pipeline-step-tag">Streamlit · File Upload</span>
+                        </div>
+                    </div>
+                    <div class="pipeline-step">
+                        <div class="pipeline-step-num">02</div>
+                        <div class="pipeline-step-body">
+                            <div class="pipeline-step-name">Data Cleaning & Standardization</div>
+                            <div class="pipeline-step-desc">Removes irrelevant metadata columns, handles missing
+                                timestamps and standardizes column naming conventions to ensure consistent downstream
+                                processing regardless of how the MR1 exports the data.</div>
+                            <span class="pipeline-step-tag">Pandas · Column Standardization</span>
+                        </div>
+                    </div>
+                    <div class="pipeline-step">
+                        <div class="pipeline-step-num">03</div>
+                        <div class="pipeline-step-body">
+                            <div class="pipeline-step-name">Timestamp Parsing & Resampling</div>
+                            <div class="pipeline-step-desc">Converts raw timestamp strings to datetime objects and
+                                resamples activity measurements to hourly intervals reducing noise and aligning data
+                                for temporal trend analysis and circadian comparisons.</div>
+                            <span class="pipeline-step-tag">Datetime Parsing · Hourly Resampling</span>
+                        </div>
+                    </div>
+                    <div class="pipeline-step">
+                        <div class="pipeline-step-num">04</div>
+                        <div class="pipeline-step-body">
+                            <div class="pipeline-step-name">Circadian Segmentation</div>
+                            <div class="pipeline-step-desc">Automatically segments records into day and night periods
+                                based on timestamp enabling separate analysis of diurnal and nocturnal activity
+                                patterns, which are critical for circadian behavioral research.</div>
+                            <span class="pipeline-step-tag">Day/Night Segmentation · Circadian Analysis</span>
+                        </div>
+                    </div>
+                    <div class="pipeline-step">
+                        <div class="pipeline-step-num">05</div>
+                        <div class="pipeline-step-body">
+                            <div class="pipeline-step-name">Group Aggregation & Statistics</div>
+                            <div class="pipeline-step-desc">Computes mean activity, standard deviation and group-level
+                                aggregation metrics for each experimental group. Applies t-tests and ANOVA to evaluate
+                                statistical significance of observed behavioral differences.</div>
+                            <span class="pipeline-step-tag">Pandas · SciPy · t-test · ANOVA</span>
+                        </div>
+                    </div>
+                    <div class="pipeline-step">
+                        <div class="pipeline-step-num">06</div>
+                        <div class="pipeline-step-body">
+                            <div class="pipeline-step-name">Visualization & Report Export</div>
+                            <div class="pipeline-step-desc">Renders interactive Plotly charts with day/night shading and
+                                SD bands and exports structured Excel reports via XlsxWriter containing all computed
+                                metrics, group comparisons and statistical test results.</div>
+                            <span class="pipeline-step-tag">Plotly · XlsxWriter · Excel Export</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div
+                        style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px;margin-bottom:16px;">
+                        <div
+                            style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+                            Metrics computed</div>
+                        <ul class="proj-list" style="gap:8px;">
+                            <li><span class="li-icon">μ</span> Mean activity levels per subject and group</li>
+                            <li><span class="li-icon">σ</span> Standard deviation and variability bands</li>
+                            <li><span class="li-icon">Δ</span> Day vs night activity differentials</li>
+                            <li><span class="li-icon">p</span> p-values from t-test and ANOVA</li>
+                            <li><span class="li-icon">Σ</span> Group-level aggregation summaries</li>
+                        </ul>
+                    </div>
+                    <!-- <div
+                        style="background:rgba(37,99,235,0.04);border:1px solid rgba(37,99,235,0.14);border-radius:var(--radius-md);padding:22px 24px;">
+                        <div
+                            style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent-primary);margin-bottom:12px;">
+                            Why Streamlit</div>
+                        <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.75;margin-bottom:0;">
+                            Streamlit was chosen to give researchers a fully interactive web interface without requiring
+                            them to write or modify code. Uploading data, adjusting group definitions, selecting date
+                            ranges and triggering statistical tests all happen through the UI making the platform
+                            accessible to the entire lab team regardless of programming background.
+                        </p>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════
+       TECHNOLOGY STACK
+  ═══════════════════════════════════════ -->
+        <div class="proj-section" id="s-tech">
+            <div class="proj-section-title">Technology Stack</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;">
+                <div
+                    style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+                    <div
+                        style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+                        Language</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">Python</span></div>
+                </div>
+                <div
+                    style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+                    <div
+                        style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+                        Interface & Visualization</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">Streamlit</span><span
+                            class="tech-tag">Plotly</span></div>
+                </div>
+                <div
+                    style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+                    <div
+                        style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+                        Data Processing</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tech-tag">Pandas</span><span
+                            class="tech-tag">NumPy</span></div>
+                </div>
+                <div
+                    style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:20px 22px;">
+                    <div
+                        style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-card);">
+                        Statistics & Reporting</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                        <span class="tech-tag">SciPy</span>
+                        <!-- <span
+                            class="tech-tag">XlsxWriter</span> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════
+       CHALLENGES
+  ═══════════════════════════════════════ -->
+        <div class="proj-section" id="s-challenges">
+            <div class="proj-section-title">Challenges & Solutions</div>
+            <div class="challenge-grid">
+                <div class="challenge-item">
+                    <span class="challenge-badge">Challenge</span>
+                    <div class="challenge-title">Multi-Subject Scale</div>
+                    <div class="challenge-desc">Experiments may contain dozens of subjects recorded simultaneously
+                        across multiple monitoring devices, making manual aggregation and comparison impractical at any
+                        meaningful scale.</div>
+                    <div class="challenge-solution-label">Solution</div>
+                    <div class="challenge-desc">Implemented efficient Pandas-based aggregation pipelines that process
+                        multi-device datasets and compute group-level statistics in a single pass, regardless of subject
+                        count.</div>
+                </div>
+                <div class="challenge-item">
+                    <span class="challenge-badge">Challenge</span>
+                    <div class="challenge-title">Circadian Temporal Structure</div>
+                    <div class="challenge-desc">Behavioral activity varies significantly across day and night cycles a
+                        pattern that is invisible in raw data and easy to miss in standard time-series analysis without
+                        deliberate segmentation.</div>
+                    <div class="challenge-solution-label">Solution</div>
+                    <div class="challenge-desc">Implemented automatic day/night segmentation based on timestamps and
+                        hourly resampling, revealing circadian patterns clearly through shaded visualization and
+                        separate period statistics.</div>
+                </div>
+                <div class="challenge-item">
+                    <span class="challenge-badge">Challenge</span>
+                    <div class="challenge-title">Statistical Rigor</div>
+                    <div class="challenge-desc">Neuroscience research requires rigorous statistical validation before
+                        conclusions can be drawn or results published often requiring different tests depending on
+                        group count and data distribution.</div>
+                    <div class="challenge-solution-label">Solution</div>
+                    <div class="challenge-desc">Integrated t-tests and ANOVA directly into the analysis platform via
+                        SciPy, enabling immediate hypothesis testing with p-value reporting without requiring any
+                        additional coding from researchers.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════
+       IMPACT
+  ═══════════════════════════════════════ -->
+        <!-- <div class="proj-section" id="s-impact">
+            <div class="proj-section-title">Impact</div>
+            <div class="impact-list">
+                <div class="impact-item">
+                    <div class="impact-item-accent"></div>
+                    <div class="impact-item-body">
+                        <div class="impact-desc">Developed an interactive behavioral analysis platform for KravitzLab
+                            that processes and visualizes multi-subject MR1 activity datasets using Streamlit and Plotly
+                            giving the entire research team access to advanced analysis without requiring programming
+                            skills.</div>
+                    </div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-item-accent"></div>
+                    <div class="impact-item-body">
+                        <div class="impact-desc">Implemented time-series analysis pipelines and statistical hypothesis
+                            testing (t-tests, ANOVA via SciPy) to analyze circadian behavioral patterns enabling
+                            researchers to identify day/night activity differences and validate experimental group
+                            comparisons with rigorous statistical methods.</div>
+                    </div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-item-accent"></div>
+                    <div class="impact-item-body">
+                        <div class="impact-desc">Enabled researchers to compare experimental groups and generate
+                            automated Excel analysis reports significantly reducing manual data processing time and
+                            accelerating the path from raw experimental data to publishable insights.</div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- ══════════════════════════════════════
+       OUTCOME
+  ═══════════════════════════════════════ -->
+        <div class="proj-section" id="s-outcome">
+            <div class="proj-section-title">Outcome</div>
+            <div class="outcome-box">
+                <p>
+                    The platform delivered a scalable, researcher-accessible behavioral analysis system for the
+                    KravitzLab supporting interactive exploration of behavioral datasets, automated day/night
+                    comparisons, integrated statistical hypothesis testing and streamlined report generation for
+                    research documentation.
+                </p>
+                <p>
+                    By consolidating data cleaning, time-series visualization, circadian segmentation, group comparison
+                    and statistical testing into a single Streamlit application, the platform significantly improved
+                    research workflow efficiency reducing the time and technical overhead required to move from raw
+                    MR1 activity data to validated behavioral findings.
+                </p>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <a href="../index.html#projects" class="btn-secondary">← View All Projects</a>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-left">H<span>.</span></div>
+        <div class="footer-center">© 2026 Huda . Machine Learning Engineer</div>
+        <div class="footer-right">
+            <a href="https://github.com/noorulhudaajmal" target="_blank" class="footer-social">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+                </svg>
+            </a>
+            <a href="https://linkedin.com/in/nhajmal" target="_blank" class="footer-social">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                </svg>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); });
+
+        gsap.fromTo('.hero-grid > div:first-child > *',
+            { opacity: 0, y: 22 },
+            { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out', delay: 0.2 }
+        );
+        gsap.fromTo('.meta-card',
+            { opacity: 0, x: 18 },
+            { opacity: 1, x: 0, duration: 0.5, stagger: 0.07, ease: 'power3.out', delay: 0.35 }
+        );
+        gsap.utils.toArray('.proj-section').forEach(section => {
+            gsap.fromTo(section, { opacity: 0, y: 24 },
+                {
+                    opacity: 1, y: 0, duration: 0.65, ease: 'power3.out',
+                    scrollTrigger: { trigger: section, start: 'top 84%', toggleActions: 'play none none reverse' }
+                });
+        });
+        gsap.utils.toArray('.hypothesis-card').forEach((el, i) => {
+            gsap.fromTo(el, { opacity: 0, y: 18 },
+                {
+                    opacity: 1, y: 0, duration: 0.45, ease: 'power2.out', delay: i * 0.1,
+                    scrollTrigger: { trigger: '#s-hypotheses', start: 'top 78%', toggleActions: 'play none none reverse' }
+                });
+        });
+
+        // ── Image Swiper ──
+        (function () {
+            const track = document.getElementById('swiperTrack');
+            const prevBtn = document.getElementById('swiperPrev');
+            const nextBtn = document.getElementById('swiperNext');
+            const dots = document.querySelectorAll('.swiper-dot');
+            const counter = document.getElementById('swiperCurrent');
+            const total = 4;
+            let current = 0;
+            let startX = 0, isDragging = false;
+
+            function goTo(index) {
+                current = Math.max(0, Math.min(total - 1, index));
+                track.style.transform = `translateX(-${current * 100}%)`;
+                dots.forEach((d, i) => d.classList.toggle('active', i === current));
+                counter.textContent = current + 1;
+                prevBtn.disabled = current === 0;
+                nextBtn.disabled = current === total - 1;
+            }
+
+            prevBtn.addEventListener('click', () => goTo(current - 1));
+            nextBtn.addEventListener('click', () => goTo(current + 1));
+            dots.forEach(d => d.addEventListener('click', () => goTo(parseInt(d.dataset.index))));
+
+            // Touch / drag support
+            track.addEventListener('mousedown', e => { startX = e.clientX; isDragging = true; });
+            track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDragging = true; }, { passive: true });
+            const endDrag = endX => {
+                if (!isDragging) return; isDragging = false;
+                const diff = startX - endX;
+                if (Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1);
+            };
+            track.addEventListener('mouseup', e => endDrag(e.clientX));
+            track.addEventListener('touchend', e => endDrag(e.changedTouches[0].clientX));
+
+            // Keyboard
+            document.addEventListener('keydown', e => {
+                if (document.getElementById('s-screenshots').getBoundingClientRect().top < window.innerHeight) {
+                    if (e.key === 'ArrowLeft') goTo(current - 1);
+                    if (e.key === 'ArrowRight') goTo(current + 1);
+                }
+            });
+
+            goTo(0);
+        })();
+        gsap.utils.toArray('.pipeline-step').forEach((el, i) => {
+            gsap.fromTo(el, { opacity: 0, x: -14 },
+                {
+                    opacity: 1, x: 0, duration: 0.4, ease: 'power2.out', delay: i * 0.07,
+                    scrollTrigger: { trigger: '#s-pipeline', start: 'top 75%', toggleActions: 'play none none reverse' }
+                });
+        });
+        gsap.utils.toArray('.challenge-item').forEach((el, i) => {
+            gsap.fromTo(el, { opacity: 0, y: 14 },
+                {
+                    opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', delay: i * 0.1,
+                    scrollTrigger: { trigger: '#s-challenges', start: 'top 80%', toggleActions: 'play none none reverse' }
+                });
+        });
+        gsap.utils.toArray('.impact-item').forEach((el, i) => {
+            gsap.fromTo(el, { opacity: 0, x: -12 },
+                {
+                    opacity: 1, x: 0, duration: 0.45, ease: 'power2.out', delay: i * 0.1,
+                    scrollTrigger: { trigger: '#s-impact', start: 'top 82%', toggleActions: 'play none none reverse' }
+                });
+        });
+    </script>
+</body>
+
+</html>

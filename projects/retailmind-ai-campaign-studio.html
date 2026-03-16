@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RetailMind AI Campaign Studio</title>
+  <link rel="stylesheet" href="../style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+
+    body {
+      background: white;
+    }
+
+    
+    .page-wrap {
+      padding: 0 clamp(28px, 6vw, 96px) 120px;
+    }
+
+    /* ── Hero ── */
+    .proj-hero {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-card);
+      padding: 112px clamp(28px, 6vw, 96px) 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proj-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 60% at 85% 25%, rgba(124, 58, 237, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 15% 80%, rgba(37, 99, 235, 0.05) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 48px;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-secondary);
+      background: rgba(124, 58, 237, 0.07);
+      border: 1px solid rgba(124, 58, 237, 0.18);
+      border-radius: 3px;
+      padding: 4px 10px;
+      margin-bottom: 18px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.2vw, 3.4rem);
+      color: var(--text-primary);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+
+    .hero-title .accent {
+      color: var(--accent-primary);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(0.98rem, 1.7vw, 1.22rem);
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      /* max-width: 620px; */
+      margin-bottom: 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 9px 16px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+
+    .hero-btn.primary {
+      background: var(--accent-primary);
+      color: #fff;
+      border: 1px solid var(--accent-primary);
+    }
+
+    .hero-btn.primary:hover {
+      background: #1d4ed8;
+    }
+
+    .hero-btn.secondary {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-card);
+    }
+
+    .hero-btn.secondary:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .meta-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .meta-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    .meta-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    .meta-value {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .meta-value.green {
+      color: #16a34a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meta-value.green::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: #16a34a;
+      border-radius: 50%;
+    }
+
+    /* ── Back link ── */
+    .back-link-wrap {
+      padding: 32px 0 0;
+    }
+
+    .back-link-wrap a {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .back-link-wrap a:hover {
+      color: var(--accent-primary);
+    }
+
+    /* ── Sections ── */
+    .proj-section {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border-card);
+    }
+
+    .proj-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .proj-section-title {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-primary);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .proj-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-card);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px 56px;
+      align-items: start;
+    }
+
+    .two-col.wide-left {
+      grid-template-columns: 1.4fr 1fr;
+    }
+
+    .proj-p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.88;
+      margin-bottom: 16px;
+    }
+
+    .proj-p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ── Lists ── */
+    .proj-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .proj-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      font-size: 0.97rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding: 13px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+    }
+
+    .proj-list li .li-icon {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--accent-primary);
+      flex-shrink: 0;
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(37, 99, 235, 0.15);
+      border-radius: 3px;
+      padding: 2px 7px;
+    }
+
+    /* ── Agent pipeline ── */
+    .agent-pipeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+
+    .agent-pipeline::before {
+      content: '';
+      position: absolute;
+      left: 27px;
+      top: 34px;
+      bottom: 34px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent-primary), var(--accent-secondary), rgba(124, 58, 237, 0.1));
+    }
+
+    .agent-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 22px;
+      padding: 18px 0;
+    }
+
+    .agent-num {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 0 5px var(--bg-primary);
+    }
+
+    .agent-num.research {
+      background: rgba(37, 99, 235, 0.1);
+      border: 2px solid rgba(37, 99, 235, 0.3);
+    }
+
+    .agent-num.designer {
+      background: rgba(124, 58, 237, 0.1);
+      border: 2px solid rgba(124, 58, 237, 0.3);
+    }
+
+    .agent-num.copywriter {
+      background: rgba(8, 145, 178, 0.1);
+      border: 2px solid rgba(8, 145, 178, 0.3);
+    }
+
+    .agent-num.packaging {
+      background: rgba(22, 163, 74, 0.1);
+      border: 2px solid rgba(22, 163, 74, 0.3);
+    }
+
+    .agent-body {
+      flex: 1;
+      padding-top: 4px;
+    }
+
+    .agent-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .agent-role-badge {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .agent-role-badge.research {
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      color: var(--accent-primary);
+    }
+
+    .agent-role-badge.designer {
+      background: rgba(124, 58, 237, 0.07);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      color: var(--accent-secondary);
+    }
+
+    .agent-role-badge.copywriter {
+      background: rgba(8, 145, 178, 0.08);
+      border: 1px solid rgba(8, 145, 178, 0.2);
+      color: #0891b2;
+    }
+
+    .agent-role-badge.packaging {
+      background: rgba(22, 163, 74, 0.07);
+      border: 1px solid rgba(22, 163, 74, 0.2);
+      color: #16a34a;
+    }
+
+    .agent-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.72;
+      margin-bottom: 10px;
+    }
+
+    .agent-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .agent-tool-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-card);
+      border-radius: 3px;
+      padding: 2px 8px;
+    }
+
+    .agent-output {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .agent-output::before {
+      content: '→';
+      color: var(--accent-primary);
+    }
+
+    /* ── Feature chips grid ── */
+    .feature-chips {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .feature-chip {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .feature-chip:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .feature-chip-icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .feature-chip-title {
+      font-weight: 600;
+      font-size: 0.86rem;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+
+    .feature-chip-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* ── Output deliverables ── */
+    .output-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .output-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      text-align: center;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .output-card:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    }
+
+    .output-card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+
+    .output-card-title {
+      font-weight: 600;
+      font-size: 0.86rem;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .output-card-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ── Sample output showcase ── */
+    .sample-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .sample-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 22px 24px;
+    }
+
+    .sample-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .sample-quote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      line-height: 1.45;
+      margin-bottom: 8px;
+    }
+
+    .sample-tagline {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+
+    .sample-hashtags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .sample-hashtag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent-primary);
+      background: rgba(37, 99, 235, 0.06);
+      border: 1px solid rgba(37, 99, 235, 0.14);
+      border-radius: 3px;
+      padding: 2px 8px;
+    }
+
+    .score-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(22, 163, 74, 0.08);
+      border: 1px solid rgba(22, 163, 74, 0.2);
+      border-radius: 100px;
+      padding: 3px 10px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: #16a34a;
+      font-weight: 600;
+    }
+
+    /* ── Business impact ── */
+    .impact-stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .impact-stat {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 20px 18px;
+      text-align: center;
+    }
+
+    .impact-stat-val {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--accent-primary);
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .impact-stat-lbl {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ── Video demo ── */
+    .video-container {
+      position: relative;
+      background: #0d0d14;
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .video-container video,
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: none;
+    }
+
+    /* Placeholder shown until real video added */
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: linear-gradient(135deg, #0d0d14 0%, #12102a 100%);
+    }
+
+    .video-play-btn {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(37, 99, 235, 0.18);
+      border: 2px solid rgba(37, 99, 235, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+      transition: all 0.25s ease;
+    }
+
+    .video-play-btn svg {
+      margin-left: 4px;
+    }
+
+    .video-title-text {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.8);
+      letter-spacing: -0.01em;
+    }
+
+    .video-sub-text {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .video-caption {
+      margin-top: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-align: center;
+    }
+
+    /* ── Tech table ── */
+    .tech-table-wrap {
+      overflow-x: auto;
+    }
+
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    .tech-table thead tr {
+      border-bottom: 2px solid var(--border-card);
+    }
+
+    .tech-table th {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0 20px 10px 0;
+      text-align: left;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .tech-table td {
+      padding: 11px 20px 11px 0;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      border-bottom: 1px solid var(--border-card);
+      vertical-align: top;
+    }
+
+    .tech-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .tech-table td:first-child {
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    .tech-table td:nth-child(2) {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--accent-primary);
+    }
+
+    /* ── Challenges ── */
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .challenge-item {
+      padding: 22px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-top: 3px solid var(--accent-primary);
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .challenge-item:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    }
+
+    .challenge-badge {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #b45309;
+      background: rgba(180, 83, 9, 0.07);
+      border: 1px solid rgba(180, 83, 9, 0.18);
+      border-radius: 3px;
+      padding: 2px 8px;
+    }
+
+    .challenge-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .challenge-desc {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.68;
+    }
+
+    .challenge-solution-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #16a34a;
+      margin-top: 14px;
+      margin-bottom: 5px;
+    }
+
+    /* ── Impact items ── */
+    .impact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .impact-item {
+      display: flex;
+      align-items: stretch;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .impact-item-accent {
+      width: 4px;
+      flex-shrink: 0;
+      background: linear-gradient(to bottom, var(--accent-primary), var(--accent-secondary));
+    }
+
+    .impact-item-body {
+      padding: 18px 22px;
+      flex: 1;
+    }
+
+    .impact-desc {
+      font-size: 0.97rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* ── Outcome ── */
+    .outcome-box {
+      background: rgba(37, 99, 235, 0.04);
+      border: 1px solid rgba(37, 99, 235, 0.14);
+      border-left: 4px solid var(--accent-primary);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 32px 36px;
+    }
+
+    .outcome-box p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.88;
+      margin-bottom: 14px;
+    }
+
+    .outcome-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .bottom-nav {
+      padding-top: 48px;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .meta-stack {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .meta-card {
+        flex: 1 1 150px;
+      }
+
+      .two-col,
+      .two-col.wide-left {
+        grid-template-columns: 1fr;
+      }
+
+      .output-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .impact-stat-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .challenge-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sample-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .feature-chips {
+        grid-template-columns: 1fr;
+      }
+
+      .output-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .meta-stack {
+        flex-direction: column;
+      }
+
+      .meta-card {
+        flex: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav id="navbar">
+    <a href="../index.html" class="nav-logo">H<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#contact" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="proj-hero">
+    <div class="hero-grid" id="heroContent">
+      <div>
+        <span class="hero-badge">AI & Deep Learning Systems</span>
+        <div class="hero-eyebrow">Multi-Agent AI System</div>
+        <h1 class="hero-title">RetailMind<br><span class="accent">AI Campaign Studio</span></h1>
+        <p class="hero-subtitle">4 specialized AI agents · GPT-4o-mini · DALL-E 3 · Tavily</p>
+        <p class="hero-desc">
+          A production-grade multi-agent AI platform that automates end-to-end retail marketing campaign creation by
+          orchestrating Market Research, Graphic Designer, Copywriter and Packaging agents to generate professional
+          campaigns complete with AI visuals, trend analysis, multimodal copy and executive reports, all in under 3
+          minutes.
+        </p>
+        <div class="hero-actions">
+          <a href="https://github.com/noorulhudaajmal/ai-starter/tree/master/mini_projects/marketing_assisstant_agent" target="_blank" class="hero-btn primary">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+            </svg>
+            Source Code
+          </a>
+        </div>
+        <div class="hero-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">GPT-4o-mini</span>
+          <span class="tech-tag">DALL-E 3</span>
+          <span class="tech-tag">Tavily</span>
+          <span class="tech-tag">Streamlit</span>
+          <span class="tech-tag">SQLite</span>
+          <span class="tech-tag">OpenAI Function Calling</span>
+          <span class="tech-tag">Multi-Agent</span>
+        </div>
+      </div>
+      <div class="meta-stack">
+        <div class="meta-card">
+          <div class="meta-label">Type</div>
+          <div class="meta-value">Production-grade multi-agent system</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Agents</div>
+          <div class="meta-value">4 specialized AI agents (sequential pipeline)</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Models</div>
+          <div class="meta-value">GPT-4o-mini · DALL-E 3</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Research Tool</div>
+          <div class="meta-value">Tavily Search API (agentic loops)</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Campaign time</div>
+          <div class="meta-value">~2–3 minutes end-to-end</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-wrap">
+    <div class="back-link-wrap">
+      <a href="../index.html#projects">← Back to Projects</a>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="proj-section" id="s-overview">
+      <div class="proj-section-title">Overview</div>
+      <div class="two-col wide-left">
+        <div>
+          <p class="proj-p">
+            RetailMind is an intelligent campaign automation platform built around a four-agent AI pipeline. Store
+            managers select a product from live inventory, configure campaign parameters like target demographic, season,
+            brand tone, campaign goal and the system orchestrates four specialized AI agents to produce a complete,
+            professional campaign package in minutes.
+          </p>
+          <p class="proj-p">
+            The core innovation is the <strong>agent orchestration pattern</strong>: each agent has a defined role,
+            specific tools and produces structured outputs that feed into the next stage. The Market Research agent
+            runs autonomous tool-use loops with Tavily web search and product catalog queries. The Graphic Designer
+            converts research into DALL-E 3 image prompts. The Copywriter uses vision-language reasoning to analyze the
+            generated image alongside trend data. The Packaging agent assembles everything into an executive markdown
+            report.
+          </p>
+          <p class="proj-p">
+            This architecture reduces campaign development from days to minutes while maintaining professional quality
+            and at a cost of roughly $0.20 - 0.50 per campaign run.
+          </p>
+        </div>
+        <div>
+          <div
+            style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px;margin-bottom:14px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+              The bottleneck this solves</div>
+            <ul class="proj-list" style="gap:8px;">
+              <li><span class="li-icon">↑</span> Hiring cross-functional teams: expensive per campaign</li>
+              <li><span class="li-icon">↑</span> Agencies: weeks of turnaround, limited customization</li>
+              <li><span class="li-icon">↑</span> Generic templates: fail to differentiate products</li>
+              <li><span class="li-icon">↑</span> Inventory & trend data isolated across systems</li>
+            </ul>
+          </div>
+          <!-- <div
+            style="background:rgba(37,99,235,0.04);border:1px solid rgba(37,99,235,0.14);border-radius:var(--radius-md);padding:18px 22px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent-primary);margin-bottom:8px;">
+              Campaign parameters</div>
+            <p style="font-size:0.87rem;color:var(--text-secondary);line-height:1.7;margin:0;">Product selection,
+              gender, age group, season, brand tone and campaign goal all flow through every agent ensuring coherent,
+              audience-aligned output across research, visuals and copy.</p>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO DEMO -->
+    <div class="proj-section" id="s-demo">
+      <div class="proj-section-title">Demo</div>
+      <!-- <p class="proj-p" style="">
+        A walkthrough of the RetailMind system from product selection and campaign configuration through to real-time
+        agent progress, AI-generated visuals and the final campaign report.
+      </p> -->
+
+      <div class="video-container">
+        <!--
+        ADD YOUR VIDEO HERE choose one option:
+
+        Option A Local MP4:
+          <video controls poster="../assets/images/retailmind-poster.png">
+            <source src="../assets/videos/retailmind-demo.mp4" type="video/mp4" />
+          </video>
+
+        Option B YouTube:
+          <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID?rel=0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+
+        Option C Loom:
+          <iframe src="https://www.loom.com/embed/YOUR_LOOM_ID" allowfullscreen></iframe>
+      -->
+        <div class="video-placeholder">
+          <!-- <div class="video-play-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+          </div> -->
+          <div class="video-title-text">RetailMind Demo</div>
+          <video controls poster="../assets/projects/rm/poster.png">
+            <source src="../assets/projects/rm/marketing_assistant_agent.mp4" type="video/mp4" />
+          </video>
+          <!-- <div class="video-sub-text">Replace this placeholder with your video embed</div> -->
+        </div>
+      </div>
+      <p class="video-caption">End-to-end campaign generation demo</p>
+    </div>
+
+    <!-- AGENT PIPELINE -->
+    <div class="proj-section" id="s-agents">
+      <div class="proj-section-title">Agent Pipeline</div>
+      <div class="two-col wide-left">
+        <div class="agent-pipeline">
+
+          <div class="agent-card">
+            <div class="agent-num research">🔍</div>
+            <div class="agent-body">
+              <div class="agent-name">
+                Market Research Agent
+                <span class="agent-role-badge research">Agent 1</span>
+              </div>
+              <div class="agent-desc">Runs autonomous tool-use loops querying Tavily web search and the product
+                catalog until it converges on high-confidence trend analysis or hits the iteration limit. Identifies
+                emerging trends, consumer sentiment and competitive positioning for the selected product and
+                demographic.</div>
+              <div class="agent-tools">
+                <span class="agent-tool-tag">Tavily Web Search</span>
+                <span class="agent-tool-tag">Product Catalog Query</span>
+                <span class="agent-tool-tag">Agentic Loop</span>
+                <span class="agent-tool-tag">OpenAI Function Calling</span>
+              </div>
+              <div class="agent-output">trend_summary · market intelligence · product fit score</div>
+            </div>
+          </div>
+
+          <div class="agent-card">
+            <div class="agent-num designer">🎨</div>
+            <div class="agent-body">
+              <div class="agent-name">
+                Graphic Designer Agent
+                <span class="agent-role-badge designer">Agent 2</span>
+              </div>
+              <div class="agent-desc">Transforms research insights into a cinematic DALL-E 3 prompt optimized for
+                premium aesthetics and brand tone. Generates the campaign image, then produces a
+                visual caption and tagline anchored to the visual output.</div>
+              <div class="agent-tools">
+                <span class="agent-tool-tag">GPT-4o-mini (prompt gen)</span>
+                <span class="agent-tool-tag">DALL-E 3 (image gen)</span>
+                <span class="agent-tool-tag">Cinematic Prompting</span>
+              </div>
+              <div class="agent-output">image_path (PNG) · caption · tagline</div>
+            </div>
+          </div>
+
+          <div class="agent-card">
+            <div class="agent-num copywriter">✍️</div>
+            <div class="agent-body">
+              <div class="agent-name">
+                Copywriter Agent
+                <span class="agent-role-badge copywriter">Agent 3</span>
+              </div>
+              <div class="agent-desc">Uses multimodal (vision-language) reasoning to analyze the AI-generated image
+                alongside trend data simultaneously producing a portfolio of campaign copy calibrated to audience and
+                channel: hero quote, CTAs, short/long-form ad variants and hashtags.</div>
+              <div class="agent-tools">
+                <span class="agent-tool-tag">GPT-4o-mini Vision</span>
+                <span class="agent-tool-tag">Multimodal Reasoning</span>
+                <span class="agent-tool-tag">Multi-Channel Copy</span>
+              </div>
+              <div class="agent-output">hero quote · CTA · hashtags · social/email/landing copy</div>
+            </div>
+          </div>
+
+          <div class="agent-card">
+            <div class="agent-num packaging">📦</div>
+            <div class="agent-body">
+              <div class="agent-name">
+                Packaging Agent
+                <span class="agent-role-badge packaging">Agent 4</span>
+              </div>
+              <div class="agent-desc">Polishes research findings and collates all campaign assets visuals, copy,
+                metadata and strategic justification into a structured executive-ready markdown report with tables
+                and narrative context. Saves to the outputs directory and logs to the campaign database.</div>
+              <div class="agent-tools">
+                <span class="agent-tool-tag">GPT-4o-mini</span>
+                <span class="agent-tool-tag">Markdown Report</span>
+                <span class="agent-tool-tag">SQLite</span>
+              </div>
+              <div class="agent-output">campaign_report_{sku}.md · campaign archived to DB</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div>
+          <div
+            style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px;margin-bottom:14px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+              Architecture benefits</div>
+            <ul class="proj-list" style="gap:8px;">
+              <li><span class="li-icon">→</span> Specialization each agent has a focused domain and tools</li>
+              <li><span class="li-icon">→</span> Parallelizable agents after research can run concurrently</li>
+              <li><span class="li-icon">→</span> Cost-efficient GPT-4o-mini for reasoning, DALL-E 3 only for imagery
+              </li>
+              <li><span class="li-icon">→</span> Auditable all reasoning steps and tool calls logged</li>
+              <li><span class="li-icon">→</span> Extensible new agents or tools plug in without refactoring</li>
+            </ul>
+          </div>
+          <div
+            style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-md);padding:22px 24px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+              SQLite inventory</div>
+            <ul class="proj-list" style="gap:8px;">
+              <li><span class="li-icon">28</span> Products across 8 categories</li>
+              <li><span class="li-icon">800</span> Sales history records</li>
+              <li><span class="li-icon">DB</span> Campaign archive with metadata</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KEY FEATURES -->
+    <div class="proj-section" id="s-features">
+      <div class="proj-section-title">Key Features</div>
+      <div class="feature-chips">
+        <div class="feature-chip">
+          <div class="feature-chip-icon">🔄</div>
+          <div>
+            <div class="feature-chip-title">Agentic Tool Use</div>
+            <div class="feature-chip-desc">Market Research agent autonomously loops over web search and catalog queries,
+              stopping on convergence or iteration limit no manual orchestration required.</div>
+          </div>
+        </div>
+        <div class="feature-chip">
+          <div class="feature-chip-icon">👁</div>
+          <div>
+            <div class="feature-chip-title">Multimodal Analysis</div>
+            <div class="feature-chip-desc">Copywriter reasons over AI-generated images + trend data simultaneously using
+              vision-language capabilities for contextually rich, image-grounded copy.</div>
+          </div>
+        </div>
+        <div class="feature-chip">
+          <div class="feature-chip-icon">📦</div>
+          <div>
+            <div class="feature-chip-title">Live Inventory Integration</div>
+            <div class="feature-chip-desc">Products queried from a live SQLite database stock levels, pricing and
+              metadata flow into campaign positioning for always-relevant output.</div>
+          </div>
+        </div>
+        <div class="feature-chip">
+          <div class="feature-chip-icon">🖼</div>
+          <div>
+            <div class="feature-chip-title">AI-Generated Visuals</div>
+            <div class="feature-chip-desc">DALL-E 3 image generation with cinematic, brand-tone-aligned prompts images
+              saved to outputs and embedded in the final executive report.</div>
+          </div>
+        </div>
+        <div class="feature-chip">
+          <div class="feature-chip-icon">🎯</div>
+          <div>
+            <div class="feature-chip-title">Demographic Targeting</div>
+            <div class="feature-chip-desc">Gender, age group, season and brand tone parameters flow coherently through
+              all four agents ensuring audience-aligned output across every deliverable.</div>
+          </div>
+        </div>
+        <div class="feature-chip">
+          <div class="feature-chip-icon">📡</div>
+          <div>
+            <div class="feature-chip-title">Real-Time Streaming</div>
+            <div class="feature-chip-desc">Streaming callbacks log agent progress in real time users see exactly which
+              agent is running and what tools are being called, building transparency and trust.</div>
+          </div>
+        </div>
+        <div class="feature-chip">
+          <div class="feature-chip-icon">📋</div>
+          <div>
+            <div class="feature-chip-title">Multi-Channel Copy</div>
+            <div class="feature-chip-desc">Single run produces social media, email and landing page copy variants
+              plus hero quote, CTA and hashtag recommendations in one pass.</div>
+          </div>
+        </div>
+        <div class="feature-chip">
+          <div class="feature-chip-icon">📊</div>
+          <div>
+            <div class="feature-chip-title">Executive Reports</div>
+            <div class="feature-chip-desc">Packaging agent assembles structured markdown briefs with metadata tables,
+              market intelligence, visual assets and strategic justification ready to share.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OUTPUT DELIVERABLES -->
+    <div class="proj-section" id="s-outputs">
+      <div class="proj-section-title">Output Deliverables</div>
+      <!-- <p class="proj-p" style="max-width:680px;margin-bottom:28px;">Every campaign run produces a complete package</p> -->
+      <div class="output-grid">
+        <div class="output-card">
+          <div class="output-card-icon">🖼</div>
+          <div class="output-card-title">Campaign Image</div>
+          <div class="output-card-desc">AI-generated PNG via DALL-E 3 with cinematic, brand-aligned visual direction
+          </div>
+        </div>
+        <div class="output-card">
+          <div class="output-card-icon">📰</div>
+          <div class="output-card-title">Market Intelligence</div>
+          <div class="output-card-desc">Trend research, consumer sentiment and competitive positioning from live web
+            data</div>
+        </div>
+        <div class="output-card">
+          <div class="output-card-icon">✍️</div>
+          <div class="output-card-title">Creative Brief</div>
+          <div class="output-card-desc">Hero quote, tagline, caption and CTA copy calibrated to audience and brand tone
+          </div>
+        </div>
+        <div class="output-card">
+          <div class="output-card-icon">📱</div>
+          <div class="output-card-title">Multi-Channel Copy</div>
+          <div class="output-card-desc">Short and long-form ad copy for social, email and landing page channels</div>
+        </div>
+        <div class="output-card">
+          <div class="output-card-icon">#️⃣</div>
+          <div class="output-card-title">Hashtag Set</div>
+          <div class="output-card-desc">Curated, trend-aligned hashtag recommendations for social media distribution
+          </div>
+        </div>
+        <div class="output-card">
+          <div class="output-card-icon">📄</div>
+          <div class="output-card-title">Executive Report</div>
+          <div class="output-card-desc">Structured markdown brief with tables, visuals, copy and strategic narrative
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAMPLE OUTPUT -->
+    <div class="proj-section" id="s-sample">
+      <div class="proj-section-title">Sample Output</div>
+      <p class="proj-p" style="max-width:660px;margin-bottom:28px;">
+        Campaign generated for <strong>Celestial Gold Pendant</strong> Women · All seasons · Minimalist tone.
+      </p>
+      <div class="sample-grid">
+        <div class="sample-card">
+          <div class="sample-label">Creative copy</div>
+          <div class="sample-quote">"Embrace the cosmos with timeless elegance."</div>
+          <div class="sample-tagline">Wear Your Dreams, Shine Bright</div>
+          <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;line-height:1.6;">
+            <strong style="color:var(--text-secondary);">Social:</strong> "Elevate your look with our exquisite
+            Celestial Gold Pendant—where dreams meet elegance."<br><br>
+            <strong style="color:var(--text-secondary);">Email:</strong> "Discover the allure of the stars... a perfect
+            blend of elegance and personal significance."
+          </div>
+          <div class="sample-hashtags">
+            <span class="sample-hashtag">#CelestialJewelry</span>
+            <span class="sample-hashtag">#GoldPendant</span>
+            <span class="sample-hashtag">#MoonAndStar</span>
+            <span class="sample-hashtag">#PersonalizedStyle</span>
+            <span class="sample-hashtag">#LayeredLooks</span>
+          </div>
+        </div>
+        <div class="sample-card">
+          <div class="sample-label">Market intelligence</div>
+          <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.75;margin-bottom:14px;">Research
+            identified celestial jewelry trends, personalization demand and layering aesthetics positioning the
+            product as an expression of individuality aligned with current consumer sentiment.</p>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <span class="score-pill">✓ 9/10 Product Fit Score</span>
+          </div>
+          <div
+            style="background:var(--bg-secondary);border:1px solid var(--border-card);border-radius:var(--radius-sm);padding:14px 16px;">
+            <div
+              style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;">
+              Deliverables produced</div>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px;">
+              <li style="font-size:0.82rem;color:var(--text-secondary);padding-left:14px;position:relative;"><span
+                  style="position:absolute;left:0;color:var(--accent-primary);">✓</span> AI-generated campaign image
+                (PNG)</li>
+              <li style="font-size:0.82rem;color:var(--text-secondary);padding-left:14px;position:relative;"><span
+                  style="position:absolute;left:0;color:var(--accent-primary);">✓</span> Executive markdown brief</li>
+              <li style="font-size:0.82rem;color:var(--text-secondary);padding-left:14px;position:relative;"><span
+                  style="position:absolute;left:0;color:var(--accent-primary);">✓</span> Multi-channel copy variants
+              </li>
+              <li style="font-size:0.82rem;color:var(--text-secondary);padding-left:14px;position:relative;"><span
+                  style="position:absolute;left:0;color:var(--accent-primary);">✓</span> Campaign archived to database
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUSINESS IMPACT -->
+    <div class="proj-section" id="s-impact">
+      <div class="proj-section-title">Business Impact</div>
+      <div class="impact-stat-row">
+        <div class="impact-stat">
+          <div class="impact-stat-val">~3min</div>
+          <div class="impact-stat-lbl">Campaign generation time</div>
+        </div>
+        <div class="impact-stat">
+          <div class="impact-stat-val">$0.50</div>
+          <div class="impact-stat-lbl">Cost per campaign (max)</div>
+        </div>
+        <div class="impact-stat">
+          <div class="impact-stat-val">4</div>
+          <div class="impact-stat-lbl">Specialized AI agents</div>
+        </div>
+        <div class="impact-stat">
+          <div class="impact-stat-val">6+</div>
+          <div class="impact-stat-lbl">Deliverables per run</div>
+        </div>
+      </div>
+      <!-- <div class="impact-list">
+        <div class="impact-item">
+          <div class="impact-item-accent"></div>
+          <div class="impact-item-body">
+            <div class="impact-desc">Reduced campaign development time from days (or weeks with agencies) to ~2–3
+              minutes per campaign making professional, data-driven marketing accessible to individual store managers
+              without specialist expertise or external vendors.</div>
+          </div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-item-accent"></div>
+          <div class="impact-item-body">
+            <div class="impact-desc">Demonstrated a practical agentic AI pattern: Market Research agent autonomously
+              loops over tools (web search + catalog queries) until convergence; Copywriter uses vision-language
+              reasoning over AI-generated images both novel orchestration techniques applied to a real business
+              workflow.</div>
+          </div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-item-accent"></div>
+          <div class="impact-item-body">
+            <div class="impact-desc">Built an extensible, auditable architecture where all reasoning steps and tool
+              calls are logged enabling trust in AI output, easy debugging and straightforward addition of new agents
+              (e.g., pricing optimizer, competitor analyzer) without refactoring the pipeline.</div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    <!-- TECH STACK -->
+    <div class="proj-section" id="s-tech">
+      <div class="proj-section-title">Technology Stack</div>
+      <div class="two-col">
+        <div>
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+            Core AI / ML</div>
+          <div class="tech-table-wrap">
+            <table class="tech-table">
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Technology</th>
+                  <th>Role</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>LLM Backbone</td>
+                  <td>GPT-4o-mini</td>
+                  <td style="font-size:0.82rem;color:var(--text-muted);">Reasoning, tool orchestration, multimodal
+                    analysis</td>
+                </tr>
+                <tr>
+                  <td>Image Generation</td>
+                  <td>DALL-E 3</td>
+                  <td style="font-size:0.82rem;color:var(--text-muted);">AI-generated campaign visuals</td>
+                </tr>
+                <tr>
+                  <td>Web Research</td>
+                  <td>Tavily API</td>
+                  <td style="font-size:0.82rem;color:var(--text-muted);">Real-time trend & market intelligence</td>
+                </tr>
+                <tr>
+                  <td>Tool Calling</td>
+                  <td>OpenAI Functions</td>
+                  <td style="font-size:0.82rem;color:var(--text-muted);">Structured agentic tool-use loops</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div
+            style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">
+            Backend, Data & UI</div>
+          <div class="tech-table-wrap">
+            <table class="tech-table">
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Technology</th>
+                  <th>Role</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Database</td>
+                  <td>SQLite</td>
+                  <td style="font-size:0.82rem;color:var(--text-muted);">Inventory, products, sales history, campaigns
+                  </td>
+                </tr>
+                <tr>
+                  <td>Concurrency</td>
+                  <td>asyncio + queues</td>
+                  <td style="font-size:0.82rem;color:var(--text-muted);">Real-time log streaming to UI</td>
+                </tr>
+                <tr>
+                  <td>Web UI</td>
+                  <td>Streamlit</td>
+                  <td style="font-size:0.82rem;color:var(--text-muted);">Product selection, form input, live progress
+                  </td>
+                </tr>
+                <tr>
+                  <td>Language</td>
+                  <td>Python 3.9+</td>
+                  <td style="font-size:0.82rem;color:var(--text-muted);">End-to-end system implementation</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OUTCOME -->
+    <div class="proj-section" id="s-outcome">
+      <div class="proj-section-title">Outcome</div>
+      <div class="outcome-box">
+        <p>
+          RetailMind demonstrates the power of agentic AI orchestration applied to a real-world marketing workflow. By
+          decomposing campaign generation into four specialized agents each with its own tools, reasoning pattern and
+          output format the system delivers professional-grade creative output at near-zero marginal cost, with full
+          auditability and transparent tool use.
+        </p>
+        <p>
+          The key innovation is combining tool-use agentic loops (market research) with multimodal vision-language
+          reasoning (copywriting) and generative image creation (design) in a single orchestrated pipeline a pattern
+          directly applicable to many knowledge-work verticals beyond retail marketing. The architecture is extensible
+          by design: new agents or tools can be introduced without refactoring the pipeline, making it suitable for both
+          boutique retail and enterprise-scale deployment.
+        </p>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <a href="../index.html#projects" class="btn-secondary">← View All Projects</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-left">H<span>.</span></div>
+    <div class="footer-center">© 2026 Huda . Machine Learning Engineer</div>
+    <div class="footer-right">
+      <a href="https://github.com/noorulhudaajmal" target="_blank" class="footer-social">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+        </svg>
+      </a>
+      <a href="https://linkedin.com/in/nhajmal" target="_blank" class="footer-social">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); });
+
+    gsap.fromTo('.hero-grid > div:first-child > *',
+      { opacity: 0, y: 22 },
+      { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out', delay: 0.2 }
+    );
+    gsap.fromTo('.meta-card',
+      { opacity: 0, x: 18 },
+      { opacity: 1, x: 0, duration: 0.5, stagger: 0.07, ease: 'power3.out', delay: 0.35 }
+    );
+    gsap.utils.toArray('.proj-section').forEach(section => {
+      gsap.fromTo(section, { opacity: 0, y: 24 },
+        {
+          opacity: 1, y: 0, duration: 0.65, ease: 'power3.out',
+          scrollTrigger: { trigger: section, start: 'top 84%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.agent-card').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, x: -16 },
+        {
+          opacity: 1, x: 0, duration: 0.42, ease: 'power2.out', delay: i * 0.1,
+          scrollTrigger: { trigger: '#s-agents', start: 'top 78%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.feature-chip').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, y: 14 },
+        {
+          opacity: 1, y: 0, duration: 0.35, ease: 'power2.out', delay: i * 0.06,
+          scrollTrigger: { trigger: '#s-features', start: 'top 80%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.output-card').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, y: 16 },
+        {
+          opacity: 1, y: 0, duration: 0.35, ease: 'power2.out', delay: i * 0.07,
+          scrollTrigger: { trigger: '#s-outputs', start: 'top 80%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.impact-stat').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, y: 14 },
+        {
+          opacity: 1, y: 0, duration: 0.35, ease: 'power2.out', delay: i * 0.08,
+          scrollTrigger: { trigger: '#s-impact', start: 'top 82%', toggleActions: 'play none none reverse' }
+        });
+    });
+    gsap.utils.toArray('.impact-item').forEach((el, i) => {
+      gsap.fromTo(el, { opacity: 0, x: -12 },
+        {
+          opacity: 1, x: 0, duration: 0.45, ease: 'power2.out', delay: i * 0.1,
+          scrollTrigger: { trigger: '#s-impact', start: 'top 82%' }
+        });
+    });
+  </script>
+</body>
+
+</html>
