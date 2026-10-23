@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-labelledby="t d">
+  <title id="t">QoT surrogate modelling</title>
+  <desc id="d">An optical network topology with one lightpath highlighted, and an inset chart of predicted QoT-violation probability rising with modulation order against a feasibility threshold.</desc>
+
+  <rect width="800" height="600" fill="#f4f6f9"/>
+
+  <!-- Network links -->
+  <g stroke="#bcc6d2" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M80 140 L215 85 L360 125"/>
+    <path d="M80 140 L135 290 L270 265 L360 125"/>
+    <path d="M135 290 L95 450 L245 480 L270 265"/>
+    <path d="M270 265 L410 300 L245 480"/>
+    <path d="M410 300 L360 125"/>
+    <path d="M410 300 L395 455 L245 480"/>
+    <path d="M215 85 L270 265"/>
+  </g>
+
+  <!-- Highlighted lightpath -->
+  <path d="M95 450 L135 290 L270 265 L360 125" fill="none" stroke="#1f4f8a" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Nodes -->
+  <g fill="#ffffff" stroke="#8d99a8" stroke-width="5">
+    <circle cx="80" cy="140" r="15"/>
+    <circle cx="215" cy="85" r="15"/>
+    <circle cx="410" cy="300" r="15"/>
+    <circle cx="245" cy="480" r="15"/>
+    <circle cx="395" cy="455" r="15"/>
+  </g>
+  <g fill="#ffffff" stroke="#1f4f8a" stroke-width="6">
+    <circle cx="135" cy="290" r="15"/>
+    <circle cx="270" cy="265" r="15"/>
+  </g>
+  <g fill="#1f4f8a">
+    <circle cx="95" cy="450" r="19"/>
+    <circle cx="360" cy="125" r="19"/>
+  </g>
+
+  <!-- Inset: violation probability by modulation order -->
+  <g transform="translate(478 118)">
+    <rect width="286" height="364" rx="14" fill="#ffffff" stroke="#d6dce4" stroke-width="3"/>
+    <!-- axis -->
+    <path d="M40 300 H262" stroke="#8d99a8" stroke-width="3"/>
+    <!-- bars: feasible (blue) then violating (amber) -->
+    <rect x="52"  y="272" width="30" height="28"  rx="4" fill="#1f4f8a"/>
+    <rect x="94"  y="250" width="30" height="50"  rx="4" fill="#1f4f8a"/>
+    <rect x="136" y="214" width="30" height="86"  rx="4" fill="#1f4f8a"/>
+    <rect x="178" y="138" width="30" height="162" rx="4" fill="#d9822b"/>
+    <rect x="220" y="70"  width="30" height="230" rx="4" fill="#d9822b"/>
+    <!-- threshold -->
+    <path d="M36 180 H266" stroke="#1c2024" stroke-width="3" stroke-dasharray="10 8"/>
+    <!-- selected format marker -->
+    <path d="M151 196 l-9 -14 h18 z" fill="#1f4f8a"/>
+    <g font-family="Source Sans 3, Segoe UI, Arial, sans-serif" fill="#646d76" font-size="17" font-weight="600" text-anchor="middle">
+      <text x="67" y="328">QPSK</text>
+      <text x="109" y="328">8Q</text>
+      <text x="151" y="328">16Q</text>
+      <text x="193" y="328">32Q</text>
+      <text x="235" y="328">64Q</text>
+    </g>
+    <text x="40" y="44" font-family="Source Sans 3, Segoe UI, Arial, sans-serif" font-size="19" font-weight="700" fill="#1c2024">P(QoT violation)</text>
+  </g>
+</svg>

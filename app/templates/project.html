@@ -1,0 +1,182 @@
+{% extends "base.html" %} {% import "macros.html" as m with context %} {% set p
+= project %} {% set title = p.title %} {% set description = p.summary %} {% set
+og_type = "article" %} {% set og_image = p.thumbnail %} {% block head %}
+<script type="application/ld+json">
+  {{ {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": p.title,
+    "abstract": p.summary,
+    "author": {"@type": "Person", "name": profile.name, "url": profile.site_url},
+    "keywords": p.tags | join(", "),
+    "url": profile.site_url.rstrip('/') ~ request.path,
+  } | tojson }}
+</script>
+{% endblock %} {% block content %}
+<article class="container page project-page">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="{{ url_for('projects') }}">Projects</a>
+    <span aria-hidden="true">/</span> <span>{{ p.category_label }}</span>
+  </nav>
+
+  <header class="project-head">
+    <h1>{{ p.title }}</h1>
+    <p class="lead">{{ p.summary }}</p>
+
+    <dl class="facts">
+      {% if p.context %}
+      <div>
+        <dt>Context</dt>
+        <dd>{{ p.context }}</dd>
+      </div>
+      {% endif %} {% if p.period %}
+      <div>
+        <dt>Period</dt>
+        <dd>{{ p.period }}</dd>
+      </div>
+      {% endif %} {% for label, value in p.facts.items() %}
+      <div>
+        <dt>{{ label }}</dt>
+        <dd>{{ value }}</dd>
+      </div>
+      {% endfor %}
+      <div>
+        <dt>Area</dt>
+        <dd>{{ p.category_label }}</dd>
+      </div>
+      {% if p.tags %}
+      <div>
+        <dt>Methods &amp; tools</dt>
+        <dd>{{ p.tags | join(", ") }}</dd>
+      </div>
+      {% endif %}
+    </dl>
+
+    {% if p.links or p.has_demo %}
+    <div class="actions">
+      {% if p.demo.url %}<a
+        class="btn btn-primary"
+        href="{{ p.demo.url }}"
+        target="_blank"
+        rel="noopener"
+        >{{ m.icon('play') }} Live demo</a
+      >
+      {% elif p.demo.video %}<a class="btn btn-primary" href="#demo"
+        >{{ m.icon('play') }} Watch demo</a
+      >{% endif %} {% for key, url in p.links.items() %}
+      <a class="btn" href="{{ url }}" target="_blank" rel="noopener"
+        >{{ m.icon('github' if key == 'code' else 'link') }} {{
+        m.link_label(key) }}</a
+      >
+      {% endfor %}
+    </div>
+    {% endif %}
+  </header>
+
+  {% if publication %}
+  <aside class="note publication-note">
+    <div class="note-label">Published</div>
+    <div class="pub-title">
+      <a
+        href="{{ publication.links.paper or publication.links.doi }}"
+        target="_blank"
+        rel="noopener"
+        >{{ publication.title }}</a
+      >
+    </div>
+    <div class="pub-authors">
+      {% for a in publication.authors %}{{ a | highlight_author }}{% if not
+      loop.last %}, {% endif %}{% endfor %}
+    </div>
+    <div class="pub-venue">
+      <em>{{ publication.venue }}</em>, {{ publication.year }}.
+      <a href="{{ url_for('publications') }}#{{ publication.id }}">Cite</a>
+    </div>
+  </aside>
+  {% endif %}
+
+  <div class="project-layout">
+    {% if p.toc | length > 2 %}
+    <nav class="toc" aria-label="On this page">
+      <div class="toc-title">On this page</div>
+      <ol>
+        {% if p.has_demo %}
+        <li><a href="#demo">Demo</a></li>
+        {% endif %} {% for h in p.toc %}
+        <li><a href="#{{ h.id }}">{{ h.name }}</a></li>
+        {% endfor %}
+      </ol>
+    </nav>
+    {% endif %}
+
+    <div class="project-content">
+      {% if p.has_demo %}
+      <section id="demo" class="demo">
+        <h2>Demo</h2>
+
+        {% if p.demo.embed and p.demo.type == "youtube" %} {% set video_url =
+        p.demo.url %} {% set video_id = video_url.split("v=")[-1].split("&")[0]
+        if "watch?v=" in video_url else
+        video_url.rstrip("/").split("/")[-1].split("?")[0] %}
+
+        <div class="embed">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/{{ video_id }}"
+            title="{{ p.title }} demo"
+            loading="lazy"
+            allow="
+              accelerometer;
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              gyroscope;
+              picture-in-picture;
+              web-share;
+            "
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          >
+          </iframe>
+        </div>
+
+        {% elif p.demo.embed and p.demo.type == "web" %}
+        <div class="embed">
+          <iframe
+            src="{{ p.demo.url }}"
+            title="{{ p.title }} demo"
+            loading="lazy"
+            allow="clipboard-write; fullscreen"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          >
+          </iframe>
+        </div>
+        {% endif %} {% if p.demo.note or p.demo.url %}
+        <p class="demo-caption">
+          {{ p.demo.note }} {% if p.demo.url %}
+          <a href="{{ p.demo.url }}" target="_blank" rel="noopener noreferrer">
+            Open the demo in a new tab →
+          </a>
+          {% endif %}
+        </p>
+        {% endif %}
+      </section>
+      {% endif %}
+
+      <div class="prose">{{ p.body | safe }}</div>
+    </div>
+  </div>
+
+  <nav class="pager" aria-label="More projects">
+    {% if prev_project %}<a
+      class="pager-prev"
+      href="{{ url_for('project', slug=prev_project.slug) }}"
+      ><span>Previous</span>{{ prev_project.title }}</a
+    >{% else %}<span></span>{% endif %} {% if next_project %}<a
+      class="pager-next"
+      href="{{ url_for('project', slug=next_project.slug) }}"
+      ><span>Next</span>{{ next_project.title }}</a
+    >{% endif %}
+  </nav>
+</article>
+{% endblock %}

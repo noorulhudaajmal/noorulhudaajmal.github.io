@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% import "macros.html" as m with context %}
+{% set title = "Research & Projects" %}
+{% set description = "Research and engineering projects by " ~ profile.name ~ ": ML for optical networks, computer vision, ML systems and generative AI." %}
+
+{% block content %}
+<div class="container narrow page">
+  <header class="page-head">
+    <h1>Research &amp; projects</h1>
+    <!-- <p class="lead">Research studies and applied ML work. Each page describes the problem, method and results, with code, reports and demos where available.</p> -->
+  </header>
+
+  {% set used = projects | map(attribute='category') | unique | list %}
+  <div class="filters" role="group" aria-label="Filter projects by area">
+    <button type="button" class="filter is-active" data-filter="all" aria-pressed="true">All</button>
+    {% for key, label in categories.items() if key in used %}
+    <button type="button" class="filter" data-filter="{{ key }}" aria-pressed="false">{{ label }}</button>
+    {% endfor %}
+  </div>
+
+  <ul class="project-list" id="project-list">
+    {% for p in projects %}{{ m.project_row(p) }}{% endfor %}
+  </ul>
+</div>
+{% endblock %}

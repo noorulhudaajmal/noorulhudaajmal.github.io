@@ -1,0 +1,113 @@
+# Site-wide profile. Empty values are hidden on the site.
+
+name: Noor Ul Huda Ajmal
+short_name: Huda
+title: Machine Learning Engineer · Researcher
+affiliation: BE Software Engineering, NUST (2023)
+site_url: https://noorulhudaajmal.github.io
+photo: /assets/hudaii.jpg
+cv: /assets/Noorulhudaajmal_ML.pdf
+email: noorulhudaajmal12@gmail.com
+
+# Used for search-engine and link-preview descriptions.
+description: >-
+  Noor Ul Huda Ajmal, machine learning researcher and engineer working on ML for
+  optical networks, QoT estimation, computer vision and reliable ML systems.
+  IEEE ACP 2022 co-author. Open to research positions.
+
+# Shown as a highlighted note under the bio. Delete to hide.
+seeking: >-
+  I am looking for **research opportunities** (research assistant and graduate
+  research positions) in machine learning for communication networks, and applied computer vision.
+
+bio: |
+  I'm a Machine Learning Engineer with a Bachelor's in **Software Engineering from NUST** (2023) and have been
+  working in data analytics and machine learning since 2022..
+
+  I freelance in data analytics and machine learning and have shipped projects spanning Computer Vision
+  pipelines, MLOps workflows, Deep Learning models and full-stack AI and Data Analytics dashboards for clients
+  ranging from logistics companies to research labs. In 2022, I completed an internship at the **Optical Networking
+  Technologies** Research Lab at NUST, where I worked on applying machine learning to Software-Defined Optical
+  Networks, focusing on network path optimization and noise pattern analysis.
+
+  Recently, I've been going deep on Generative AI and agentic systems, learning about designing multi-agent
+  pipelines that combine tool use, LLM reasoning and orchestration to automate complex real-world workflows. Computer Vision
+  is a long-standing interest and so is the full ML lifecycle i-e clean data pipelines, reproducible experiments
+  and models built to work outside the notebook.
+
+interests:
+  - Machine learning for optical and communication networks
+  - QoT estimation and surrogate modelling of physical systems
+  - Robustness, calibration and distribution shift
+  - Computer vision under limited and unlabelled data
+  - Reliable ML systems and reproducible experimentation
+
+links:
+  github: https://github.com/noorulhudaajmal
+  linkedin: https://www.linkedin.com/in/nhajmal/
+  # Add these when available; they matter for research profiles.
+  scholar: ""
+  orcid: ""
+  researchgate: ""
+
+education:
+  - degree: Bachelor of Engineering in Software Engineering
+    institution: National University of Sciences and Technology (NUST)
+    location: Islamabad, Pakistan
+    period: 2019 – 2023
+    note: "Capstone: Driver drowsiness detection on embedded hardware ([project](/projects/driver-drowsiness-detection.html))"
+
+experience:
+  - role: Independent Machine Learning Consultant
+    org: Freelance
+    period: Jul 2022 – Present
+    points:
+      - Design and deploy ML systems for clients across computer vision, deep learning, MLOps and data analytics.
+      - Built analysis tooling for academic research groups, including circadian behavioural analysis for the Kravitz Lab (Washington University in St. Louis).
+      - Built the automated training and deployment pipeline behind Living Image's object-recognition platform.
+  - role: Machine Learning Research Intern
+    org: Optical Networking Technologies Lab, NUST
+    period: Jun 2022 – Oct 2022
+    points:
+      - Developed multi-label models for Software-Defined Optical Networks that predict photonic-switch control states from optical signal wavelengths.
+      - Ran experiments on network path optimisation and noise-pattern analysis.
+      - Contributed to a peer-reviewed IEEE ACP 2022 publication.
+
+skills:
+  Machine learning: Scikit-learn, XGBoost, PyTorch, TensorFlow / Keras, SHAP, statistical testing
+  Computer vision: OpenCV, YOLO, ONNX Runtime, Dlib, image processing
+  Generative AI: Hugging Face Transformers, PEFT / LoRA, LLM agents, tool calling
+  ML systems: Docker, MLflow, GitHub Actions, Azure, AWS, REST APIs
+  Data: Python, Pandas, NumPy, SQL, Plotly, Streamlit, web scraping
+
+testimonials:
+  # Quotes are verbatim; "…" marks omitted text.
+  - name: Alexxai (Lex) Kravitz
+    role: Associate Professor, Washington University in St. Louis
+    quote: >-
+      Working with Hudiye is always an amazing experience. She is an outstanding
+      developer who is highly skilled at programming Streamlit dashboards, consistently
+      delivering excellent work with a quick turnaround time. Throughout our projects
+      together, she has proven to be a great communicator—always answering questions
+      clearly and providing creative, useful solutions.
+  - name: Gad Licht
+    role: Research Advisor, C2CNT, LLC
+    quote: >-
+      I’ve worked on many projects with her in ML. The deliveries are always timely, and
+      more than I want. … Communication including responses are clear, timely, and well
+      explained often explaining more than needed, setting clear expectations, and
+      showing different pathways we could take.
+  - name: Josh Mocarski
+    role: Founder & CEO, Living Image, Inc.
+    quote: >-
+      I contacted her for help after being told our model could only be successfully
+      trained with limited data. She reanalyzed the problem from a new direction … her
+      solution delivered high precision with less training data. … She is extremely
+      knowledgeable with machine learning.
+  - name: Alphonse Okossi
+    role: Lead Data Scientist, Air Liquide
+    quote: >-
+      Noor is not just skilled but also reliable, communicative, and detail-oriented—qualities
+      that are essential for machine learning and data engineering projects. She
+      consistently delivered work of high quality, ahead of schedule, and exceeded
+      expectations every time.

@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% import "macros.html" as m with context %}
+{% set og_type = "profile" %}
+
+{% block head %}
+<script type="application/ld+json">
+{{ {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": profile.name,
+  "jobTitle": profile.title,
+  "url": profile.site_url,
+  "image": profile.site_url.rstrip('/') ~ profile.photo,
+  "email": "mailto:" ~ profile.email,
+  "alumniOf": [{"@type": "CollegeOrUniversity", "name": "National University of Sciences and Technology (NUST)"}],
+  "knowsAbout": profile.interests,
+  "sameAs": profile.links.values() | select | list,
+} | tojson }}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container profile-layout">
+
+  <aside class="profile-card">
+    <img class="profile-photo" src="{{ profile.photo }}" alt="Portrait of {{ profile.name }}" width="220" height="220">
+    <h1 class="profile-name">{{ profile.name }}</h1>
+    <p class="profile-title">{{ profile.title }}</p>
+    {% if profile.affiliation %}<p class="profile-affiliation">{{ profile.affiliation }}</p>{% endif %}
+    <ul class="profile-links">
+      <li><a href="mailto:{{ profile.email }}">{{ m.icon('mail') }}<span>{{ profile.email }}</span></a></li>
+      <li><a href="{{ profile.cv }}" target="_blank" rel="noopener">{{ m.icon('cv') }}<span>Resume (PDF)</span></a></li>
+      {% for key, label in [('scholar', 'Google Scholar'), ('orcid', 'ORCID'), ('researchgate', 'ResearchGate'), ('github', 'GitHub'), ('linkedin', 'LinkedIn')] %}
+        {% if profile.links[key] %}
+        <li><a href="{{ profile.links[key] }}" target="_blank" rel="me noopener">{{ m.icon(key) }}<span>{{ label }}</span></a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </aside>
+
+  <div class="profile-main">
+
+    <section id="about" class="section">
+      <h2 class="section-title">About</h2>
+      <div class="prose">{{ profile.bio | md }}</div>
+      {% if profile.seeking %}<div class="note">{{ profile.seeking | md }}</div>{% endif %}
+    </section>
+
+    <section id="interests" class="section">
+      <h2 class="section-title">Research interests</h2>
+      <ul class="interest-list">
+        {% for item in profile.interests %}<li>{{ item }}</li>{% endfor %}
+      </ul>
+    </section>
+
+    <section id="publications" class="section">
+      <div class="section-head">
+        <h2 class="section-title">Publications</h2>
+        <a class="section-more" href="{{ url_for('publications') }}">All publications →</a>
+      </div>
+      <ol class="pub-list">
+        {% for pub in publications %}{{ m.publication(pub) }}{% endfor %}
+      </ol>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="section-head">
+        <h2 class="section-title">Selected research &amp; projects</h2>
+        <a class="section-more" href="{{ url_for('projects') }}">All projects →</a>
+      </div>
+      <ul class="project-list">
+        {% for p in featured %}{{ m.project_row(p) }}{% endfor %}
+      </ul>
+    </section>
+
+    <section id="experience" class="section">
+      <h2 class="section-title">Experience</h2>
+      <ul class="timeline">
+        {% for job in profile.experience %}
+        <li>
+          <div class="timeline-head">
+            <div><strong>{{ job.role }}</strong><span class="muted"> · {{ job.org }}</span></div>
+            <div class="timeline-period">{{ job.period }}</div>
+          </div>
+          <ul class="bullets">{% for pt in job.points %}<li>{{ pt }}</li>{% endfor %}</ul>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section id="education" class="section">
+      <h2 class="section-title">Education</h2>
+      <ul class="timeline">
+        {% for ed in profile.education %}
+        <li>
+          <div class="timeline-head">
+            <div><strong>{{ ed.degree }}</strong><span class="muted"> · {{ ed.institution }}, {{ ed.location }}</span></div>
+            <div class="timeline-period">{{ ed.period }}</div>
+          </div>
+          {% if ed.note %}<div class="timeline-note">{{ ed.note | md }}</div>{% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section id="skills" class="section">
+      <h2 class="section-title">Technical skills</h2>
+      <dl class="skills">
+        {% for group, items in profile.skills.items() %}
+        <dt>{{ group }}</dt><dd>{{ items }}</dd>
+        {% endfor %}
+      </dl>
+    </section>
+
+    {% if profile.testimonials %}
+    <section id="references" class="section">
+      <h2 class="section-title">What collaborators say</h2>
+      <div class="quotes">
+        {% for t in profile.testimonials %}
+        <figure class="quote">
+          <blockquote>{{ t.quote }}</blockquote>
+          <figcaption><strong>{{ t.name }}</strong><span class="muted">, {{ t.role }}</span></figcaption>
+        </figure>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <section id="contact" class="section">
+      <h2 class="section-title">Contact</h2>
+      <p>The best way to reach me is by email at
+        <a href="mailto:{{ profile.email }}">{{ profile.email }}</a>.
+        I am happy to discuss research positions, collaborations and questions about any of the work above.</p>
+    </section>
+
+  </div>
+</div>
+{% endblock %}

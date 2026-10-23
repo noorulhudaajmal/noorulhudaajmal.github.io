@@ -1,0 +1,48 @@
+# Publications, newest first after sorting by year.
+#
+# Fields
+#   id        BibTeX key (unique)
+#   type      journal | conference | workshop | preprint | thesis
+#   authors   full names in order; your name (from profile.yaml) is bolded
+#   selected  true to list it on the home page
+#   project   slug of a related page in content/projects/ (optional)
+#   links     any of: paper, pdf, preprint, code, slides, poster, video
+#   bibtex    optional; generated from the fields above when omitted
+#
+# Example for a manuscript under review:
+# - id: ajmal2026qot
+#   type: preprint
+#   status: Under review
+#   title: "..."
+#   authors: [Noor Ul Huda Ajmal, ...]
+#   venue: arXiv
+#   year: 2026
+#   links:
+#     preprint: https://arxiv.org/abs/...
+
+publications:
+  - id: khan2022acp
+    type: conference
+    selected: true
+    title: Multi-labeled Random-Forest Enabled Softwarized Management for Photonics Switching Systems
+    authors:
+      - Ihtesham Khan
+      - Noor Ul Huda Ajmal
+      - Hafsa Tariq
+      - Lorenzo Tunesi
+      - Muhammad Umar Masood
+      - Enrico Ghillino
+      - Paolo Bardella
+      - Andrea Carena
+      - Arsalan Ahmad
+      - Vittorio Curri
+    venue: Asia Communications and Photonics Conference (ACP)
+    venue_short: ACP 2022
+    location: Shenzhen, China
+    year: 2022
+    pages: 498–502
+    publisher: IEEE
+    doi: 10.1109/ACP55869.2022.10089124
+    project: sdon-light-path
+    links:
+      paper: https://ieeexplore.ieee.org/abstract/document/10089124

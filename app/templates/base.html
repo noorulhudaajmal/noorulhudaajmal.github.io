@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% set page_title = (title ~ ' · ' ~ profile.name) if title else profile.name %}
+  {% set page_description = description or profile.description %}
+  <title>{{ page_title }}</title>
+  <meta name="description" content="{{ page_description }}">
+  <meta name="author" content="{{ profile.name }}">
+  <link rel="canonical" href="{{ profile.site_url.rstrip('/') }}{{ request.path }}">
+  <meta property="og:type" content="{{ og_type or 'website' }}">
+  <meta property="og:title" content="{{ page_title }}">
+  <meta property="og:description" content="{{ page_description }}">
+  <meta property="og:url" content="{{ profile.site_url.rstrip('/') }}{{ request.path }}">
+  <meta property="og:image" content="{{ profile.site_url.rstrip('/') }}{{ og_image or profile.photo }}">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="/assets/logo.jpg">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="site-name" href="{{ url_for('index') }}">{{ profile.name }}</a>
+      {% set endpoint = request.endpoint %}
+      <nav id="site-nav" class="site-nav">
+        <a href="{{ url_for('index') }}" {% if endpoint == 'index' %}aria-current="page"{% endif %}>About</a>
+        <a href="{{ url_for('publications') }}" {% if endpoint == 'publications' %}aria-current="page"{% endif %}>Publications</a>
+        <a href="{{ url_for('projects') }}" {% if endpoint in ('projects', 'project') %}aria-current="page"{% endif %}>Projects</a>
+        <a href="{{ profile.cv }}" target="_blank" rel="noopener">CV</a>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="theme-toggle" aria-label="Toggle light and dark theme" title="Toggle theme">
+          <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg>
+        </button>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>© {{ year }} {{ profile.name }}</span>
+      <span class="footer-links">
+        <a href="mailto:{{ profile.email }}">Email</a>
+        {% if profile.links.github %}<a href="{{ profile.links.github }}" rel="me noopener" target="_blank">GitHub</a>{% endif %}
+        {% if profile.links.linkedin %}<a href="{{ profile.links.linkedin }}" rel="me noopener" target="_blank">LinkedIn</a>{% endif %}
+        {% if profile.links.scholar %}<a href="{{ profile.links.scholar }}" rel="me noopener" target="_blank">Google Scholar</a>{% endif %}
+      </span>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/site.js') }}" defer></script>
+</body>
+</html>

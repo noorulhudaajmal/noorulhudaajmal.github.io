@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% set title = "Page not found" %}
+
+{% block content %}
+<div class="container narrow page">
+  <header class="page-head">
+    <h1>Page not found</h1>
+    <p class="lead">The page you were looking for doesn't exist or has moved.
+      Try the <a href="{{ url_for('index') }}">home page</a>,
+      <a href="{{ url_for('publications') }}">publications</a> or
+      <a href="{{ url_for('projects') }}">projects</a>.</p>
+  </header>
+</div>
+{% endblock %}
